@@ -295,14 +295,26 @@ class AuthSystem {
         if (navMenu) {
             const loginLink = navMenu.querySelector('a[href="login.html"]');
             
-            // Add admin link for admin users
-            if (this.isAdmin() && !navMenu.querySelector('a[href="admin-dashboard.html"]')) {
+            // Add admin link for admin users (but not on admin dashboard page itself)
+            const isOnAdminDashboard = window.location.pathname.includes('admin-dashboard.html');
+            if (this.isAdmin() && !navMenu.querySelector('a[href="admin-dashboard.html"]') && !isOnAdminDashboard) {
                 const adminLi = document.createElement('li');
                 const adminA = document.createElement('a');
                 adminA.href = 'admin-dashboard.html';
                 adminA.textContent = 'Admin Dashboard';
                 adminA.className = 'admin-link';
                 adminLi.appendChild(adminA);
+                
+                // Add click event to remove the button after being pressed
+                adminA.addEventListener('click', function() {
+                    // Remove the admin dashboard button after it's clicked
+                    setTimeout(() => {
+                        const adminLink = navMenu.querySelector('a[href="admin-dashboard.html"]');
+                        if (adminLink) {
+                            adminLink.parentElement.remove();
+                        }
+                    }, 100);
+                });
                 
                 // Insert before login link
                 if (loginLink) {
@@ -411,8 +423,8 @@ class AuthSystem {
 const authSystem = new AuthSystem();
 
 // Login form handler
-if (document.getElementById('loginForm')) {
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+if (document.getElementById('auth-form')) {
+    document.getElementById('auth-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const username = document.getElementById('username').value;

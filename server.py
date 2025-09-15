@@ -118,61 +118,56 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     
     def send_contact_email(self, contact_data):
         try:
-            # Gmail SMTP configuration
+            print(f"[EMAIL DEBUG] Processing contact form submission...")
+            print(f"[EMAIL DEBUG] Name: {contact_data.get('name', 'Not provided')}")
+            print(f"[EMAIL DEBUG] Email: {contact_data.get('email', 'Not provided')}")
+            print(f"[EMAIL DEBUG] Grade: {contact_data.get('grade', 'Not provided')}")
+            print(f"[EMAIL DEBUG] Interests: {', '.join(contact_data.get('interests', []))}")
+            print(f"[EMAIL DEBUG] Message: {contact_data.get('message', 'Not provided')}")
+            
+            # Email configuration
             smtp_server = "smtp.gmail.com"
             smtp_port = 587
-            sender_email = "zhu47578@sas.edu.sg"  # Your Gmail address
-            sender_password = "jkxh quhj fjip tvdb"  # Your Gmail app password
-            recipient_emails = ["khushani46446@sas.edu.sg", "zhu47578@sas.edu.sg"]
-            
-            print(f"[EMAIL DEBUG] Starting email send process...")
-            print(f"[EMAIL DEBUG] SMTP Server: {smtp_server}:{smtp_port}")
-            print(f"[EMAIL DEBUG] From: {sender_email}")
-            print(f"[EMAIL DEBUG] To: {', '.join(recipient_emails)}")
+            sender_email = "zhu47578@sas.edu.sg"  # Your Gmail
+            sender_password = "mxfb suov iecq jcux"  # Your Gmail App Password
+            recipient_emails = ["zhu47578@sas.edu.sg", "khushani46446@sas.edu.sg"]  # Where to send the contact form
             
             # Create message
             msg = MIMEMultipart()
             msg['From'] = sender_email
-            msg['To'] = ', '.join(recipient_emails)
-            msg['Subject'] = f"New Contact Form Submission from {contact_data.get('name', 'Unknown')}"
-            
-            print(f"[EMAIL DEBUG] Subject: {msg['Subject']}")
+            msg['To'] = ", ".join(recipient_emails)
+            msg['Subject'] = f"New Club Application from {contact_data.get('name', 'Unknown')}"
             
             # Email body
             body = f"""
-            New contact form submission:
+            New club application received:
             
             Name: {contact_data.get('name', 'Not provided')}
             Email: {contact_data.get('email', 'Not provided')}
             Grade: {contact_data.get('grade', 'Not provided')}
             Interests: {', '.join(contact_data.get('interests', []))}
-            Message: {contact_data.get('message', 'Not provided')}
+            
+            Message:
+            {contact_data.get('message', 'Not provided')}
+            
+            ---
+            This email was sent from the Code For All website contact form.
             """
             
             msg.attach(MIMEText(body, 'plain'))
-            print(f"[EMAIL DEBUG] Message body attached")
             
-            # Send the email
+            # Send email
             print(f"[EMAIL DEBUG] Connecting to SMTP server...")
             server = smtplib.SMTP(smtp_server, smtp_port)
-            print(f"[EMAIL DEBUG] Connected to SMTP server")
-            
-            print(f"[EMAIL DEBUG] Starting TLS encryption...")
-            server.starttls()  # Enable encryption
-            print(f"[EMAIL DEBUG] TLS encryption enabled")
-            
-            print(f"[EMAIL DEBUG] Logging in with credentials...")
+            server.starttls()
+            print(f"[EMAIL DEBUG] Logging in...")
             server.login(sender_email, sender_password)
-            print(f"[EMAIL DEBUG] Login successful")
-            
-            print(f"[EMAIL DEBUG] Sending message...")
-            result = server.send_message(msg)
-            print(f"[EMAIL DEBUG] Send result: {result}")
-            
+            print(f"[EMAIL DEBUG] Sending email...")
+            text = msg.as_string()
+            server.sendmail(sender_email, recipient_emails, text)
             server.quit()
-            print(f"[EMAIL DEBUG] SMTP connection closed")
             
-            print(f"Email sent successfully to {', '.join(recipient_emails)}")
+            print(f"[EMAIL DEBUG] Email sent successfully!")
             return True
             
         except Exception as e:
@@ -188,7 +183,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 if __name__ == "__main__":
-    PORT = 8000
+    PORT = 8001
     
     with socketserver.TCPServer(("", PORT), CustomHTTPRequestHandler) as httpd:
         print(f"Server running at http://localhost:{PORT}/")

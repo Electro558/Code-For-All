@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .error-message {
+            background-color: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #fcc;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -41,6 +53,8 @@
                         <h2 id="form-title">Login to Your Account</h2>
                         <p id="form-subtitle">Welcome back! Please enter your credentials.</p>
                     </div>
+                    
+                    <div id="loginError" class="error-message" style="display: none;"></div>
                     
                     <form id="auth-form">
                         <div class="form-group" id="name-group" style="display: none;">

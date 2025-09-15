@@ -225,6 +225,39 @@
             max-height: 1000px;
         }
         
+        /* Form message styles */
+        .form-message {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .form-message-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-message-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         @media (max-width: 768px) {
             .contact-container {
                 flex-direction: column;
@@ -552,15 +585,15 @@
                     
                     if (response.ok && result.status === 'success') {
                         console.log('Form submission successful');
-                        alert('Thank you for your interest in joining our club! We will contact you soon.');
+                        showMessage('Thank you for your interest in joining our club! We will contact you soon.', 'success');
                         joinForm.reset();
                     } else {
                         console.log('Form submission failed:', result);
-                        alert('Sorry, there was an error sending your message. Please try again later.');
+                        showMessage('Sorry, there was an error sending your message. Please try again later.', 'error');
                     }
                 } catch (error) {
                     console.error('Error sending form:', error);
-                    alert('Sorry, there was an error sending your message. Please try again later.');
+                    showMessage('Sorry, there was an error sending your message. Please try again later.', 'error');
                 } finally {
                     // Restore button state
                     submitBtn.textContent = originalText;
@@ -587,6 +620,31 @@
                 // });
             });
         });
+        
+        // Function to show user-friendly messages
+        function showMessage(message, type) {
+            // Remove any existing message
+            const existingMessage = document.querySelector('.form-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `form-message form-message-${type}`;
+            messageDiv.textContent = message;
+            
+            // Insert message after the form
+            const joinForm = document.getElementById('join-form');
+            joinForm.parentNode.insertBefore(messageDiv, joinForm.nextSibling);
+            
+            // Auto-remove message after 5 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
         
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
