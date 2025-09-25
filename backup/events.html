@@ -9,7 +9,6 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
         <style>
             /* Events Page Specific Styles */
             .events-container {
@@ -447,24 +446,33 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="index.html">
-                        <img
-                            src="/img/logo_big_light.png"
-                            alt="Code for All Logo"
-                            class="logo-img"
-                        />
-                    </a>
+                    <img
+                        src="favicon.png"
+                        alt="Code For All Logo"
+                        class="logo-img"
+                    />
+                    <h1>Code For All</h1>
                 </div>
                 <nav>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="events.html" class="active">Events</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="team.html">Team</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="contact.html">Get Involved</a></li>
+                        <li>
+                            <a
+                                href="admin.html"
+                                class="admin-link"
+                                style="display: none"
+                                >Admin Panel</a
+                            >
+                        </li>
                         <li><a href="login.html">Login</a></li>
                     </ul>
                 </nav>
-                <div class="menu-toggle">☰</div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </header>
 
@@ -1271,19 +1279,38 @@
                     document.getElementById("admin-login-btn");
 
                 if (isAdmin && currentUser) {
-                    // Redirect to admin dashboard instead of showing inline panel
-                    window.location.href = "admin-dashboard.html";
+                    adminPanel.style.display = "block";
+                    adminUserDisplay.textContent = `(${
+                        currentUser.username || currentUser.name || "Admin"
+                    })`;
+                    if (adminLoginBtn) adminLoginBtn.style.display = "none";
                 } else {
-                    // Hide admin panel completely for non-admin users
                     adminPanel.style.display = "none";
                     adminUserDisplay.textContent = "";
-                    // Remove any existing admin login button
-                    if (adminLoginBtn) adminLoginBtn.remove();
+                    addAdminLoginButton();
                 }
             }
 
-            // Remove the addAdminLoginButton function as we no longer need it
-            // Admin panel should only be visible to actual admin users
+            // Add admin login button to admin panel
+            function addAdminLoginButton() {
+                const adminPanel = document.querySelector(".admin-panel");
+                let loginBtn = document.getElementById("admin-login-btn");
+
+                if (!isAdmin && !loginBtn) {
+                    loginBtn = document.createElement("button");
+                    loginBtn.id = "admin-login-btn";
+                    loginBtn.className = "btn btn-primary";
+                    loginBtn.textContent = "Admin Login";
+                    loginBtn.onclick = function () {
+                        // Redirect to login page instead of opening modal
+                        window.location.href = "login.html";
+                    };
+                    adminPanel.appendChild(loginBtn);
+                    adminPanel.style.display = "block";
+                } else if (loginBtn) {
+                    loginBtn.style.display = isAdmin ? "none" : "block";
+                }
+            }
 
             // Modal functionality
 
@@ -1376,6 +1403,9 @@
                     currentDate.getFullYear(),
                     currentDate.getMonth()
                 );
+
+                // Add admin functionality
+                addAdminLoginButton();
 
                 // Navigation buttons
                 document

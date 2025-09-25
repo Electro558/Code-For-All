@@ -1,679 +1,865 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Code For All</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Admin Dashboard Specific Styles */
-        .admin-container {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .admin-nav {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .admin-nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            gap: 2rem;
-        }
-        
-        .admin-logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        
-        .admin-nav-links {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            margin-right: 2rem;
-            padding: 0;
-            gap: 1.5rem;
-        }
-        
-        .admin-nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.25rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            display: inline-block;
-        }
-        
-        .admin-nav-links a:hover,
-        .admin-nav-links a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .admin-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .dashboard-header {
-            text-align: center;
-            color: white;
-            margin-bottom: 3rem;
-        }
-        
-        .dashboard-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .dashboard-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-        
-        .card-description {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        
-        .card-button {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: bold;
-        }
-        
-        .card-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .content-section {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .content-section.active {
-            display: block;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-primary {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-primary:hover {
-            background: #45a049;
-        }
-        
-        .btn-danger {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .btn-danger:hover {
-            background: #da190b;
-        }
-        
-        .role-badge {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        .role-badge.admin {
-            background-color: #dc3545;
-            color: white;
-        }
-        
-        .role-badge.user {
-            background-color: #6c757d;
-            color: white;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        
-        .data-table th,
-        .data-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .data-table th {
-            background: rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            opacity: 0.8;
-        }
-        
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
-</head>
-<body>
-    <div class="admin-container">
-        <!-- Admin Navigation -->
-        <nav class="admin-nav">
-            <div class="admin-nav-container">
-                <a href="index.html" class="admin-logo">Code For All - Admin</a>
-                <ul class="admin-nav-links">
-                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
-                    <li><a href="#users" class="nav-link" data-section="users">Users</a></li>
-                    <li><a href="#events" class="nav-link" data-section="events">Events</a></li>
-                    <li><a href="#analytics" class="nav-link" data-section="analytics">Analytics</a></li>
-                    <li><a href="#settings" class="nav-link" data-section="settings">Settings</a></li>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin Dashboard - Code For All</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <style>
+            /* Admin Dashboard Specific Styles */
+            .admin-container {
+                min-height: 100vh;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
 
-                </ul>
-                <div>
-                    <span id="admin-username" style="color: white; margin-right: 1rem;"></span>
-                    <button class="logout-btn" onclick="logout()">Logout</button>
-                </div>
-            </div>
-        </nav>
-        
-        <!-- Main Content -->
-        <div class="admin-content">
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="content-section active">
-                <div class="dashboard-header">
-                    <h1>Admin Dashboard</h1>
-                    <p>Welcome to the Code For All administration panel</p>
-                </div>
-                
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <span class="card-icon">👥</span>
-                        <div class="card-title">User Management</div>
-                        <div class="card-description">Manage registered users, view profiles, and handle user permissions.</div>
-                        <button class="card-button" onclick="showSection('users')">Manage Users</button>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <span class="card-icon">📅</span>
-                        <div class="card-title">Event Management</div>
-                        <div class="card-description">Create, edit, and manage coding events and workshops.</div>
-                        <button class="card-button" onclick="showSection('events')">Manage Events</button>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <span class="card-icon">📊</span>
-                        <div class="card-title">Analytics</div>
-                        <div class="card-description">View site statistics, user engagement, and event metrics.</div>
-                        <button class="card-button" onclick="showSection('analytics')">View Analytics</button>
-                    </div>
-                    
-                    <div class="dashboard-card">
-                        <span class="card-icon">⚙️</span>
-                        <div class="card-title">Settings</div>
-                        <div class="card-description">Configure site settings, notifications, and system preferences.</div>
-                        <button class="card-button" onclick="showSection('settings')">Site Settings</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Users Section -->
-            <div id="users" class="content-section">
-                <div class="section-header">
-                    <h2>User Management</h2>
-                    <button class="btn-primary" onclick="addNewUser()">Add New User</button>
-                </div>
-                
-                <table class="data-table" id="users-table">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Registration Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-tbody">
-                        <!-- Users will be loaded here -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Events Section -->
-            <div id="events" class="content-section">
-                <div class="section-header">
-                    <h2>Event Management</h2>
-                    <button class="btn-primary" onclick="addNewEvent()">Create New Event</button>
-                </div>
-                
-                <table class="data-table" id="events-table">
-                    <thead>
-                        <tr>
-                            <th>Event Title</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Location</th>
-                            <th>Attendees</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="events-tbody">
-                        <!-- Events will be loaded here -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Analytics Section -->
-            <div id="analytics" class="content-section">
-                <div class="section-header">
-                    <h2>Analytics Dashboard</h2>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-users">0</div>
-                        <div class="stat-label">Total Users</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-events">0</div>
-                        <div class="stat-label">Total Events</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="active-users">0</div>
-                        <div class="stat-label">Active Users</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="upcoming-events">0</div>
-                        <div class="stat-label">Upcoming Events</div>
-                    </div>
-                </div>
-                
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                    <h3>Recent Activity</h3>
-                    <div id="recent-activity">
-                        <!-- Recent activity will be loaded here -->
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Settings Section -->
-            <div id="settings" class="content-section">
-                <div class="section-header">
-                    <h2>Site Settings</h2>
-                    <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
-                </div>
-                
-                <div style="display: grid; gap: 2rem;">
+            .admin-nav {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .admin-nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 2rem;
+                gap: 2rem;
+            }
+
+            .admin-logo {
+                color: white;
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .admin-nav-links {
+                display: flex;
+                list-style: none;
+                margin: 0;
+                margin-right: 2rem;
+                padding: 0;
+                gap: 1.5rem;
+            }
+
+            .admin-nav-links a {
+                color: white;
+                text-decoration: none;
+                padding: 0.75rem 1.25rem;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+                display: inline-block;
+            }
+
+            .admin-nav-links a:hover,
+            .admin-nav-links a.active {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .admin-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            .dashboard-header {
+                text-align: center;
+                color: white;
+                margin-bottom: 3rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .dashboard-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 2rem;
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition:
+                    transform 0.3s,
+                    box-shadow 0.3s;
+            }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .card-icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                font-weight: bold;
+            }
+
+            .card-description {
+                margin-bottom: 1.5rem;
+                opacity: 0.9;
+            }
+
+            .card-button {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                font-weight: bold;
+            }
+
+            .card-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+
+            .content-section {
+                display: none;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 2rem;
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .content-section.active {
+                display: block;
+            }
+
+            .section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .btn-primary {
+                background: #4caf50;
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            .btn-primary:hover {
+                background: #45a049;
+            }
+
+            .btn-danger {
+                background: #f44336;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 0.9rem;
+            }
+
+            .btn-danger:hover {
+                background: #da190b;
+            }
+
+            .role-badge {
+                padding: 3px 8px;
+                border-radius: 12px;
+                font-size: 0.8em;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .role-badge.admin {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .role-badge.user {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 1rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .data-table th {
+                background: rgba(255, 255, 255, 0.1);
+                font-weight: bold;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .stat-card {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-label {
+                opacity: 0.8;
+            }
+
+            .logout-btn {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .logout-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="admin-container">
+            <!-- Admin Navigation -->
+            <nav class="admin-nav">
+                <div class="admin-nav-container">
+                    <a href="index.html" class="admin-logo"
+                        >Code For All - Admin</a
+                    >
+                    <ul class="admin-nav-links">
+                        <li>
+                            <a
+                                href="#dashboard"
+                                class="nav-link active"
+                                data-section="dashboard"
+                                >Dashboard</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#users"
+                                class="nav-link"
+                                data-section="users"
+                                >Users</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#events"
+                                class="nav-link"
+                                data-section="events"
+                                >Events</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#analytics"
+                                class="nav-link"
+                                data-section="analytics"
+                                >Analytics</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#settings"
+                                class="nav-link"
+                                data-section="settings"
+                                >Settings</a
+                            >
+                        </li>
+                    </ul>
                     <div>
-                        <h3>General Settings</h3>
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; margin-bottom: 0.5rem;">Site Title:</label>
-                            <input type="text" id="site-title" value="Code For All" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: none;">
+                        <span
+                            id="admin-username"
+                            style="color: white; margin-right: 1rem"
+                        ></span>
+                        <button class="logout-btn" onclick="logout()">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <div class="dashboard-header">
+                        <h1>Admin Dashboard</h1>
+                        <p>Welcome to the Code For All administration panel</p>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <span class="card-icon">👥</span>
+                            <div class="card-title">User Management</div>
+                            <div class="card-description">
+                                Manage registered users, view profiles, and
+                                handle user permissions.
+                            </div>
+                            <button
+                                class="card-button"
+                                onclick="showSection('users')"
+                            >
+                                Manage Users
+                            </button>
                         </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; margin-bottom: 0.5rem;">Site Description:</label>
-                            <textarea id="site-description" rows="3" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: none;">Empowering the next generation of coders</textarea>
+
+                        <div class="dashboard-card">
+                            <span class="card-icon">📅</span>
+                            <div class="card-title">Event Management</div>
+                            <div class="card-description">
+                                Create, edit, and manage coding events and
+                                workshops.
+                            </div>
+                            <button
+                                class="card-button"
+                                onclick="showSection('events')"
+                            >
+                                Manage Events
+                            </button>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <span class="card-icon">📊</span>
+                            <div class="card-title">Analytics</div>
+                            <div class="card-description">
+                                View site statistics, user engagement, and event
+                                metrics.
+                            </div>
+                            <button
+                                class="card-button"
+                                onclick="showSection('analytics')"
+                            >
+                                View Analytics
+                            </button>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <span class="card-icon">⚙️</span>
+                            <div class="card-title">Settings</div>
+                            <div class="card-description">
+                                Configure site settings, notifications, and
+                                system preferences.
+                            </div>
+                            <button
+                                class="card-button"
+                                onclick="showSection('settings')"
+                            >
+                                Site Settings
+                            </button>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h3>Event Settings</h3>
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; margin-bottom: 0.5rem;">Max Events Per Page:</label>
-                            <input type="number" id="max-events" value="10" style="width: 100px; padding: 0.5rem; border-radius: 5px; border: none;">
+                </div>
+
+                <!-- Users Section -->
+                <div id="users" class="content-section">
+                    <div class="section-header">
+                        <h2>User Management</h2>
+                        <button class="btn-primary" onclick="addNewUser()">
+                            Add New User
+                        </button>
+                    </div>
+
+                    <table class="data-table" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Registration Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Events Section -->
+                <div id="events" class="content-section">
+                    <div class="section-header">
+                        <h2>Event Management</h2>
+                        <button class="btn-primary" onclick="addNewEvent()">
+                            Create New Event
+                        </button>
+                    </div>
+
+                    <table class="data-table" id="events-table">
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Attendees</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="events-tbody">
+                            <!-- Events will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Analytics Section -->
+                <div id="analytics" class="content-section">
+                    <div class="section-header">
+                        <h2>Analytics Dashboard</h2>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-users">0</div>
+                            <div class="stat-label">Total Users</div>
                         </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="checkbox" id="auto-approve-events" checked>
-                                Auto-approve new events
-                            </label>
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-events">0</div>
+                            <div class="stat-label">Total Events</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="active-users">0</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="upcoming-events">
+                                0
+                            </div>
+                            <div class="stat-label">Upcoming Events</div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="
+                            background: rgba(255, 255, 255, 0.1);
+                            padding: 2rem;
+                            border-radius: 10px;
+                            margin-top: 2rem;
+                        "
+                    >
+                        <h3>Recent Activity</h3>
+                        <div id="recent-activity">
+                            <!-- Recent activity will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2>Site Settings</h2>
+                        <button class="btn-primary" onclick="saveSettings()">
+                            Save Changes
+                        </button>
+                    </div>
+
+                    <div style="display: grid; gap: 2rem">
+                        <div>
+                            <h3>General Settings</h3>
+                            <div style="margin-bottom: 1rem">
+                                <label
+                                    style="
+                                        display: block;
+                                        margin-bottom: 0.5rem;
+                                    "
+                                    >Site Title:</label
+                                >
+                                <input
+                                    type="text"
+                                    id="site-title"
+                                    value="Code For All"
+                                    style="
+                                        width: 100%;
+                                        padding: 0.5rem;
+                                        border-radius: 5px;
+                                        border: none;
+                                    "
+                                />
+                            </div>
+                            <div style="margin-bottom: 1rem">
+                                <label
+                                    style="
+                                        display: block;
+                                        margin-bottom: 0.5rem;
+                                    "
+                                    >Site Description:</label
+                                >
+                                <textarea
+                                    id="site-description"
+                                    rows="3"
+                                    style="
+                                        width: 100%;
+                                        padding: 0.5rem;
+                                        border-radius: 5px;
+                                        border: none;
+                                    "
+                                >
+Empowering the next generation of coders</textarea
+                                >
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3>Event Settings</h3>
+                            <div style="margin-bottom: 1rem">
+                                <label
+                                    style="
+                                        display: block;
+                                        margin-bottom: 0.5rem;
+                                    "
+                                    >Max Events Per Page:</label
+                                >
+                                <input
+                                    type="number"
+                                    id="max-events"
+                                    value="10"
+                                    style="
+                                        width: 100px;
+                                        padding: 0.5rem;
+                                        border-radius: 5px;
+                                        border: none;
+                                    "
+                                />
+                            </div>
+                            <div style="margin-bottom: 1rem">
+                                <label
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 0.5rem;
+                                    "
+                                >
+                                    <input
+                                        type="checkbox"
+                                        id="auto-approve-events"
+                                        checked
+                                    />
+                                    Auto-approve new events
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <script src="script.js"></script>
-    <script>
-        // Admin Dashboard JavaScript
-        let currentUser = null;
-        let allUsers = [];
-        let allEvents = [];
-        
-        // Initialize admin dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAdminAccess();
-            loadUsers();
-            loadEvents();
-            updateAnalytics();
-            setupNavigation();
-        });
-        
-        // Check if user has admin access
-        function checkAdminAccess() {
-            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-            if (!user.username || user.role !== 'admin') {
-                alert('Access denied. Admin privileges required.');
-                window.location.href = 'login.html';
-                return;
+
+        <script src="/js/script.js"></script>
+        <script>
+            // Admin Dashboard JavaScript
+            let currentUser = null;
+            let allUsers = [];
+            let allEvents = [];
+
+            // Initialize admin dashboard
+            document.addEventListener("DOMContentLoaded", function () {
+                checkAdminAccess();
+                loadUsers();
+                loadEvents();
+                updateAnalytics();
+                setupNavigation();
+            });
+
+            // Check if user has admin access
+            function checkAdminAccess() {
+                const user = JSON.parse(
+                    localStorage.getItem("currentUser") || "{}"
+                );
+                if (!user.username || user.role !== "admin") {
+                    alert("Access denied. Admin privileges required.");
+                    window.location.href = "login.html";
+                    return;
+                }
+                currentUser = user;
+                document.getElementById("admin-username").textContent =
+                    user.username;
             }
-            currentUser = user;
-            document.getElementById('admin-username').textContent = user.username;
-        }
-        
-        // Setup navigation
-        function setupNavigation() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                // Only prevent default for internal navigation links
-                if (link.dataset.section) {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const section = this.dataset.section;
-                        showSection(section);
+
+            // Setup navigation
+            function setupNavigation() {
+                const navLinks = document.querySelectorAll(".nav-link");
+                navLinks.forEach((link) => {
+                    // Only prevent default for internal navigation links
+                    if (link.dataset.section) {
+                        link.addEventListener("click", function (e) {
+                            e.preventDefault();
+                            const section = this.dataset.section;
+                            showSection(section);
+                        });
+                    }
+                });
+            }
+
+            // Show specific section
+            function showSection(sectionName) {
+                // Hide all sections
+                document
+                    .querySelectorAll(".content-section")
+                    .forEach((section) => {
+                        section.classList.remove("active");
                     });
-                }
-            });
-        }
-        
-        // Show specific section
-        function showSection(sectionName) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionName).classList.add('active');
-            
-            // Add active class to corresponding nav link
-            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
-        }
-        
-        // Load users
-        async function loadUsers() {
-            try {
-                // Try to load from users.json
-                const response = await fetch('users.json');
-                let jsonUsers = [];
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    // Handle the correct structure: data.users is the array
-                    jsonUsers = Array.isArray(data.users) ? data.users : [];
-                }
-                
-                // Load from localStorage
-                const localUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-                
-                // Combine users
-                allUsers = [...jsonUsers, ...localUsers];
-                
-                displayUsers();
-                updateAnalytics();
-            } catch (error) {
-                console.error('Error loading users:', error);
-                // Fallback to localStorage only
-                allUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-                displayUsers();
-                updateAnalytics();
+
+                // Remove active class from nav links
+                document.querySelectorAll(".nav-link").forEach((link) => {
+                    link.classList.remove("active");
+                });
+
+                // Show selected section
+                document.getElementById(sectionName).classList.add("active");
+
+                // Add active class to corresponding nav link
+                document
+                    .querySelector(`[data-section="${sectionName}"]`)
+                    .classList.add("active");
             }
-        }
-        
-        // Display users in table
-        function displayUsers() {
-            const tbody = document.getElementById('users-tbody');
-            tbody.innerHTML = '';
-            
-            allUsers.forEach((user, index) => {
-                const row = document.createElement('tr');
-                const registrationDate = user.created_at ? new Date(user.created_at).toLocaleDateString() : (user.registrationDate || 'N/A');
-                const displayName = user.name ? `${user.username} (${user.name})` : user.username;
-                
-                row.innerHTML = `
+
+            // Load users
+            async function loadUsers() {
+                try {
+                    // Try to load from users.json
+                    const response = await fetch("users.json");
+                    let jsonUsers = [];
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Handle the correct structure: data.users is the array
+                        jsonUsers = Array.isArray(data.users) ? data.users : [];
+                    }
+
+                    // Load from localStorage
+                    const localUsers = JSON.parse(
+                        localStorage.getItem("registeredUsers") || "[]"
+                    );
+
+                    // Combine users
+                    allUsers = [...jsonUsers, ...localUsers];
+
+                    displayUsers();
+                    updateAnalytics();
+                } catch (error) {
+                    console.error("Error loading users:", error);
+                    // Fallback to localStorage only
+                    allUsers = JSON.parse(
+                        localStorage.getItem("registeredUsers") || "[]"
+                    );
+                    displayUsers();
+                    updateAnalytics();
+                }
+            }
+
+            // Display users in table
+            function displayUsers() {
+                const tbody = document.getElementById("users-tbody");
+                tbody.innerHTML = "";
+
+                allUsers.forEach((user, index) => {
+                    const row = document.createElement("tr");
+                    const registrationDate = user.created_at
+                        ? new Date(user.created_at).toLocaleDateString()
+                        : user.registrationDate || "N/A";
+                    const displayName = user.name
+                        ? `${user.username} (${user.name})`
+                        : user.username;
+
+                    row.innerHTML = `
                     <td>${displayName}</td>
-                    <td>${user.email || 'N/A'}</td>
-                    <td><span class="role-badge ${user.role || 'user'}">${user.role || 'user'}</span></td>
+                    <td>${user.email || "N/A"}</td>
+                    <td><span class="role-badge ${user.role || "user"}">${
+                        user.role || "user"
+                    }</span></td>
                     <td>${registrationDate}</td>
                     <td>
                         <button class="btn-danger" onclick="deleteUser(${index})">Delete</button>
                     </td>
                 `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        // Load events
-        function loadEvents() {
-            allEvents = JSON.parse(localStorage.getItem('events') || '[]');
-            displayEvents();
-        }
-        
-        // Display events in table
-        function displayEvents() {
-            const tbody = document.getElementById('events-tbody');
-            tbody.innerHTML = '';
-            
-            allEvents.forEach((event, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Load events
+            function loadEvents() {
+                allEvents = JSON.parse(localStorage.getItem("events") || "[]");
+                displayEvents();
+            }
+
+            // Display events in table
+            function displayEvents() {
+                const tbody = document.getElementById("events-tbody");
+                tbody.innerHTML = "";
+
+                allEvents.forEach((event, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
                     <td>${event.title}</td>
                     <td>${event.date}</td>
                     <td>${event.time}</td>
-                    <td>${event.location || 'TBD'}</td>
+                    <td>${event.location || "TBD"}</td>
                     <td>${event.attendees || 0}</td>
                     <td>
                         <button class="btn-danger" onclick="deleteEvent(${index})">Delete</button>
                     </td>
                 `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        // Update analytics
-        function updateAnalytics() {
-            document.getElementById('total-users').textContent = allUsers.length;
-            document.getElementById('total-events').textContent = allEvents.length;
-            document.getElementById('active-users').textContent = allUsers.filter(u => u.role !== 'inactive').length;
-            
-            const today = new Date();
-            const upcomingEvents = allEvents.filter(event => new Date(event.date) > today).length;
-            document.getElementById('upcoming-events').textContent = upcomingEvents;
-            
-            // Recent activity
-            const recentActivity = document.getElementById('recent-activity');
-            recentActivity.innerHTML = `
-                <p>• New user registered: ${allUsers[allUsers.length - 1]?.username || 'None'}</p>
-                <p>• Latest event: ${allEvents[allEvents.length - 1]?.title || 'None'}</p>
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Update analytics
+            function updateAnalytics() {
+                document.getElementById("total-users").textContent =
+                    allUsers.length;
+                document.getElementById("total-events").textContent =
+                    allEvents.length;
+                document.getElementById("active-users").textContent =
+                    allUsers.filter((u) => u.role !== "inactive").length;
+
+                const today = new Date();
+                const upcomingEvents = allEvents.filter(
+                    (event) => new Date(event.date) > today
+                ).length;
+                document.getElementById("upcoming-events").textContent =
+                    upcomingEvents;
+
+                // Recent activity
+                const recentActivity =
+                    document.getElementById("recent-activity");
+                recentActivity.innerHTML = `
+                <p>• New user registered: ${
+                    allUsers[allUsers.length - 1]?.username || "None"
+                }</p>
+                <p>• Latest event: ${
+                    allEvents[allEvents.length - 1]?.title || "None"
+                }</p>
                 <p>• System status: Online</p>
             `;
-        }
-        
-        // Delete user
-        function deleteUser(index) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                allUsers.splice(index, 1);
-                localStorage.setItem('registeredUsers', JSON.stringify(allUsers));
-                displayUsers();
-                updateAnalytics();
             }
-        }
-        
-        // Delete event
-        function deleteEvent(index) {
-            if (confirm('Are you sure you want to delete this event?')) {
-                allEvents.splice(index, 1);
-                localStorage.setItem('events', JSON.stringify(allEvents));
-                displayEvents();
-                updateAnalytics();
+
+            // Delete user
+            function deleteUser(index) {
+                if (confirm("Are you sure you want to delete this user?")) {
+                    allUsers.splice(index, 1);
+                    localStorage.setItem(
+                        "registeredUsers",
+                        JSON.stringify(allUsers)
+                    );
+                    displayUsers();
+                    updateAnalytics();
+                }
             }
-        }
-        
-        // Add new user (placeholder)
-        function addNewUser() {
-            const username = prompt('Enter username:');
-            const email = prompt('Enter email:');
-            if (username && email) {
-                const newUser = {
-                    username: username,
-                    email: email,
-                    role: 'user',
-                    registrationDate: new Date().toLocaleDateString()
+
+            // Delete event
+            function deleteEvent(index) {
+                if (confirm("Are you sure you want to delete this event?")) {
+                    allEvents.splice(index, 1);
+                    localStorage.setItem("events", JSON.stringify(allEvents));
+                    displayEvents();
+                    updateAnalytics();
+                }
+            }
+
+            // Add new user (placeholder)
+            function addNewUser() {
+                const username = prompt("Enter username:");
+                const email = prompt("Enter email:");
+                if (username && email) {
+                    const newUser = {
+                        username: username,
+                        email: email,
+                        role: "user",
+                        registrationDate: new Date().toLocaleDateString(),
+                    };
+                    allUsers.push(newUser);
+                    localStorage.setItem(
+                        "registeredUsers",
+                        JSON.stringify(allUsers)
+                    );
+                    displayUsers();
+                    updateAnalytics();
+                }
+            }
+
+            // Add new event (placeholder)
+            function addNewEvent() {
+                const title = prompt("Enter event title:");
+                const date = prompt("Enter event date (YYYY-MM-DD):");
+                const time = prompt("Enter event time:");
+                if (title && date && time) {
+                    const newEvent = {
+                        title: title,
+                        date: date,
+                        time: time,
+                        location: "TBD",
+                        attendees: 0,
+                    };
+                    allEvents.push(newEvent);
+                    localStorage.setItem("events", JSON.stringify(allEvents));
+                    displayEvents();
+                    updateAnalytics();
+                }
+            }
+
+            // Save settings
+            function saveSettings() {
+                const settings = {
+                    siteTitle: document.getElementById("site-title").value,
+                    siteDescription:
+                        document.getElementById("site-description").value,
+                    maxEvents: document.getElementById("max-events").value,
+                    autoApproveEvents: document.getElementById(
+                        "auto-approve-events"
+                    ).checked,
                 };
-                allUsers.push(newUser);
-                localStorage.setItem('registeredUsers', JSON.stringify(allUsers));
-                displayUsers();
-                updateAnalytics();
+                localStorage.setItem("adminSettings", JSON.stringify(settings));
+                alert("Settings saved successfully!");
             }
-        }
-        
-        // Add new event (placeholder)
-        function addNewEvent() {
-            const title = prompt('Enter event title:');
-            const date = prompt('Enter event date (YYYY-MM-DD):');
-            const time = prompt('Enter event time:');
-            if (title && date && time) {
-                const newEvent = {
-                    title: title,
-                    date: date,
-                    time: time,
-                    location: 'TBD',
-                    attendees: 0
-                };
-                allEvents.push(newEvent);
-                localStorage.setItem('events', JSON.stringify(allEvents));
-                displayEvents();
-                updateAnalytics();
+
+            // Logout
+            function logout() {
+                if (confirm("Are you sure you want to logout?")) {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "index.html";
+                }
             }
-        }
-        
-        // Save settings
-        function saveSettings() {
-            const settings = {
-                siteTitle: document.getElementById('site-title').value,
-                siteDescription: document.getElementById('site-description').value,
-                maxEvents: document.getElementById('max-events').value,
-                autoApproveEvents: document.getElementById('auto-approve-events').checked
-            };
-            localStorage.setItem('adminSettings', JSON.stringify(settings));
-            alert('Settings saved successfully!');
-        }
-        
-        // Logout
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
-</body>
+        </script>
+    </body>
 </html>

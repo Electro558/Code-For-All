@@ -10,31 +10,33 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
-        <script src="/js/script.js"></script>
     </head>
     <body>
         <!-- Navigation -->
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="index.html">
-                        <img
-                            src="/img/logo_big_light.png"
-                            alt="Code for All Logo"
-                            class="logo-img"
-                        />
-                    </a>
+                    <img
+                        src="favicon.png"
+                        alt="Code For All Logo"
+                        class="logo-img"
+                    />
+                    <h1>Code For All</h1>
                 </div>
                 <nav>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="events.html">Events</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="team.html">Team</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="contact.html">Get Involved</a></li>
                         <li>
-                            <a href="admin.html" class="active">Admin Panel</a>
+                            <a href="admin.html" class="admin-link active"
+                                >Admin Panel</a
+                            >
                         </li>
-                        <li><a href="login.html">Login</a></li>
+                        <li>
+                            <a href="login.html" class="login-btn">Login</a>
+                        </li>
                     </ul>
                 </nav>
                 <div class="menu-toggle">
@@ -372,31 +374,14 @@
             </div>
         </footer>
 
+        <script src="/js/script.js"></script>
         <script>
             // Admin Panel JavaScript
             let allUsers = [];
             let filteredUsers = [];
 
-            // Check admin authentication before loading page
-            function checkAdminAccess() {
-                const currentUser = JSON.parse(
-                    localStorage.getItem("codeforall_currentuser")
-                );
-                if (!currentUser || currentUser.role !== "admin") {
-                    alert("Access denied. Admin privileges required.");
-                    window.location.href = "login.html";
-                    return false;
-                }
-                return true;
-            }
-
             // Load users when page loads
             document.addEventListener("DOMContentLoaded", async function () {
-                // Check admin access first
-                if (!checkAdminAccess()) {
-                    return;
-                }
-
                 await loadAdminData();
                 displayUsers();
                 updateStats();

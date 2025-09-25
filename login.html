@@ -1,300 +1,420 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Code For All</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <header>
-        <div class="container">
-            <div class="logo">
-          <a href="index.html">
-            <img src="logo_big_light.png" alt="Code for All Logo" class="logo-img">
-          </a>
-        </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="login.html" class="active">Login</a></li>
-                </ul>
-            </nav>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
-
-    <!-- Login Section -->
-    <section class="login-section">
-        <div class="container">
-            <div class="auth-container">
-                <div class="auth-form">
-                    <div class="form-header">
-                        <h2 id="form-title">Login to Your Account</h2>
-                        <p id="form-subtitle">Welcome back! Please enter your credentials.</p>
-                    </div>
-                    
-                    <form id="auth-form">
-                        <div class="form-group" id="name-group" style="display: none;">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your full name">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" required placeholder="Enter your username">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required placeholder="Enter your password">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        
-                        <div class="form-group" id="confirm-password-group" style="display: none;">
-                            <label for="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        
-                        <div class="form-options" id="login-options">
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="remember-me">
-                                <span class="checkmark"></span>
-                                Remember me
-                            </label>
-                            <a href="#" class="forgot-password">Forgot Password?</a>
-                        </div>
-                        
-                        <button type="submit" class="auth-btn" id="auth-submit-btn">
-                            <span id="btn-text">Login</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </form>
-                    
-                    <div class="auth-switch">
-                        <p id="switch-text">Don't have an account? <a href="#" id="switch-link">Sign up here</a></p>
-                    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login - Code For All</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+    </head>
+    <body>
+        <!-- Navigation -->
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="/img/logo_big_light.png"
+                            alt="Code for All Logo"
+                            class="logo-img"
+                        />
+                    </a>
                 </div>
-                
-                <div class="auth-visual">
-                    <div class="visual-content">
-                        <div class="code-animation">
-                            <div class="code-line"><span class="keyword">function</span> <span class="function">joinCommunity</span>() {</div>
-                            <div class="code-line">  <span class="keyword">const</span> <span class="variable">impact</span> = <span class="string">'positive'</span>;</div>
-                            <div class="code-line">  <span class="keyword">return</span> <span class="variable">impact</span>;</div>
-                            <div class="code-line">}</div>
-                        </div>
-                        <h3>Join Our Coding Community</h3>
-                        <p>Connect with fellow developers, participate in coding workshops, and make a positive impact through technology.</p>
-                        <div class="features">
-                            <div class="feature">
-                                <i class="fas fa-code"></i>
-                                <span>Learn & Code</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-users"></i>
-                                <span>Build Community</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-heart"></i>
-                                <span>Make Impact</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="logo_small_light.png" alt="Code For All Logo" class="logo">
-                        <span>Code For All</span>
-                    </div>
-                    <p>Empowering students through coding education and community service.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
+                <nav>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="events.html">Events</a></li>
-                        <li><a href="team.html">Team</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="login.html" class="active">Login</a></li>
                     </ul>
+                </nav>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p>Email: zhu47578@sas.edu.sg</p>
-                    <p>Phone: +65 8647 2776</p>
-                    <p>Address: 40 Woodlands Street 41, Singapore 738547</p>
-                </div>
-                <div class="footer-contact">
-                    <h3>Follow Us</h3>
-                    <div class="social-icons">
-                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            </div>
+        </header>
+
+        <!-- Login Section -->
+        <section class="login-section">
+            <div class="container">
+                <div class="auth-container">
+                    <div class="auth-form">
+                        <div class="form-header">
+                            <h2 id="form-title">Login to Your Account</h2>
+                            <p id="form-subtitle">
+                                Welcome back! Please enter your credentials.
+                            </p>
+                        </div>
+
+                        <form id="auth-form">
+                            <div
+                                class="form-group"
+                                id="name-group"
+                                style="display: none"
+                            >
+                                <label for="name">Full Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Enter your full name"
+                                />
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    required
+                                    placeholder="Enter your username"
+                                />
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    placeholder="Enter your email"
+                                />
+                                <i class="fas fa-envelope"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    placeholder="Enter your password"
+                                />
+                                <i class="fas fa-lock"></i>
+                            </div>
+
+                            <div
+                                class="form-group"
+                                id="confirm-password-group"
+                                style="display: none"
+                            >
+                                <label for="confirm-password"
+                                    >Confirm Password</label
+                                >
+                                <input
+                                    type="password"
+                                    id="confirm-password"
+                                    name="confirm-password"
+                                    placeholder="Confirm your password"
+                                />
+                                <i class="fas fa-lock"></i>
+                            </div>
+
+                            <div class="form-options" id="login-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="remember-me" />
+                                    <span class="checkmark"></span>
+                                    Remember me
+                                </label>
+                                <a href="#" class="forgot-password"
+                                    >Forgot Password?</a
+                                >
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="auth-btn"
+                                id="auth-submit-btn"
+                            >
+                                <span id="btn-text">Login</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <div class="auth-switch">
+                            <p id="switch-text">
+                                Don't have an account?
+                                <a href="#" id="switch-link">Sign up here</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="auth-visual">
+                        <div class="visual-content">
+                            <div class="code-animation">
+                                <div class="code-line">
+                                    <span class="keyword">function</span>
+                                    <span class="function">joinCommunity</span
+                                    >() {
+                                </div>
+                                <div class="code-line">
+                                    <span class="keyword">const</span>
+                                    <span class="variable">impact</span> =
+                                    <span class="string">'positive'</span>;
+                                </div>
+                                <div class="code-line">
+                                    <span class="keyword">return</span>
+                                    <span class="variable">impact</span>;
+                                </div>
+                                <div class="code-line">}</div>
+                            </div>
+                            <h3>Join Our Coding Community</h3>
+                            <p>
+                                Connect with fellow developers, participate in
+                                coding workshops, and make a positive impact
+                                through technology.
+                            </p>
+                            <div class="features">
+                                <div class="feature">
+                                    <i class="fas fa-code"></i>
+                                    <span>Learn & Code</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-users"></i>
+                                    <span>Build Community</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Make Impact</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Code For All. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
 
-    <script src="script.js"></script>
-    <script>
-        // Authentication form handling
-        let isLoginMode = true;
-        
-        const formTitle = document.getElementById('form-title');
-        const formSubtitle = document.getElementById('form-subtitle');
-        const nameGroup = document.getElementById('name-group');
-        const confirmPasswordGroup = document.getElementById('confirm-password-group');
-        const loginOptions = document.getElementById('login-options');
-        const authSubmitBtn = document.getElementById('auth-submit-btn');
-        const btnText = document.getElementById('btn-text');
-        const switchText = document.getElementById('switch-text');
-        const switchLink = document.getElementById('switch-link');
-        const authForm = document.getElementById('auth-form');
-        
-        // Switch between login and register modes
-        switchLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            isLoginMode = !isLoginMode;
-            updateFormMode();
-        });
-        
-        function updateFormMode() {
-            if (isLoginMode) {
-                // Login mode
-                formTitle.textContent = 'Login to Your Account';
-                formSubtitle.textContent = 'Welcome back! Please enter your credentials.';
-                nameGroup.style.display = 'none';
-                confirmPasswordGroup.style.display = 'none';
-                loginOptions.style.display = 'flex';
-                btnText.textContent = 'Login';
-                switchText.innerHTML = 'Don\'t have an account? <a href="javascript:void(0)" id="switch-link">Sign up here</a>';
-                
-                // Remove required from hidden fields
-                document.getElementById('name').removeAttribute('required');
-                document.getElementById('confirm-password').removeAttribute('required');
-            } else {
-                // Register mode
-                formTitle.textContent = 'Create Your Account';
-                formSubtitle.textContent = 'Join our community and start making an impact!';
-                nameGroup.style.display = 'block';
-                confirmPasswordGroup.style.display = 'block';
-                loginOptions.style.display = 'none';
-                btnText.textContent = 'Sign Up';
-                switchText.innerHTML = 'Already have an account? <a href="javascript:void(0)" id="switch-link">Login here</a>';
-                
-                // Add required to visible fields
-                document.getElementById('name').setAttribute('required', 'required');
-                document.getElementById('confirm-password').setAttribute('required', 'required');
-            }
-            
-            // Re-attach event listener to new switch link
-            document.getElementById('switch-link').addEventListener('click', function(e) {
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img
+                                src="/img/logo_small_light.png"
+                                alt="Code For All Logo"
+                                class="logo"
+                            />
+                            <span>Code For All</span>
+                        </div>
+                        <p>
+                            Empowering students through coding education and
+                            community service.
+                        </p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="events.html">Events</a></li>
+                            <li><a href="team.html">Team</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contact Info</h3>
+                        <p>Email: zhu47578@sas.edu.sg</p>
+                        <p>Phone: +65 8647 2776</p>
+                        <p>Address: 40 Woodlands Street 41, Singapore 738547</p>
+                    </div>
+                    <div class="footer-contact">
+                        <h3>Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com" target="_blank"
+                                ><i class="fab fa-instagram"></i
+                            ></a>
+                            <a href="https://www.twitter.com" target="_blank"
+                                ><i class="fab fa-twitter"></i
+                            ></a>
+                            <a href="https://www.facebook.com" target="_blank"
+                                ><i class="fab fa-facebook"></i
+                            ></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Code For All. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="/js/script.js"></script>
+        <script>
+            // Authentication form handling
+            let isLoginMode = true;
+
+            const formTitle = document.getElementById("form-title");
+            const formSubtitle = document.getElementById("form-subtitle");
+            const nameGroup = document.getElementById("name-group");
+            const confirmPasswordGroup = document.getElementById(
+                "confirm-password-group"
+            );
+            const loginOptions = document.getElementById("login-options");
+            const authSubmitBtn = document.getElementById("auth-submit-btn");
+            const btnText = document.getElementById("btn-text");
+            const switchText = document.getElementById("switch-text");
+            const switchLink = document.getElementById("switch-link");
+            const authForm = document.getElementById("auth-form");
+
+            // Switch between login and register modes
+            switchLink.addEventListener("click", function (e) {
                 e.preventDefault();
                 isLoginMode = !isLoginMode;
                 updateFormMode();
             });
-        }
-        
-        // Form submission
-        authForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(authForm);
-            const username = formData.get('username');
-            const email = formData.get('email');
-            const password = formData.get('password');
-            
-            if (isLoginMode) {
-                // Login logic
-                try {
-                    const success = await authSystem.login(username, password);
-                    if (success) {
-                        authSystem.showMessage('Login successful! Redirecting...', 'success');
-                        setTimeout(() => {
-                            // Redirect to admin panel if admin, otherwise to home
-                            if (authSystem.isAdmin()) {
-                                window.location.href = 'admin-dashboard.html';
-                            } else {
-                                window.location.href = 'index.html';
-                            }
-                        }, 1500);
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    authSystem.showMessage('Login failed. Please try again.', 'error');
-                }
-            } else {
-                // Registration logic
-                const name = formData.get('name');
-                const confirmPassword = formData.get('confirm-password');
-                
-                // Validation
-                if (password !== confirmPassword) {
-                    authSystem.showMessage('Passwords do not match', 'error');
-                    return;
-                }
-                
-                if (password.length < 6) {
-                    authSystem.showMessage('Password must be at least 6 characters long', 'error');
-                    return;
-                }
-                
-                try {
-                    const success = await authSystem.register({
-                        name: name,
-                        username: username,
-                        email: email,
-                        password: password
-                    });
-                    
-                    if (success) {
-                        authSystem.showMessage('Registration successful! Please login.', 'success');
-                        isLoginMode = true;
-                        updateFormMode();
-                        authForm.reset();
-                    }
-                } catch (error) {
-                    console.error('Registration error:', error);
-                }
-            }
-        });
-        
 
-        
-        // Forgot password (placeholder)
-        document.querySelector('.forgot-password').addEventListener('click', function(e) {
-            e.preventDefault();
-            authSystem.showMessage('Password reset functionality would be implemented', 'info');
-        });
-    </script>
-</body>
+            function updateFormMode() {
+                if (isLoginMode) {
+                    // Login mode
+                    formTitle.textContent = "Login to Your Account";
+                    formSubtitle.textContent =
+                        "Welcome back! Please enter your credentials.";
+                    nameGroup.style.display = "none";
+                    confirmPasswordGroup.style.display = "none";
+                    loginOptions.style.display = "flex";
+                    btnText.textContent = "Login";
+                    switchText.innerHTML =
+                        'Don\'t have an account? <a href="javascript:void(0)" id="switch-link">Sign up here</a>';
+
+                    // Remove required from hidden fields
+                    document.getElementById("name").removeAttribute("required");
+                    document
+                        .getElementById("confirm-password")
+                        .removeAttribute("required");
+                } else {
+                    // Register mode
+                    formTitle.textContent = "Create Your Account";
+                    formSubtitle.textContent =
+                        "Join our community and start making an impact!";
+                    nameGroup.style.display = "block";
+                    confirmPasswordGroup.style.display = "block";
+                    loginOptions.style.display = "none";
+                    btnText.textContent = "Sign Up";
+                    switchText.innerHTML =
+                        'Already have an account? <a href="javascript:void(0)" id="switch-link">Login here</a>';
+
+                    // Add required to visible fields
+                    document
+                        .getElementById("name")
+                        .setAttribute("required", "required");
+                    document
+                        .getElementById("confirm-password")
+                        .setAttribute("required", "required");
+                }
+
+                // Re-attach event listener to new switch link
+                document
+                    .getElementById("switch-link")
+                    .addEventListener("click", function (e) {
+                        e.preventDefault();
+                        isLoginMode = !isLoginMode;
+                        updateFormMode();
+                    });
+            }
+
+            // Form submission
+            authForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(authForm);
+                const username = formData.get("username");
+                const email = formData.get("email");
+                const password = formData.get("password");
+
+                if (isLoginMode) {
+                    // Login logic
+                    try {
+                        const success = await authSystem.login(
+                            username,
+                            password
+                        );
+                        if (success) {
+                            authSystem.showMessage(
+                                "Login successful! Redirecting...",
+                                "success"
+                            );
+                            setTimeout(() => {
+                                // Redirect to admin panel if admin, otherwise to home
+                                if (authSystem.isAdmin()) {
+                                    window.location.href =
+                                        "admin-dashboard.html";
+                                } else {
+                                    window.location.href = "index.html";
+                                }
+                            }, 1500);
+                        }
+                    } catch (error) {
+                        console.error("Login error:", error);
+                        authSystem.showMessage(
+                            "Login failed. Please try again.",
+                            "error"
+                        );
+                    }
+                } else {
+                    // Registration logic
+                    const name = formData.get("name");
+                    const confirmPassword = formData.get("confirm-password");
+
+                    // Validation
+                    if (password !== confirmPassword) {
+                        authSystem.showMessage(
+                            "Passwords do not match",
+                            "error"
+                        );
+                        return;
+                    }
+
+                    if (password.length < 6) {
+                        authSystem.showMessage(
+                            "Password must be at least 6 characters long",
+                            "error"
+                        );
+                        return;
+                    }
+
+                    try {
+                        const success = await authSystem.register({
+                            name: name,
+                            username: username,
+                            email: email,
+                            password: password,
+                        });
+
+                        if (success) {
+                            authSystem.showMessage(
+                                "Registration successful! Please login.",
+                                "success"
+                            );
+                            isLoginMode = true;
+                            updateFormMode();
+                            authForm.reset();
+                        }
+                    } catch (error) {
+                        console.error("Registration error:", error);
+                    }
+                }
+            });
+
+            // Forgot password (placeholder)
+            document
+                .querySelector(".forgot-password")
+                .addEventListener("click", function (e) {
+                    e.preventDefault();
+                    authSystem.showMessage(
+                        "Password reset functionality would be implemented",
+                        "info"
+                    );
+                });
+        </script>
+    </body>
 </html>

@@ -1,177 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code For All - Empowering Communities Through Technology</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-</head>
-<body>
-    <!-- Navigation Header -->
-    <header>
-        <div class="container">
-            <div class="logo">
-          <a href="index.html">
-            <img src="logo_big_light.png" alt="Code for All Logo" class="logo-img">
-          </a>
-        </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
-            <div class="menu-toggle">
-                ☰
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Empowering Communities Through Technology</h1>
-            <p>Join us in bridging the digital divide and creating opportunities for everyone to learn, grow, and succeed in the digital age.</p>
-            <div class="hero-buttons">
-                <a href="#about" class="btn btn-light">Discover Our Mission</a>
-                <a href="events.html" class="btn btn-outline">Join Our Events</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section-title">Our Mission</h2>
-            <div class="about-content scroll-reveal">
-                <div class="about-text scroll-reveal">
-                    <p class="text-large">At Code For All, we believe that technology should be accessible to everyone, regardless of their background or circumstances. Our mission is to empower communities by providing free coding education, digital literacy programs, and technology resources.</p>
-                    <p>We work with local organizations, schools, and community centers to bring technology education directly to underserved communities. Through hands-on workshops, mentorship programs, and collaborative projects, we're building a more inclusive digital future.</p>
-                    <a href="#impact" class="btn btn-primary">Discover Our Impact</a>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Code For All - Empowering Communities Through Technology</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    </head>
+    <body>
+        <!-- Navigation Header -->
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="/img/logo_big_light.png"
+                            alt="Code for All Logo"
+                            class="logo-img"
+                        />
+                    </a>
                 </div>
-                <div class="about-image scroll-reveal">
-                    <img src="coding_classroom.jpg" alt="Students learning to code">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Impact Stats -->
-    <section class="impact" id="impact">
-        <div class="container">
-            <h2 class="section-title">Our Impact</h2>
-            <div class="impact-stats">
-                <div class="stat-box scroll-reveal">
-                    <i class="fas fa-users"></i>
-                    <h3>500+</h3>
-                    <p>Students Empowered</p>
-                </div>
-                <div class="stat-box scroll-reveal">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>50+</h3>
-                    <p>Workshops Delivered</p>
-                </div>
-                <div class="stat-box scroll-reveal">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>25+</h3>
-                    <p>Community Partners</p>
-                </div>
-                <div class="stat-box scroll-reveal">
-                    <i class="fas fa-heart"></i>
-                    <h3>1000+</h3>
-                    <p>Lives Transformed</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Initiative -->
-    <section class="featured-cause">
-        <div class="container">
-            <h2 class="section-title">Current Initiative</h2>
-            <div class="cause-content scroll-reveal">
-                <div class="cause-image scroll-reveal">
-                    <img src="coding_project.jpg" alt="Local Food Bank Support">
-                </div>
-                <div class="cause-text scroll-reveal">
-                    <h3>Digital Food Bank Revolution</h3>
-                    <p class="text-large">We're developing a comprehensive digital inventory management system for our local food bank to help them better track donations, manage volunteers, and serve more families in need.</p>
-                    <div class="progress-text">Implementation Progress: 75% Complete</div>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 75%;"></div>
-                    </div>
-                    <p>This innovative solution will streamline operations and increase the food bank's capacity to serve our community by 40%.</p>
-                    <a href="events.html" class="btn btn-primary">Join This Initiative</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Voices of Transformation</h2>
-            <div class="testimonial scroll-reveal">
-                <p>"Code For All transformed my perspective on technology and opened doors I never knew existed. From having zero coding experience to landing my dream job as a web developer, this community provided not just education, but genuine mentorship and unwavering support."</p>
-                <div class="testimonial-author">
-                    <img src="photos/IMG_0142.JPG" alt="Sarah Johnson">
-                    <div>
-                        <h4>Sarah Johnson</h4>
-                        <p>Senior Web Developer, TechCorp</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Transform Lives Through Technology?</h2>
-            <p>Join our exclusive community of innovators, mentors, and changemakers. Together, we can bridge the digital divide and create unprecedented opportunities for everyone.</p>
-            <a href="events.html" class="btn btn-light">Begin Your Journey</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Code For All</h3>
-                    <p>Making coding accessible for everyone</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="events.html">Events</a></li>
-                        <li><a href="team.html">Our Team</a></li>
-                        <li><a href="contact.html">Get Involved</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="login.html">Login</a></li>
                     </ul>
+                </nav>
+                <div class="menu-toggle">☰</div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Empowering Communities Through Technology</h1>
+                <p>
+                    Join us in bridging the digital divide and creating
+                    opportunities for everyone to learn, grow, and succeed in
+                    the digital age.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-light"
+                        >Discover Our Mission</a
+                    >
+                    <a href="events.html" class="btn btn-outline"
+                        >Join Our Events</a
+                    >
                 </div>
-                <div class="footer-contact">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-envelope"></i> zhu47578@sas.edu.sg</p>
-                    <p><i class="fas fa-phone"></i> +65 8647 2776</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 40 Woodlands Street 41, Singapore 738547</p>
-                    <div class="social-icons">
-                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <div class="about-content scroll-reveal">
+                    <div class="about-text scroll-reveal">
+                        <p class="text-large">
+                            At Code For All, we believe that technology should
+                            be accessible to everyone, regardless of their
+                            background or circumstances. Our mission is to
+                            empower communities by providing free coding
+                            education, digital literacy programs, and technology
+                            resources.
+                        </p>
+                        <p>
+                            We work with local organizations, schools, and
+                            community centers to bring technology education
+                            directly to underserved communities. Through
+                            hands-on workshops, mentorship programs, and
+                            collaborative projects, we're building a more
+                            inclusive digital future.
+                        </p>
+                        <a href="#impact" class="btn btn-primary"
+                            >Discover Our Impact</a
+                        >
+                    </div>
+                    <div class="about-image scroll-reveal">
+                        <img
+                            src="/img/coding_classroom.jpg"
+                            alt="Students learning to code"
+                        />
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Code For All. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
 
-    <script src="script.js"></script>
-</body>
+        <!-- Impact Stats -->
+        <section class="impact" id="impact">
+            <div class="container">
+                <h2 class="section-title">Our Impact</h2>
+                <div class="impact-stats">
+                    <div class="stat-box scroll-reveal">
+                        <i class="fas fa-users"></i>
+                        <h3>500+</h3>
+                        <p>Students Empowered</p>
+                    </div>
+                    <div class="stat-box scroll-reveal">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>50+</h3>
+                        <p>Workshops Delivered</p>
+                    </div>
+                    <div class="stat-box scroll-reveal">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>25+</h3>
+                        <p>Community Partners</p>
+                    </div>
+                    <div class="stat-box scroll-reveal">
+                        <i class="fas fa-heart"></i>
+                        <h3>1000+</h3>
+                        <p>Lives Transformed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Initiative -->
+        <section class="featured-cause">
+            <div class="container">
+                <h2 class="section-title">Current Initiative</h2>
+                <div class="cause-content scroll-reveal">
+                    <div class="cause-image scroll-reveal">
+                        <img
+                            src="/img/coding_project.jpg"
+                            alt="Local Food Bank Support"
+                        />
+                    </div>
+                    <div class="cause-text scroll-reveal">
+                        <h3>Digital Food Bank Revolution</h3>
+                        <p class="text-large">
+                            We're developing a comprehensive digital inventory
+                            management system for our local food bank to help
+                            them better track donations, manage volunteers, and
+                            serve more families in need.
+                        </p>
+                        <div class="progress-text">
+                            Implementation Progress: 75% Complete
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 75%"></div>
+                        </div>
+                        <p>
+                            This innovative solution will streamline operations
+                            and increase the food bank's capacity to serve our
+                            community by 40%.
+                        </p>
+                        <a href="events.html" class="btn btn-primary"
+                            >Join This Initiative</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Voices of Transformation</h2>
+                <div class="testimonial scroll-reveal">
+                    <p>
+                        "Code For All transformed my perspective on technology
+                        and opened doors I never knew existed. From having zero
+                        coding experience to landing my dream job as a web
+                        developer, this community provided not just education,
+                        but genuine mentorship and unwavering support."
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="/img/IMG_0142.JPG" alt="Sarah Johnson" />
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <p>Senior Web Developer, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Transform Lives Through Technology?</h2>
+                <p>
+                    Join our exclusive community of innovators, mentors, and
+                    changemakers. Together, we can bridge the digital divide and
+                    create unprecedented opportunities for everyone.
+                </p>
+                <a href="events.html" class="btn btn-light"
+                    >Begin Your Journey</a
+                >
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h3>Code For All</h3>
+                        <p>Making coding accessible for everyone</p>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="events.html">Events</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="contact.html">Get Involved</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <p>
+                            <i class="fas fa-envelope"></i> zhu47578@sas.edu.sg
+                        </p>
+                        <p><i class="fas fa-phone"></i> +65 8647 2776</p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 40 Woodlands
+                            Street 41, Singapore 738547
+                        </p>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com" target="_blank"
+                                ><i class="fab fa-instagram"></i
+                            ></a>
+                            <a href="https://www.twitter.com" target="_blank"
+                                ><i class="fab fa-twitter"></i
+                            ></a>
+                            <a href="https://www.facebook.com" target="_blank"
+                                ><i class="fab fa-facebook"></i
+                            ></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Code For All. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="/js/script.js"></script>
+    </body>
 </html>
