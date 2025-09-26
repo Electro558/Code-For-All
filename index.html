@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* Nuclear CSS override for button hover */
+        html body section.hero div.container div.hero-buttons a#mission-btn.btn.btn-light:hover {
+            color: #000000 !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.6) !important;
+            border-color: var(--accent-blue) !important;
+        }
+        
+        /* Backup with even higher specificity */
+        #mission-btn:hover {
+            color: #000000 !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Header -->
@@ -41,7 +55,7 @@
             <h1>Empowering Communities Through Technology</h1>
             <p>Join us in bridging the digital divide and creating opportunities for everyone to learn, grow, and succeed in the digital age.</p>
             <div class="hero-buttons">
-                <a href="#about" class="btn btn-light">Discover Our Mission</a>
+                <a href="#about" class="btn btn-light" id="mission-btn">Discover Our Mission</a>
                 <a href="events.html" class="btn btn-outline">Join Our Events</a>
             </div>
         </div>

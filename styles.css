@@ -61,6 +61,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Text Selection Styles */
+::selection {
+  background-color: var(--light-blue);
+  color: var(--primary-navy);
+}
+
+::-moz-selection {
+  background-color: var(--light-blue);
+  color: var(--primary-navy);
+}
+
 /* Container System */
 .container {
   width: 100%;
@@ -121,7 +132,7 @@ a {
   position: relative;
 }
 
-a:hover {
+a:hover:not(.btn) {
   color: var(--pure-white);
   background: linear-gradient(45deg, var(--accent-blue), var(--light-blue));
   text-decoration: none;
@@ -379,12 +390,13 @@ nav a.active {
   border: 2px solid rgba(116, 185, 255, 0.3);
 }
 
-.btn-light:hover {
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.6);
-  border-color: var(--accent-blue);
-  outline: 2px solid var(--secondary-navy);
-  outline-offset: 2px;
+a.btn.btn-light:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #000000 !important;
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.6) !important;
+  border-color: var(--accent-blue) !important;
+  outline: 2px solid var(--secondary-navy) !important;
+  outline-offset: 2px !important;
 }
 
 .btn-light:focus {
