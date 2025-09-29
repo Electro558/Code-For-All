@@ -1,5 +1,5 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Import Premium Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+Pro:wght@400;600;700&family=Work+Sans:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Raleway:wght@300;400;500;600;700;800;900&family=Arvo:wght@400;700&family=Glegoo:wght@400;700&display=swap');
 
 /* CSS Custom Properties for Consistent Design */
 :root {
@@ -14,10 +14,17 @@
   --text-light: #636e72;
   --gold-accent: #fdcb6e;
   
-  /* Typography */
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Premium Typography System */
+  --font-primary: 'Playfair Display', serif;        /* Elegant serif for headings */
+  --font-secondary: 'Inter', sans-serif;            /* Clean sans-serif for body text */
+  --font-mono: 'JetBrains Mono', monospace;         /* Monospace for code */
+  --font-serif-alt: 'Source Serif Pro', serif;     /* Alternative serif for special content */
+  --font-sans-alt: 'Work Sans', sans-serif;        /* Alternative sans-serif for UI elements */
+  --font-serif-premium: 'Crimson Text', serif;     /* Premium serif for special headings */
+  --font-sans-premium: 'Montserrat', sans-serif;   /* Premium sans-serif for modern headings */
+  --font-display: 'Raleway', sans-serif;          /* Display font for impact headings */
+  --font-arvo: 'Arvo', serif;                     /* Arvo for special text elements */
+  --font-glegoo: 'Glegoo', serif;                 /* Glegoo for elegant text elements */
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -84,51 +91,142 @@ body {
   max-width: 1000px;
 }
 
-/* Typography System */
+/* Premium Typography System */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-primary);
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--spacing-sm);
   color: var(--text-dark);
+  letter-spacing: -0.01em;
 }
 
+/* Premium h1 Styling - Sharper Text */
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
   letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 2rem;
+  color: var(--primary-navy);
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--light-blue));
+  border-radius: 2px;
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 600;
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 600;
 }
 
+h4 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+}
+
+/* Enhanced Body Text */
 p {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   color: var(--text-dark);
   margin-bottom: var(--spacing-sm);
+  line-height: 1.75;
+  font-weight: 400;
+  letter-spacing: -0.005em;
 }
 
+/* Professional Text Classes */
 .text-large {
+  font-size: 1.375rem;
+  line-height: 1.7;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+}
+
+.text-medium {
   font-size: 1.25rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-weight: 400;
 }
 
 .text-small {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-/* Global Link Styles */
+.text-tiny {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Professional Text Styles */
+.text-lead {
+  font-family: var(--font-serif-alt);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin-bottom: 2rem;
+}
+
+.text-subtle {
+  color: var(--text-medium);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.text-strong {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.text-caption {
+  font-family: var(--font-sans-alt);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-medium);
+}
+
+/* Professional Link Styles */
 a {
   color: var(--accent-blue);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
@@ -227,16 +325,17 @@ nav li {
 }
 
 nav a {
-  font-family: var(--font-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-family: var(--font-sans-alt);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--text-dark);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   padding: 0.75rem 1.25rem;
   border-radius: 12px;
   display: block;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 nav a:hover {
@@ -300,17 +399,18 @@ nav a.active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 30px;
-  font-family: var(--font-secondary);
+  padding: 16px 32px;
+  font-family: var(--font-sans-alt);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 0.9375rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1;
 }
 
 .btn:hover {
@@ -446,12 +546,16 @@ a.btn.btn-light:hover {
 }
 
 .hero p {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-serif-alt);
+  font-size: 1.375rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: var(--spacing-lg);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: -0.01em;
 }
 
 .hero-buttons {
@@ -615,10 +719,15 @@ section {
   align-items: center;
 }
 
+.about-text {
+  font-family: var(--font-arvo);
+}
+
 .about-text p {
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: var(--spacing-md);
+  font-family: var(--font-arvo);
 }
 
 .about-image {
@@ -700,6 +809,7 @@ section {
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: var(--spacing-md);
+  font-family: var(--font-glegoo);
 }
 
 .cause-image img {
@@ -981,6 +1091,7 @@ footer {
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease;
     min-width: 100px;
+    text-align: center;
 }
 
 .feature:hover {
@@ -1976,6 +2087,106 @@ footer {
 }
 
 .btn-icon.view:hover {
-    background: #229954;
-    transform: scale(1.1);
+  background: #229954;
+  transform: scale(1.1);
+}
+
+/* Professional Typography Utility Classes */
+.font-primary { font-family: var(--font-primary); }
+.font-secondary { font-family: var(--font-secondary); }
+.font-serif-alt { font-family: var(--font-serif-alt); }
+.font-sans-alt { font-family: var(--font-sans-alt); }
+.font-mono { font-family: var(--font-mono); }
+.font-serif-premium { font-family: var(--font-serif-premium); }
+.font-sans-premium { font-family: var(--font-sans-premium); }
+.font-display { font-family: var(--font-display); }
+.font-arvo { font-family: var(--font-arvo); }
+.font-glegoo { font-family: var(--font-glegoo); }
+
+/* Font Weight Utilities */
+.fw-300 { font-weight: 300; }
+.fw-400 { font-weight: 400; }
+.fw-450 { font-weight: 450; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+
+/* Letter Spacing Utilities */
+.ls-tight { letter-spacing: -0.02em; }
+.ls-normal { letter-spacing: -0.01em; }
+.ls-wide { letter-spacing: 0.02em; }
+.ls-wider { letter-spacing: 0.05em; }
+.ls-widest { letter-spacing: 0.1em; }
+
+/* Professional Text Transform */
+.text-uppercase-pro {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.text-capitalize-pro {
+  text-transform: capitalize;
+  letter-spacing: -0.005em;
+}
+
+/* Enhanced Reading Experience */
+.reading-optimized {
+  font-family: var(--font-serif-alt);
+  line-height: 1.8;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-glegoo);
+}
+
+.ui-optimized {
+  font-family: var(--font-sans-alt);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Premium Heading Classes - Sharper Text */
+.heading-premium {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--primary-navy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+.heading-premium::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--light-blue));
+  border-radius: 2px;
+}
+
+.heading-elegant {
+  font-family: var(--font-serif-premium);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--primary-navy);
+}
+
+.heading-modern {
+  font-family: var(--font-sans-premium);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
 }
