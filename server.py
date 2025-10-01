@@ -183,6 +183,23 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(analytics_data).encode('utf-8'))
             return
+
+        # Public contact info endpoint
+        if self.path == '/api/public-contact':
+            contact_info = {
+                'email': os.getenv('PUBLIC_CONTACT_EMAIL', ''),
+                'phone': os.getenv('PUBLIC_CONTACT_PHONE', ''),
+                'address': os.getenv('PUBLIC_CONTACT_ADDRESS', ''),
+                'instagram_url': os.getenv('PUBLIC_INSTAGRAM_URL', ''),
+                'twitter_url': os.getenv('PUBLIC_TWITTER_URL', ''),
+                'facebook_url': os.getenv('PUBLIC_FACEBOOK_URL', '')
+            }
+            self.send_response(HTTPStatus.OK)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(contact_info).encode('utf-8'))
+            return
         
         # Continue with normal file serving
         super().do_GET()

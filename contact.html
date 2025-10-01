@@ -310,7 +310,7 @@
                         </div>
                         <div class="info-content">
                             <h4>Our Location</h4>
-                            <p>40 Woodlands Street 41<br>Singapore 738547</p>
+                            <p id="contact-address">40 Woodlands Street 41<br>Singapore 738547</p>
                         </div>
                     </div>
                     
@@ -320,7 +320,7 @@
                         </div>
                         <div class="info-content">
                             <h4>Email Us</h4>
-                            <p><a href="mailto:zhu47578@sas.edu.sg">zhu47578@sas.edu.sg</a></p>
+                            <p><a id="contact-email-link" href="mailto:zhu47578@sas.edu.sg"><span id="contact-email">zhu47578@sas.edu.sg</span></a></p>
                         </div>
                     </div>
                     
@@ -330,7 +330,7 @@
                         </div>
                         <div class="info-content">
                             <h4>Phone</h4>
-                            <p><a href="tel:+6586472776">+65 8647 2776</a></p>
+                            <p><a id="contact-phone-link" href="tel:+6586472776"><span id="contact-phone">+65 8647 2776</span></a></p>
                         </div>
                     </div>
                     
@@ -367,8 +367,8 @@
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a id="contact-instagram" href="#"><i class="fab fa-instagram"></i></a>
+                        <a id="contact-linkedin" href="#"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 
@@ -666,6 +666,48 @@
                 }
             });
         });
+
+        // Populate contact info from server env via API
+        (async function populateContactInfo() {
+            try {
+                const res = await fetch('/api/public-contact');
+                if (!res.ok) return; 
+                const info = await res.json();
+                const setText = (el, text) => { if (el && text) el.textContent = text; };
+                const setAttr = (el, name, val) => { if (el && val) el.setAttribute(name, val); };
+
+                // Email
+                const emailSpan = document.getElementById('contact-email');
+                const emailLink = document.getElementById('contact-email-link');
+                if (info.email) {
+                    setText(emailSpan, info.email);
+                    setAttr(emailLink, 'href', `mailto:${info.email}`);
+                }
+
+                // Phone
+                const phoneSpan = document.getElementById('contact-phone');
+                const phoneLink = document.getElementById('contact-phone-link');
+                if (info.phone) {
+                    setText(phoneSpan, info.phone);
+                    const tel = info.phone.replace(/[^+\d]/g, '');
+                    setAttr(phoneLink, 'href', `tel:${tel}`);
+                }
+
+                // Address
+                const addr = document.getElementById('contact-address');
+                if (info.address) setText(addr, info.address);
+
+                // Socials
+                const ig = document.getElementById('contact-instagram');
+                const li = document.getElementById('contact-linkedin');
+                if (info.instagram_url) setAttr(ig, 'href', info.instagram_url);
+                if (info.facebook_url) {
+                    // There is no explicit Facebook anchor here; leaving for index.html
+                }
+            } catch (e) {
+                console.warn('Failed to populate contact info', e);
+            }
+        })();
     </script>
 </body>
 </html>

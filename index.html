@@ -173,13 +173,13 @@
                 </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
-                    <p><i class="fas fa-envelope"></i> zhu47578@sas.edu.sg</p>
-                    <p><i class="fas fa-phone"></i> +65 8647 2776</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 40 Woodlands Street 41, Singapore 738547</p>
+                    <p><i class="fas fa-envelope"></i> <span id="footer-email">zhu47578@sas.edu.sg</span></p>
+                    <p><i class="fas fa-phone"></i> <span id="footer-phone">+65 8647 2776</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="footer-address">40 Woodlands Street 41, Singapore 738547</span></p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a id="footer-instagram" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a id="footer-twitter" href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a id="footer-facebook" href="#" target="_blank"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
             </div>
@@ -190,5 +190,27 @@
     </footer>
 
     <script src="script.js"></script>
-</body>
-</html>
+    <script>
+    // Populate footer contact info from /api/public-contact
+    (async function populateFooterContact(){
+        try {
+            const res = await fetch('/api/public-contact');
+            if (!res.ok) return;
+            const info = await res.json();
+            const setText = (el, text) => { if (el && text) el.textContent = text; };
+            const setAttr = (el, name, val) => { if (el && val) el.setAttribute(name, val); };
+
+            setText(document.getElementById('footer-email'), info.email);
+            setText(document.getElementById('footer-phone'), info.phone);
+            setText(document.getElementById('footer-address'), info.address);
+
+            setAttr(document.getElementById('footer-instagram'), 'href', info.instagram_url);
+            setAttr(document.getElementById('footer-twitter'), 'href', info.twitter_url);
+            setAttr(document.getElementById('footer-facebook'), 'href', info.facebook_url);
+        } catch(e) {
+            console.warn('Footer contact population failed', e);
+        }
+    })();
+    </script>
+    </body>
+    </html>
