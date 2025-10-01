@@ -11,11 +11,40 @@ from email.mime.multipart import MIMEMultipart
 from urllib.parse import urlparse, parse_qs
 from http import HTTPStatus
 
+def load_env_from_file(file_path: str = ".env"):
+    """Load environment variables from a .env file if present.
+    Only sets variables that are not already present in os.environ.
+    """
+    try:
+        if not os.path.exists(file_path):
+            return
+        with open(file_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                if '=' not in line:
+                    continue
+                key, value = line.split('=', 1)
+                key = key.strip()
+                value = value.strip()
+                # Strip surrounding quotes if present
+                if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+                    value = value[1:-1]
+                if key and (key not in os.environ):
+                    os.environ[key] = value
+    except Exception as e:
+        print(f"[ENV WARN] Failed to load {file_path}: {e}")
+
+# Load env before using any configuration
+load_env_from_file()
+
 class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def track_visitor(self, path, user_agent=None, ip_address=None):
         """Track visitor analytics"""
         try:
-            analytics_file = 'analytics.json'
+            # Allow analytics file path override via env
+            analytics_file = os.getenv('ANALYTICS_FILE', 'analytics.json')
             
             # Load existing analytics data
             try:
@@ -91,7 +120,8 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def get_analytics_data(self):
         """Get analytics data for dashboard"""
         try:
-            analytics_file = 'analytics.json'
+            # Allow analytics file path override via env
+            analytics_file = os.getenv('ANALYTICS_FILE', 'analytics.json')
             try:
                 with open(analytics_file, 'r') as f:
                     analytics = json.load(f)
@@ -209,7 +239,8 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 
                 # Load existing users.json file
                 try:
-                    with open('users.json', 'r') as f:
+                    users_file = os.getenv('USERS_FILE', 'users.json')
+                    with open(users_file, 'r') as f:
                         existing_data = json.load(f)
                         if 'users' in existing_data:
                             users_list = existing_data['users']
@@ -231,7 +262,8 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     'users': users_list,
                     'sessions': []
                 }
-                with open('users.json', 'w') as f:
+                users_file = os.getenv('USERS_FILE', 'users.json')
+                with open(users_file, 'w') as f:
                     json.dump(updated_data, f, indent=4)
                 
                 # Send success response
@@ -272,12 +304,18 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             print(f"[EMAIL DEBUG] Interests: {', '.join(contact_data.get('interests', []))}")
             print(f"[EMAIL DEBUG] Message: {contact_data.get('message', 'Not provided')}")
             
-            # Email configuration
-            smtp_server = "smtp.gmail.com"
-            smtp_port = 587
-            sender_email = "zhu47578@sas.edu.sg"  # Your Gmail
-            sender_password = "mxfb suov iecq jcux"  # Your Gmail App Password
-            recipient_emails = ["zhu47578@sas.edu.sg", "khushani46446@sas.edu.sg"]  # Where to send the contact form
+            # Email configuration from environment
+            smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+            smtp_port = int(os.getenv('SMTP_PORT', '587'))
+            sender_email = os.getenv('SENDER_EMAIL', '')
+            sender_password = os.getenv('SENDER_PASSWORD', '')
+            # Comma-separated recipients in env
+            recipient_env = os.getenv('RECIPIENT_EMAILS', '')
+            recipient_emails = [e.strip() for e in recipient_env.split(',') if e.strip()] or []
+
+            if not sender_email or not sender_password or not recipient_emails:
+                print('[EMAIL ERROR] Missing email configuration in environment variables.')
+                return False
             
             # Create message
             msg = MIMEMultipart()
@@ -330,7 +368,8 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 if __name__ == "__main__":
-    PORT = 8001
+    # Allow port override via environment
+    PORT = int(os.getenv('PORT', '8001'))
     
     with socketserver.TCPServer(("", PORT), CustomHTTPRequestHandler) as httpd:
         print(f"Server running at http://localhost:{PORT}/")
