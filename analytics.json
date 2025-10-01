@@ -1,0 +1,671 @@
+{
+  "total_visits": 182,
+  "daily_visits": {
+    "2025-09-29": 51,
+    "2025-09-30": 45,
+    "2025-10-01": 86
+  },
+  "monthly_visits": {
+    "2025-09": 96,
+    "2025-10": 86
+  },
+  "page_views": {
+    "/admin-dashboard.html?ide_webview_request_time=1759157484411": 1,
+    "/logos/logo_small_light.png": 3,
+    "/styles.css": 6,
+    "/login.html": 4,
+    "/users.json": 12,
+    "/@vite/client": 48,
+    "/api/analytics": 28,
+    "/": 1,
+    "/login.html?ide_webview_request_time=1759157737025": 1,
+    "/test-login.html?ide_webview_request_time=1759157770240": 1,
+    "/login.html?ide_webview_request_time=1759157816876": 1,
+    "/test-auth.html?ide_webview_request_time=1759157857788": 1,
+    "/debug-login.html?ide_webview_request_time=1759157913844": 1,
+    "/debug-login.html": 1,
+    "/test-login-js.html?ide_webview_request_time=1759157958165": 1,
+    "/login.html?ide_webview_request_time=1759158042676": 1,
+    "/test-final-login.html?ide_webview_request_time=1759158065073": 1,
+    "/test-final-login.html": 1,
+    "/comprehensive-test.html?ide_webview_request_time=1759158139867": 1,
+    "/?ide_webview_request_time=1759158400971": 1,
+    "/index.html": 4,
+    "/admin-dashboard.html": 5,
+    "/events.html": 4,
+    "/photos/coding_workshop.jpg": 1,
+    "/photos/coding_students.jpg": 1,
+    "/coding_event.jpg": 9,
+    "/coding_classroom.jpg": 9,
+    "/events.html?ide_webview_request_time=1759204364479": 1,
+    "/script.js": 4,
+    "/server-logs": 1,
+    "/test-events-redirect.html?ide_webview_request_time=1759204402023": 1,
+    "/?ide_webview_request_time=1759209515136": 1,
+    "/team.html": 1,
+    "/photos/IMG_7490.JPG": 1,
+    "/photos/IMG_7491.JPG": 1,
+    "/photos/IMG_7492.JPG": 1,
+    "/photos/IMG_7493.JPG": 1,
+    "/photos/IMG_7494.JPG": 1,
+    "/photos/IMG_7495.JPG": 1,
+    "/photos/IMG_7496.JPG": 1,
+    "/coding_hackathon.jpg": 1,
+    "/contact.html": 1,
+    "/photos/coding_project.jpg": 2,
+    "/photos/coding_classroom.jpg": 2,
+    "/admin-dashboard.html?ide_webview_request_time=1759291190689": 1,
+    "/admin-dashboard.html?ide_webview_request_time=1759291226416": 1,
+    "/events.html?ide_webview_request_time=1759291452451": 1,
+    "/admin.html": 1,
+    "/logos/logo_big_light.png": 1,
+    "/logos/favicon.png": 1,
+    "/logos/favicon.ico": 1,
+    "/admin.html?ide_webview_request_time=1759299256992": 1,
+    "/photos/IMG_0142.JPG": 1,
+    "/admin-dashboard.html?ide_webview_request_time=1759299430329": 2,
+    "/admin-dashboard.html?ide_webview_request_time=1759299467983": 1
+  },
+  "recent_visits": [
+    {
+      "timestamp": "2025-10-01 14:26:34",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:33",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:33",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:31",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:30",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:27",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:27",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:27",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:25",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:26:25",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:48",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:48",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:48",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:47",
+      "path": "/admin-dashboard.html?ide_webview_request_time=1759299467983",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:46",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:45",
+      "path": "/admin-dashboard.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:17",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/users.json",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/logos/logo_small_light.png",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/script.js",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/styles.css",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:13",
+      "path": "/admin-dashboard.html?ide_webview_request_time=1759299430329",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:10",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:10",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:10",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:10",
+      "path": "/admin-dashboard.html?ide_webview_request_time=1759299430329",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:09",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:17:07",
+      "path": "/admin-dashboard.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:16:00",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:15:58",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:15:31",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:21",
+      "path": "/photos/IMG_0142.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:21",
+      "path": "/photos/coding_project.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:21",
+      "path": "/photos/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:21",
+      "path": "/index.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:21",
+      "path": "/users.json",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:17",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:17",
+      "path": "/admin.html?ide_webview_request_time=1759299256992",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:16",
+      "path": "/logos/favicon.ico",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:16",
+      "path": "/logos/favicon.png",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:16",
+      "path": "/login.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:12",
+      "path": "/logos/logo_small_light.png",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:12",
+      "path": "/logos/logo_big_light.png",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:12",
+      "path": "/script.js",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:12",
+      "path": "/styles.css",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 14:14:12",
+      "path": "/admin.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:04:12",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:04:12",
+      "path": "/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:04:12",
+      "path": "/coding_event.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:04:12",
+      "path": "/events.html?ide_webview_request_time=1759291452451",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:04",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:04",
+      "path": "/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:04",
+      "path": "/coding_event.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:03",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:01",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:01",
+      "path": "/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:01",
+      "path": "/coding_event.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:00",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:02:00",
+      "path": "/index.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:01:57",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:00:26",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:00:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:00:26",
+      "path": "/api/analytics",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 12:00:26",
+      "path": "/admin-dashboard.html?ide_webview_request_time=1759291226416",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:59:50",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:59:50",
+      "path": "/admin-dashboard.html?ide_webview_request_time=1759291190689",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:56:07",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:56:07",
+      "path": "/admin-dashboard.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:56:07",
+      "path": "/users.json",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:58",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:58",
+      "path": "/login.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/coding_event.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/photos/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/script.js",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/photos/coding_project.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/styles.css",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-10-01 11:55:53",
+      "path": "/events.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:27",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:24",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:24",
+      "path": "/coding_classroom.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:24",
+      "path": "/coding_event.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:24",
+      "path": "/events.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:23",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:23",
+      "path": "/contact.html",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:23",
+      "path": "/@vite/client",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:23",
+      "path": "/coding_hackathon.jpg",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:22",
+      "path": "/photos/IMG_7496.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:22",
+      "path": "/photos/IMG_7495.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:22",
+      "path": "/photos/IMG_7494.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:22",
+      "path": "/photos/IMG_7493.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "timestamp": "2025-09-30 14:41:22",
+      "path": "/photos/IMG_7492.JPG",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "ip_address": "127.0.0.1"
+    }
+  ]
+}

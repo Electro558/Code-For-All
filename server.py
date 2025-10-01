@@ -4,12 +4,159 @@ import socketserver
 import json
 import os
 import smtplib
+import time
+from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from urllib.parse import urlparse, parse_qs
 from http import HTTPStatus
 
 class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def track_visitor(self, path, user_agent=None, ip_address=None):
+        """Track visitor analytics"""
+        try:
+            analytics_file = 'analytics.json'
+            
+            # Load existing analytics data
+            try:
+                with open(analytics_file, 'r') as f:
+                    analytics = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                analytics = {
+                    'total_visits': 0,
+                    'daily_visits': {},
+                    'page_views': {},
+                    'monthly_visits': {},
+                    'recent_visits': []
+                }
+            
+            # Parse and sanitize path (strip query params)
+            parsed = urlparse(path)
+            path_only = parsed.path or '/'
+
+            # Exclude localhost traffic and internal/API endpoints from analytics
+            # - Ignore localhost/dev IPs
+            if ip_address in ('127.0.0.1', '::1'):
+                return
+            # - Ignore API calls
+            if path_only.startswith('/api/'):
+                return
+            # - Consider only HTML pages and root for visit counts
+            ext = os.path.splitext(path_only)[1]
+            is_page = (ext == '.html') or (path_only == '/')
+            if not is_page:
+                # Skip non-page assets from analytics tracking
+                return
+
+            # Get current date
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            current_month = datetime.now().strftime('%Y-%m')
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Update total visits
+            analytics['total_visits'] += 1
+            
+            # Update daily visits
+            if current_date not in analytics['daily_visits']:
+                analytics['daily_visits'][current_date] = 0
+            analytics['daily_visits'][current_date] += 1
+            
+            # Update monthly visits
+            if current_month not in analytics['monthly_visits']:
+                analytics['monthly_visits'][current_month] = 0
+            analytics['monthly_visits'][current_month] += 1
+            
+            # Update page views
+            if path_only not in analytics['page_views']:
+                analytics['page_views'][path_only] = 0
+            analytics['page_views'][path_only] += 1
+            
+            # Add recent visit (keep last 100)
+            recent_visit = {
+                'timestamp': current_time,
+                'path': path_only,
+                'user_agent': user_agent,
+                'ip_address': ip_address
+            }
+            analytics['recent_visits'].insert(0, recent_visit)
+            analytics['recent_visits'] = analytics['recent_visits'][:100]  # Keep only last 100
+            
+            # Save analytics data
+            with open(analytics_file, 'w') as f:
+                json.dump(analytics, f, indent=2)
+                
+        except Exception as e:
+            print(f"Error tracking visitor: {e}")
+    
+    def get_analytics_data(self):
+        """Get analytics data for dashboard"""
+        try:
+            analytics_file = 'analytics.json'
+            try:
+                with open(analytics_file, 'r') as f:
+                    analytics = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                return {
+                    'total_visits': 0,
+                    'daily_visits': {},
+                    'page_views': {},
+                    'monthly_visits': {},
+                    'recent_visits': []
+                }
+            
+            # Ensure required keys exist
+            analytics.setdefault('daily_visits', {})
+            analytics.setdefault('monthly_visits', {})
+            analytics.setdefault('page_views', {})
+            analytics.setdefault('recent_visits', [])
+
+            # Calculate additional stats
+            today = datetime.now().strftime('%Y-%m-%d')
+            yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+            
+            today_visits = analytics['daily_visits'].get(today, 0)
+            yesterday_visits = analytics['daily_visits'].get(yesterday, 0)
+            
+            # Calculate percentage change
+            change_percent = 0
+            if yesterday_visits > 0:
+                change_percent = ((today_visits - yesterday_visits) / yesterday_visits) * 100
+            
+            analytics['today_visits'] = today_visits
+            analytics['yesterday_visits'] = yesterday_visits
+            analytics['daily_change'] = round(change_percent, 1)
+            
+            # Get top pages
+            # Filter to .html pages and root only for top pages display
+            top_pages = [item for item in analytics['page_views'].items() if item[0].endswith('.html') or item[0] == '/']
+            top_pages = sorted(top_pages, key=lambda x: x[1], reverse=True)[:5]
+            analytics['top_pages'] = top_pages
+            
+            return analytics
+            
+        except Exception as e:
+            print(f"Error getting analytics data: {e}")
+            return {'error': str(e)}
+    
+    def do_GET(self):
+        # Track visitor for all GET requests
+        user_agent = self.headers.get('User-Agent', '')
+        ip_address = self.client_address[0]
+        self.track_visitor(self.path, user_agent, ip_address)
+        
+        # Handle analytics API endpoint
+        if self.path == '/api/analytics':
+            analytics_data = self.get_analytics_data()
+            self.send_response(HTTPStatus.OK)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(analytics_data).encode('utf-8'))
+            return
+        
+        # Continue with normal file serving
+        super().do_GET()
+    
     def do_POST(self):
         parsed_path = urlparse(self.path)
         

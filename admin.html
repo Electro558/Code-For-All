@@ -82,6 +82,9 @@
                     <button class="btn btn-primary" onclick="showAddUserModal()">
                         <i class="fas fa-plus"></i> Add New User
                     </button>
+                    <button class="btn btn-outline" onclick="openSearchModal()" title="Advanced Search">
+                        <i class="fas fa-search"></i> Advanced Search
+                    </button>
                 </div>
 
                 <!-- Search and Filter -->
@@ -121,6 +124,52 @@
             </div>
         </div>
     </section>
+
+    <!-- Search Users Modal -->
+    <div id="search-users-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-search"></i> Search Users</h3>
+                <span class="close" onclick="closeSearchModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="admin-controls" style="margin-bottom: 1rem;">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="modal-user-search" placeholder="Search username or email..." oninput="runModalSearch()">
+                    </div>
+                    <div class="filter-box">
+                        <select id="modal-role-filter" onchange="runModalSearch()">
+                            <option value="all">All Roles</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Created</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modal-users-table-body">
+                            <!-- Results populate here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeSearchModal()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Add User Modal -->
     <div id="add-user-modal" class="modal">
@@ -359,6 +408,58 @@
             });
         }
 
+        function openSearchModal() {
+            document.getElementById('search-users-modal').style.display = 'block';
+            // Initialize modal search inputs from main controls for consistency
+            const mainSearch = document.getElementById('user-search').value;
+            const mainRole = document.getElementById('role-filter').value;
+            document.getElementById('modal-user-search').value = mainSearch || '';
+            document.getElementById('modal-role-filter').value = mainRole || 'all';
+            runModalSearch();
+        }
+
+        function closeSearchModal() {
+            document.getElementById('search-users-modal').style.display = 'none';
+        }
+
+        function runModalSearch() {
+            const searchTerm = (document.getElementById('modal-user-search').value || '').toLowerCase();
+            const roleFilter = document.getElementById('modal-role-filter').value;
+
+            const results = allUsers.filter(user => {
+                const matchesSearch = user.username.toLowerCase().includes(searchTerm) ||
+                                      user.email.toLowerCase().includes(searchTerm);
+                const matchesRole = roleFilter === 'all' || user.role === roleFilter;
+                return matchesSearch && matchesRole;
+            });
+
+            const tbody = document.getElementById('modal-users-table-body');
+            tbody.innerHTML = '';
+            results.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td><a href="#" onclick="viewUserDetails(${user.id}); return false;" class="user-link">${user.username}</a></td>
+                    <td>${user.email}</td>
+                    <td><span class="role-badge ${user.role}">${user.role}</span></td>
+                    <td>${formatDate(user.created_at)}</td>
+                    <td>${user.last_login ? formatDate(user.last_login) : 'Never'}</td>
+                    <td class="actions">
+                        <button class="btn-icon view" onclick="viewUserDetails(${user.id})" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-icon edit" onclick="editUser(${user.id})" title="Edit User">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon delete" onclick="deleteUser(${user.id})" title="Delete User">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
         function filterUsers() {
             const searchTerm = document.getElementById('user-search').value.toLowerCase();
             const roleFilter = document.getElementById('role-filter').value;
@@ -522,6 +623,7 @@
             const addModal = document.getElementById('add-user-modal');
             const editModal = document.getElementById('edit-user-modal');
             const detailsModal = document.getElementById('user-details-modal');
+            const searchModal = document.getElementById('search-users-modal');
             if (event.target === addModal) {
                 closeAddUserModal();
             }
@@ -530,6 +632,9 @@
             }
             if (event.target === detailsModal) {
                 closeUserDetailsModal();
+            }
+            if (event.target === searchModal) {
+                closeSearchModal();
             }
         }
     </script>

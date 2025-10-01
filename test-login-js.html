@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login JS</title>
+</head>
+<body>
+    <h1>Testing Login JavaScript</h1>
+    <div id="output"></div>
+    
+    <script>
+        // Simulate the authSystem functionality
+        class TestAuthSystem {
+            constructor() {
+                this.currentUser = null;
+                this.users = [];
+            }
+            
+            async fetchUsers() {
+                try {
+                    const response = await fetch('users.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    this.users = data.users;
+                    return true;
+                } catch (error) {
+                    document.getElementById('output').innerHTML += `<p style="color: red;">Error fetching users: ${error.message}</p>`;
+                    return false;
+                }
+            }
+            
+            async login(username, password) {
+                document.getElementById('output').innerHTML += `<p>Attempting login with username: ${username}, password: ${password}</p>`;
+                
+                const success = await this.fetchUsers();
+                if (!success) return false;
+                
+                document.getElementById('output').innerHTML += `<p>Found ${this.users.length} users</p>`;
+                
+                // Find user by username or email
+                const user = this.users.find(u => 
+                    (u.username === username || u.email === username) && u.password === password
+                );
+                
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    document.getElementById('output').innerHTML += `<p style="color: green;">Login successful! User: ${JSON.stringify(user)}</p>`;
+                    return true;
+                } else {
+                    document.getElementById('output').innerHTML += `<p style="color: red;">Login failed - user not found or password incorrect</p>`;
+                    return false;
+                }
+            }
+            
+            isAdmin() {
+                return this.currentUser && this.currentUser.role === 'admin';
+            }
+        }
+        
+        // Test the login
+        async function testLogin() {
+            document.getElementById('output').innerHTML = '<h2>Test Results:</h2>';
+            
+            const authSystem = new TestAuthSystem();
+            
+            // Test admin login
+            const result = await authSystem.login('admin', 'admin123');
+            document.getElementById('output').innerHTML += `<p>Login result: ${result}</p>`;
+            
+            if (result) {
+                document.getElementById('output').innerHTML += `<p style="color: green;">Is admin: ${authSystem.isAdmin()}</p>`;
+            }
+            
+            // Test email login
+            document.getElementById('output').innerHTML += '<h3>Testing email login:</h3>';
+            const authSystem2 = new TestAuthSystem();
+            const result2 = await authSystem2.login('admin@codeforall.org', 'admin123');
+            document.getElementById('output').innerHTML += `<p>Email login result: ${result2}</p>`;
+        }
+        
+        // Run test on page load
+        window.addEventListener('load', testLogin);
+    </script>
+</body>
+</html>

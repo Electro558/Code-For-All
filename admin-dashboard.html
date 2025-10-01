@@ -176,6 +176,55 @@
         .btn-primary:hover {
             background: #45a049;
         }
+
+        /* Enhanced Create Event button */
+        .create-event-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #4CAF50, #2ecc71);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .create-event-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(46, 204, 113, 0.5);
+        }
+
+        .create-event-button .icon {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .view-calendar-button {
+            margin-left: 0.75rem;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .view-calendar-button:hover {
+            background: rgba(255,255,255,0.2);
+            color: #ffffff;
+        }
         
         .btn-danger {
             background: #f44336;
@@ -395,6 +444,48 @@
             opacity: 0.8;
         }
         
+        .stat-change {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .stat-change.positive {
+            color: #28a745;
+        }
+        
+        .stat-change.negative {
+            color: #dc3545;
+        }
+        
+        .top-page-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .top-page-item:last-child {
+            border-bottom: none;
+        }
+        
+        .page-name {
+            font-weight: 500;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .page-views {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
         .logout-btn {
             background: rgba(255, 255, 255, 0.2);
             color: white;
@@ -502,7 +593,13 @@
             <div id="events" class="content-section">
                 <div class="section-header">
                     <h2>Event Management</h2>
-                    <button class="btn-primary" onclick="addNewEvent()">Create New Event</button>
+                    <div>
+                        <button class="create-event-button" onclick="openCreateEventModal()">
+                            <span class="icon">➕</span>
+                            <span>Create New Event</span>
+                        </button>
+                        <button class="view-calendar-button" onclick="window.location.href='events.html'">View Public Calendar</button>
+                    </div>
                 </div>
                 
                 <div class="table-container">
@@ -528,9 +625,20 @@
             <div id="analytics" class="content-section">
                 <div class="section-header">
                     <h2>Analytics Dashboard</h2>
+                    <button class="btn-primary" onclick="refreshAnalytics()">🔄 Refresh</button>
                 </div>
                 
+                <!-- Visitor Statistics -->
                 <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-visits">0</div>
+                        <div class="stat-label">Total Visits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="today-visits">0</div>
+                        <div class="stat-label">Today's Visits</div>
+                        <div class="stat-change" id="daily-change">0%</div>
+                    </div>
                     <div class="stat-card">
                         <div class="stat-number" id="total-users">0</div>
                         <div class="stat-label">Total Users</div>
@@ -549,10 +657,43 @@
                     </div>
                 </div>
                 
+                <!-- Visitor Charts -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px;">
+                        <h3>Daily Visits (Last 7 Days)</h3>
+                        <canvas id="daily-visits-chart" width="400" height="200"></canvas>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px;">
+                        <h3>Top Pages</h3>
+                        <div id="top-pages-list">
+                            <!-- Top pages will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Monthly Trends -->
                 <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-                    <h3>Recent Activity</h3>
-                    <div id="recent-activity">
-                        <!-- Recent activity will be loaded here -->
+                    <h3>Monthly Trends</h3>
+                    <canvas id="monthly-trends-chart" width="800" height="300"></canvas>
+                </div>
+                
+                <!-- Recent Visits -->
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                    <h3>Recent Visits</h3>
+                    <div style="max-height: 300px; overflow-y: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.3);">
+                                    <th style="text-align: left; padding: 0.5rem;">Time</th>
+                                    <th style="text-align: left; padding: 0.5rem;">Page</th>
+                                    <th style="text-align: left; padding: 0.5rem;">IP Address</th>
+                                    <th style="text-align: left; padding: 0.5rem;">User Agent</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-visits-tbody">
+                                <!-- Recent visits will be loaded here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -620,7 +761,8 @@
                 return;
             }
             currentUser = user;
-            document.getElementById('admin-username').textContent = user.username;
+            const adminNameEl = document.getElementById('admin-username');
+            if (adminNameEl) adminNameEl.textContent = user.username;
         }
         
         // Setup navigation
@@ -630,14 +772,21 @@
                 // Only prevent default for internal navigation links
                 if (link.dataset.section) {
                     link.addEventListener('click', function(e) {
-                        e.preventDefault();
+                        // Update hash so URL reflects current section
                         const section = this.dataset.section;
-                        showSection(section);
+                        if (section) {
+                            // Allow default hash navigation to occur
+                            location.hash = `#${section}`;
+                            // Also immediately show the section for snappy UX
+                            showSection(section);
+                        }
+                        // Prevent page jump since we manage visibility ourselves
+                        e.preventDefault();
                     });
                 }
             });
         }
-        
+
         // Show specific section
         function showSection(sectionName) {
             // Hide all sections
@@ -651,11 +800,32 @@
             });
             
             // Show selected section
-            document.getElementById(sectionName).classList.add('active');
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
             
             // Add active class to corresponding nav link
-            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+            const navLink = document.querySelector(`[data-section="${sectionName}"]`);
+            if (navLink) {
+                navLink.classList.add('active');
+            }
         }
+
+        // Handle routing via hash to keep nav links working reliably
+        const validSections = ['dashboard', 'users', 'events', 'analytics', 'settings'];
+        function initSectionFromHash() {
+            let section = (location.hash || '').replace('#', '') || 'dashboard';
+            if (!validSections.includes(section)) section = 'dashboard';
+            showSection(section);
+        }
+
+        window.addEventListener('hashchange', initSectionFromHash);
+
+        // Initialize section after content loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initSectionFromHash();
+        });
         
         // Load users
         async function loadUsers() {
@@ -710,12 +880,14 @@
             });
         }
         
-        // Load events
+        // Load events - prefer shared calendarEvents used by public events page
         function loadEvents() {
-            allEvents = JSON.parse(localStorage.getItem('events') || '[]');
+            const calEvents = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+            const legacyEvents = JSON.parse(localStorage.getItem('events') || '[]');
+            allEvents = calEvents.length ? calEvents : legacyEvents;
             displayEvents();
         }
-        
+
         // Display events in table
         function displayEvents() {
             const tbody = document.getElementById('events-tbody');
@@ -736,25 +908,371 @@
                 tbody.appendChild(row);
             });
         }
-        
+
+        // Safe DOM setters
+        function setText(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        }
+        function setHTML(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = value;
+        }
+
         // Update analytics
         function updateAnalytics() {
-            document.getElementById('total-users').textContent = allUsers.length;
-            document.getElementById('total-events').textContent = allEvents.length;
-            document.getElementById('active-users').textContent = allUsers.filter(u => u.role !== 'inactive').length;
+            setText('total-users', allUsers.length);
+            setText('total-events', allEvents.length);
+            setText('active-users', allUsers.filter(u => u.role !== 'inactive').length);
             
             const today = new Date();
             const upcomingEvents = allEvents.filter(event => new Date(event.date) > today).length;
-            document.getElementById('upcoming-events').textContent = upcomingEvents;
+            setText('upcoming-events', upcomingEvents);
+            
+            // Load visitor analytics
+            loadVisitorAnalytics();
             
             // Recent activity
-            const recentActivity = document.getElementById('recent-activity');
-            recentActivity.innerHTML = `
+            setHTML('recent-activity', `
                 <p>• New user registered: ${allUsers[allUsers.length - 1]?.username || 'None'}</p>
                 <p>• Latest event: ${allEvents[allEvents.length - 1]?.title || 'None'}</p>
                 <p>• System status: Online</p>
-            `;
+            `);
         }
+        
+        // Load visitor analytics
+        async function loadVisitorAnalytics() {
+            try {
+                const response = await fetch('/api/analytics');
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error('Analytics error:', data.error);
+                    return;
+                }
+                
+                // Update visitor stats
+                setText('total-visits', data.total_visits || 0);
+                setText('today-visits', data.today_visits || 0);
+                
+                // Update daily change
+                const dailyChangeEl = document.getElementById('daily-change');
+                const changeValue = data.daily_change || 0;
+                if (dailyChangeEl) {
+                    dailyChangeEl.textContent = `${changeValue >= 0 ? '+' : ''}${changeValue}%`;
+                    dailyChangeEl.className = `stat-change ${changeValue >= 0 ? 'positive' : 'negative'}`;
+                }
+                
+                // Display top pages
+                displayTopPages(data.top_pages || []);
+                
+                // Display recent visits
+                displayRecentVisits(data.recent_visits || []);
+                
+                // Create charts
+                createDailyVisitsChart(data.daily_visits || {});
+                createMonthlyTrendsChart(data.monthly_visits || {});
+                
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+        
+        // Display top pages
+        function displayTopPages(topPages) {
+            const container = document.getElementById('top-pages-list');
+            container.innerHTML = '';
+            
+            if (topPages.length === 0) {
+                container.innerHTML = '<p>No page view data available</p>';
+                return;
+            }
+            
+            topPages.forEach(([page, views]) => {
+                const item = document.createElement('div');
+                item.className = 'top-page-item';
+                item.innerHTML = `
+                    <span class="page-name">${page}</span>
+                    <span class="page-views">${views}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+        
+        // Display recent visits
+        function displayRecentVisits(recentVisits) {
+            const tbody = document.getElementById('recent-visits-tbody');
+            tbody.innerHTML = '';
+            
+            if (recentVisits.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 1rem;">No recent visits</td></tr>';
+                return;
+            }
+            
+            recentVisits.slice(0, 20).forEach(visit => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="padding: 0.5rem;">${visit.timestamp}</td>
+                    <td style="padding: 0.5rem;">${visit.path}</td>
+                    <td style="padding: 0.5rem;">${visit.ip_address}</td>
+                    <td style="padding: 0.5rem; font-size: 0.8rem;">${visit.user_agent.substring(0, 50)}...</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Create daily visits chart
+        function createDailyVisitsChart(dailyVisits) {
+            const canvas = document.getElementById('daily-visits-chart');
+            const ctx = canvas.getContext('2d');
+            // Make responsive to container width
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth - 20;
+            canvas.height = 240;
+            
+            // Get last 7 days
+            const days = [];
+            const visits = [];
+            const today = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const yyyy = date.getFullYear();
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const dd = String(date.getDate()).padStart(2, '0');
+                const dateStr = `${yyyy}-${mm}-${dd}`; // use local date string
+                days.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+                visits.push(dailyVisits[dateStr] || 0);
+            }
+            
+            // Chart layout
+            const padding = 40;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            const maxVisits = Math.max(...visits, 1);
+            const barAreaWidth = chartWidth / days.length;
+            const barWidth = barAreaWidth * 0.6;
+            const barSpacing = barAreaWidth * 0.4;
+
+            let hoverIndex = -1;
+            let bars = [];
+
+            function render() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Axes and grid
+                ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+                ctx.lineWidth = 1;
+                const gridLines = 4;
+                for (let i = 0; i <= gridLines; i++) {
+                    const y = padding + (i * chartHeight / gridLines);
+                    ctx.beginPath();
+                    ctx.moveTo(padding, y);
+                    ctx.lineTo(padding + chartWidth, y);
+                    ctx.stroke();
+                }
+                // Axes
+                ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+                ctx.beginPath();
+                ctx.moveTo(padding, padding);
+                ctx.lineTo(padding, padding + chartHeight);
+                ctx.lineTo(padding + chartWidth, padding + chartHeight);
+                ctx.stroke();
+
+                // Draw bars and labels
+                ctx.textAlign = 'center';
+                ctx.font = '12px Arial';
+                bars = [];
+
+                days.forEach((day, index) => {
+                    const x = padding + index * (barWidth + barSpacing) + barSpacing * 0.5;
+                    const barHeight = (visits[index] / maxVisits) * chartHeight;
+                    const y = padding + chartHeight - barHeight;
+
+                    // Bar (highlight if hovered)
+                    ctx.fillStyle = index === hoverIndex ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.7)';
+                    ctx.fillRect(x, y, barWidth, barHeight);
+                    bars.push({ x, y, w: barWidth, h: barHeight });
+
+                    // Day label
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                    ctx.fillText(day, x + barWidth / 2, padding + chartHeight + 16);
+
+                    // Visit count
+                    ctx.fillText(visits[index].toString(), x + barWidth / 2, y - 6);
+                });
+
+                // Tooltip
+                if (hoverIndex >= 0) {
+                    const b = bars[hoverIndex];
+                    const text = `${days[hoverIndex]}: ${visits[hoverIndex]}`;
+                    ctx.font = '12px Arial';
+                    const tw = ctx.measureText(text).width;
+                    const tx = Math.min(b.x + b.w + 8, padding + chartWidth - (tw + 12));
+                    const ty = b.y - 24;
+                    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                    ctx.fillRect(tx, ty, tw + 12, 20);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText(text, tx + 6, ty + 14);
+                }
+            }
+
+            // Initial render
+            render();
+
+            // Hover handling with full redraw to avoid artifacts
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+                let nextIndex = -1;
+                for (let i = 0; i < bars.length; i++) {
+                    const b = bars[i];
+                    if (mx >= b.x && mx <= b.x + b.w && my >= b.y && my <= b.y + b.h) {
+                        nextIndex = i;
+                        break;
+                    }
+                }
+                if (nextIndex !== hoverIndex) {
+                    hoverIndex = nextIndex;
+                    render();
+                }
+            };
+            canvas.onmouseleave = () => {
+                if (hoverIndex !== -1) {
+                    hoverIndex = -1;
+                    render();
+                }
+            };
+        }
+        
+        // Create monthly trends chart
+        function createMonthlyTrendsChart(monthlyVisits) {
+            const canvas = document.getElementById('monthly-trends-chart');
+            const ctx = canvas.getContext('2d');
+            // Make responsive to container width
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth - 20;
+            canvas.height = 300;
+            
+            // Get last 6 months
+            const months = [];
+            const visits = [];
+            const today = new Date();
+            
+            for (let i = 5; i >= 0; i--) {
+                const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                const yyyy = date.getFullYear();
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const monthStr = `${yyyy}-${mm}`; // use local month string
+                months.push(date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }));
+                visits.push(monthlyVisits[monthStr] || 0);
+            }
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Axes and grid
+            const padding = 40;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.lineWidth = 1;
+            const gridLines = 4;
+            for (let i = 0; i <= gridLines; i++) {
+                const y = padding + (i * chartHeight / gridLines);
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(padding + chartWidth, y);
+                ctx.stroke();
+            }
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, padding + chartHeight);
+            ctx.lineTo(padding + chartWidth, padding + chartHeight);
+            ctx.stroke();
+            
+            // Simple line chart
+            const maxVisits = Math.max(...visits, 1);
+            const pointSpacing = chartWidth / (months.length - 1);
+            
+            // Draw line
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            visits.forEach((visit, index) => {
+                const x = padding + index * pointSpacing;
+                const y = padding + chartHeight - (visit / maxVisits) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            
+            // Animate line draw
+            ctx.stroke();
+            
+            // Draw points and labels
+            const points = [];
+            visits.forEach((visit, index) => {
+                const x = padding + index * pointSpacing;
+                const y = padding + chartHeight - (visit / maxVisits) * chartHeight;
+                
+                // Point
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+                points.push({x, y, v: visit});
+                
+                // Month label
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(months[index], x, padding + chartHeight + 16);
+                
+                // Visit count
+                ctx.fillText(visit.toString(), x, y - 10);
+            });
+
+            // Hover tooltip
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+                let nearest = -1;
+                for (let i = 0; i < points.length; i++) {
+                    const p = points[i];
+                    const dx = mx - p.x;
+                    const dy = my - p.y;
+                    if (Math.sqrt(dx*dx + dy*dy) <= 6) { nearest = i; break; }
+                }
+                if (nearest >= 0) {
+                    const text = `${months[nearest]}: ${points[nearest].v}`;
+                    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                    ctx.fillRect(points[nearest].x + 8, points[nearest].y - 24, ctx.measureText(text).width + 12, 20);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText(text, points[nearest].x + 14, points[nearest].y - 10);
+                }
+            };
+        }
+        
+        // Refresh analytics
+        function refreshAnalytics() {
+            loadVisitorAnalytics();
+        }
+
+        // Redraw charts on resize for better responsiveness
+        window.addEventListener('resize', () => {
+            // Re-fetch analytics to re-render charts at correct sizes
+            loadVisitorAnalytics();
+        });
         
         // Delete user
         function deleteUser(index) {
@@ -770,48 +1288,103 @@
         function deleteEvent(index) {
             if (confirm('Are you sure you want to delete this event?')) {
                 allEvents.splice(index, 1);
+                // Persist to shared calendar storage
+                localStorage.setItem('calendarEvents', JSON.stringify(allEvents));
+                // Maintain legacy admin storage for compatibility
                 localStorage.setItem('events', JSON.stringify(allEvents));
                 displayEvents();
                 updateAnalytics();
             }
         }
         
-        // Add new user (placeholder)
+        // Add New User - Modal based (replacing unsupported prompt())
         function addNewUser() {
-            const username = prompt('Enter username:');
-            const email = prompt('Enter email:');
-            if (username && email) {
-                const newUser = {
-                    username: username,
-                    email: email,
-                    role: 'user',
-                    registrationDate: new Date().toLocaleDateString()
-                };
-                allUsers.push(newUser);
-                localStorage.setItem('registeredUsers', JSON.stringify(allUsers));
-                displayUsers();
-                updateAnalytics();
-            }
+            const modal = document.getElementById('add-user-modal');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeAddUserModal() {
+            const modal = document.getElementById('add-user-modal');
+            if (modal) modal.classList.remove('show');
+            const form = document.getElementById('add-user-form');
+            if (form) form.reset();
+        }
+
+        function submitAddUser(e) {
+            e.preventDefault();
+            const username = document.getElementById('au-username')?.value.trim();
+            const email = document.getElementById('au-email')?.value.trim();
+            const role = document.getElementById('au-role')?.value || 'user';
+            if (!username || !email) return;
+            const newUser = {
+                username,
+                email,
+                role,
+                registrationDate: new Date().toLocaleDateString()
+            };
+            allUsers.push(newUser);
+            localStorage.setItem('registeredUsers', JSON.stringify(allUsers));
+            displayUsers();
+            updateAnalytics();
+            closeAddUserModal();
         }
         
-        // Add new event (placeholder)
-        function addNewEvent() {
-            const title = prompt('Enter event title:');
-            const date = prompt('Enter event date (YYYY-MM-DD):');
-            const time = prompt('Enter event time:');
-            if (title && date && time) {
-                const newEvent = {
-                    title: title,
-                    date: date,
-                    time: time,
-                    location: 'TBD',
-                    attendees: 0
-                };
-                allEvents.push(newEvent);
-                localStorage.setItem('events', JSON.stringify(allEvents));
-                displayEvents();
-                updateAnalytics();
+        // Modal-based create event flow
+        function openCreateEventModal() {
+            const modal = document.getElementById('create-event-modal');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeCreateEventModal() {
+            const modal = document.getElementById('create-event-modal');
+            if (modal) modal.classList.remove('show');
+            const form = document.getElementById('create-event-form');
+            if (form) form.reset();
+        }
+
+        function submitCreateEvent(e) {
+            e.preventDefault();
+            const title = document.getElementById('ce-title').value.trim();
+            const date = document.getElementById('ce-date').value;
+            const time = document.getElementById('ce-time').value.trim();
+            const location = document.getElementById('ce-location').value.trim();
+            const description = document.getElementById('ce-description').value.trim();
+
+            if (!title || !date || !time) {
+                alert('Please fill in title, date, and time.');
+                return;
             }
+
+            const user = JSON.parse(localStorage.getItem('currentUser') || localStorage.getItem('codeforall_currentuser') || '{}');
+            const createdBy = user && (user.username || user.name) ? (user.username || user.name) : 'admin';
+
+            const eventData = {
+                id: Date.now().toString(),
+                title,
+                date,
+                time,
+                location: location || 'TBD',
+                description: description || '',
+                attendees: 0,
+                createdBy,
+                createdAt: new Date().toISOString()
+            };
+
+            // Prefer shared calendarEvents storage used by public events page
+            const calEvents = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+            calEvents.push(eventData);
+            localStorage.setItem('calendarEvents', JSON.stringify(calEvents));
+
+            // Maintain legacy admin storage for compatibility
+            const legacyEvents = JSON.parse(localStorage.getItem('events') || '[]');
+            legacyEvents.push(eventData);
+            localStorage.setItem('events', JSON.stringify(legacyEvents));
+
+            // Update in-memory and UI
+            allEvents = calEvents;
+            displayEvents();
+            updateAnalytics();
+            closeCreateEventModal();
         }
         
         // Save settings
@@ -834,5 +1407,72 @@
             }
         }
     </script>
+    <!-- Create Event Modal (leveraging styles.css modal styles) -->
+    <div id="create-event-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Event</h2>
+            </div>
+            <div class="modal-body">
+                <form id="create-event-form" class="modal-form" onsubmit="submitCreateEvent(event)">
+                    <div class="form-group">
+                        <label for="ce-title">Event Title</label>
+                        <input type="text" id="ce-title" placeholder="e.g., Intro to Python Workshop" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ce-date">Date</label>
+                        <input type="date" id="ce-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ce-time">Time</label>
+                        <input type="text" id="ce-time" placeholder="e.g., 3:00 PM - 5:00 PM" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ce-location">Location</label>
+                        <input type="text" id="ce-location" placeholder="e.g., Room 204">
+                    </div>
+                    <div class="form-group">
+                        <label for="ce-description">Description</label>
+                        <textarea id="ce-description" rows="3" placeholder="Short description of the event"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeCreateEventModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New User</h2>
+            </div>
+            <div class="modal-body">
+                <form id="add-user-form" class="modal-form" onsubmit="submitAddUser(event)">
+                    <div class="form-group">
+                        <label for="au-username">Username</label>
+                        <input type="text" id="au-username" placeholder="e.g., alice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="au-email">Email</label>
+                        <input type="email" id="au-email" placeholder="e.g., alice@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="au-role">Role</label>
+                        <select id="au-role">
+                            <option value="user" selected>User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeAddUserModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

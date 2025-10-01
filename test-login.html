@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login Debug</title>
+</head>
+<body>
+    <h1>Login Debug Test</h1>
+    <div id="debug-output"></div>
+    
+    <script src="script.js"></script>
+    <script>
+        const debugOutput = document.getElementById('debug-output');
+        
+        function log(message) {
+            debugOutput.innerHTML += '<p>' + message + '</p>';
+            console.log(message);
+        }
+        
+        // Test authSystem
+        log('Testing authSystem...');
+        log('authSystem exists: ' + (typeof authSystem !== 'undefined'));
+        
+        if (typeof authSystem !== 'undefined') {
+            log('authSystem.login exists: ' + (typeof authSystem.login === 'function'));
+            log('authSystem.isAdmin exists: ' + (typeof authSystem.isAdmin === 'function'));
+            
+            // Test login
+            log('Testing login with admin credentials...');
+            authSystem.login('admin', 'admin123').then(success => {
+                log('Login result: ' + success);
+                if (success) {
+                    log('Current user: ' + JSON.stringify(authSystem.currentUser));
+                    log('Is admin: ' + authSystem.isAdmin());
+                }
+            }).catch(error => {
+                log('Login error: ' + error);
+            });
+        }
+        
+        // Test users.json fetch
+        log('Testing users.json fetch...');
+        fetch('users.json')
+            .then(response => {
+                log('users.json response status: ' + response.status);
+                return response.json();
+            })
+            .then(data => {
+                log('users.json loaded successfully');
+                log('Number of users: ' + data.users.length);
+                const adminUser = data.users.find(u => u.username === 'admin');
+                log('Admin user found: ' + (adminUser ? 'Yes' : 'No'));
+                if (adminUser) {
+                    log('Admin email: ' + adminUser.email);
+                    log('Admin password: ' + adminUser.password);
+                }
+            })
+            .catch(error => {
+                log('Error loading users.json: ' + error);
+            });
+    </script>
+</body>
+</html>

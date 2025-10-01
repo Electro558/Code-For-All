@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Auth System</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Auth System Test</h1>
+    <div id="test-results"></div>
+    
+    <button onclick="testLogin()">Test Admin Login</button>
+    <button onclick="testUsersJson()">Test Users.json</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <script src="script.js"></script>
+    <script>
+        const resultsDiv = document.getElementById('test-results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            resultsDiv.appendChild(div);
+        }
+        
+        async function testLogin() {
+            addResult('Starting login test...', 'info');
+            
+            try {
+                // Test 1: Check if authSystem exists
+                if (typeof authSystem === 'undefined') {
+                    addResult('ERROR: authSystem is not defined', 'error');
+                    return;
+                }
+                addResult('authSystem exists', 'success');
+                
+                // Test 2: Check if login method exists
+                if (typeof authSystem.login !== 'function') {
+                    addResult('ERROR: authSystem.login is not a function', 'error');
+                    return;
+                }
+                addResult('authSystem.login method exists', 'success');
+                
+                // Test 3: Test login with admin credentials
+                addResult('Testing login with admin/admin123...', 'info');
+                const success = await authSystem.login('admin', 'admin123');
+                
+                if (success) {
+                    addResult('Login successful!', 'success');
+                    addResult('Current user: ' + JSON.stringify(authSystem.currentUser), 'success');
+                    
+                    // Test 4: Check if admin
+                    if (authSystem.isAdmin()) {
+                        addResult('User is admin!', 'success');
+                    } else {
+                        addResult('User is not admin', 'error');
+                    }
+                    
+                    // Logout for next test
+                    authSystem.logout();
+                } else {
+                    addResult('Login failed - invalid credentials', 'error');
+                }
+                
+                // Test 5: Test login with email
+                addResult('Testing login with admin@codeforall.org/admin123...', 'info');
+                const emailSuccess = await authSystem.login('admin@codeforall.org', 'admin123');
+                
+                if (emailSuccess) {
+                    addResult('Email login successful!', 'success');
+                    authSystem.logout();
+                } else {
+                    addResult('Email login failed', 'error');
+                }
+                
+            } catch (error) {
+                addResult('ERROR: ' + error.message, 'error');
+                console.error('Test error:', error);
+            }
+        }
+        
+        async function testUsersJson() {
+            addResult('Testing users.json fetch...', 'info');
+            
+            try {
+                const response = await fetch('users.json');
+                addResult('Response status: ' + response.status, response.ok ? 'success' : 'error');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult('Users loaded: ' + data.users.length, 'success');
+                    
+                    const adminUser = data.users.find(u => u.username === 'admin');
+                    if (adminUser) {
+                        addResult('Admin user found', 'success');
+                        addResult('Admin email: ' + adminUser.email, 'info');
+                        addResult('Admin password: ' + adminUser.password, 'info');
+                    } else {
+                        addResult('Admin user not found', 'error');
+                    }
+                }
+            } catch (error) {
+                addResult('ERROR loading users.json: ' + error.message, 'error');
+            }
+        }
+        
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+        }
+        
+        // Auto-run tests on page load
+        window.addEventListener('load', function() {
+            addResult('Page loaded, auth system ready', 'info');
+        });
+    </script>
+</body>
+</html>

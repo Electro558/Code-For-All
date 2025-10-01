@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Login Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .test-section { border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Final Login Test</h1>
+    
+    <div class="test-section">
+        <h3>Test Login with Admin Credentials</h3>
+        <button onclick="testAdminLogin()">Test Admin Login</button>
+        <div id="test-results"></div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        async function testAdminLogin() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '<h4>Test Results:</h4>';
+            
+            try {
+                // Test 1: Check if authSystem exists
+                if (typeof authSystem === 'undefined') {
+                    results.innerHTML += '<p class="error">❌ authSystem is not defined</p>';
+                    return;
+                }
+                results.innerHTML += '<p class="success">✅ authSystem exists</p>';
+                
+                // Test 2: Check if login method exists
+                if (typeof authSystem.login !== 'function') {
+                    results.innerHTML += '<p class="error">❌ authSystem.login is not a function</p>';
+                    return;
+                }
+                results.innerHTML += '<p class="success">✅ authSystem.login method exists</p>';
+                
+                // Test 3: Test actual login
+                results.innerHTML += '<p class="info">Testing login with admin/admin123...</p>';
+                const loginResult = await authSystem.login('admin', 'admin123');
+                
+                if (loginResult) {
+                    results.innerHTML += '<p class="success">✅ Login successful!</p>';
+                    results.innerHTML += `<p class="info">Current user: ${JSON.stringify(authSystem.currentUser)}</p>`;
+                    
+                    // Test 4: Check if admin
+                    const isAdmin = authSystem.isAdmin();
+                    results.innerHTML += `<p class="${isAdmin ? 'success' : 'error'}">${isAdmin ? '✅' : '❌'} Is admin: ${isAdmin}</p>`;
+                    
+                    if (isAdmin) {
+                        results.innerHTML += '<p class="success">🎉 All tests passed! Login system is working correctly.</p>';
+                    }
+                } else {
+                    results.innerHTML += '<p class="error">❌ Login failed</p>';
+                }
+                
+            } catch (error) {
+                results.innerHTML += `<p class="error">❌ Error: ${error.message}</p>`;
+                console.error('Full error:', error);
+            }
+        }
+        
+        // Auto-run test on page load
+        window.addEventListener('load', function() {
+            setTimeout(testAdminLogin, 1000); // Small delay to ensure everything loads
+        });
+    </script>
+</body>
+</html>

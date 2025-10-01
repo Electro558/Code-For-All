@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Login System Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .info { color: blue; }
+        .warning { color: orange; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .test-result { margin: 10px 0; padding: 5px; border-left: 3px solid #ddd; }
+        .test-result.pass { border-left-color: green; }
+        .test-result.fail { border-left-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Login System Test</h1>
+    
+    <div class="test-section">
+        <h3>System Status</h3>
+        <div id="system-status">Running tests...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test Results</h3>
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Debug Information</h3>
+        <div id="debug-info"></div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        class LoginSystemTester {
+            constructor() {
+                this.results = [];
+                this.debugInfo = [];
+            }
+            
+            log(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                this.debugInfo.push(`[${timestamp}] ${message}`);
+                console.log(`[${type.toUpperCase()}] ${message}`);
+            }
+            
+            addResult(testName, passed, message, details = null) {
+                this.results.push({
+                    testName,
+                    passed,
+                    message,
+                    details,
+                    timestamp: new Date().toLocaleTimeString()
+                });
+            }
+            
+            async runTest(testName, testFunction) {
+                try {
+                    this.log(`Starting test: ${testName}`);
+                    await testFunction();
+                    this.log(`Test completed: ${testName}`, 'success');
+                } catch (error) {
+                    this.log(`Test failed: ${testName} - ${error.message}`, 'error');
+                    this.addResult(testName, false, `Exception: ${error.message}`);
+                }
+            }
+            
+            async checkAuthSystem() {
+                await this.runTest('Check AuthSystem', async () => {
+                    if (typeof authSystem === 'undefined') {
+                        this.addResult('AuthSystem Exists', false, 'authSystem is not defined');
+                        throw new Error('authSystem not found');
+                    }
+                    this.addResult('AuthSystem Exists', true, 'authSystem is properly loaded');
+                    
+                    if (typeof authSystem.login !== 'function') {
+                        this.addResult('Login Method Exists', false, 'authSystem.login is not a function');
+                        throw new Error('login method not found');
+                    }
+                    this.addResult('Login Method Exists', true, 'authSystem.login is a function');
+                    
+                    if (typeof authSystem.isAdmin !== 'function') {
+                        this.addResult('isAdmin Method Exists', false, 'authSystem.isAdmin is not a function');
+                        throw new Error('isAdmin method not found');
+                    }
+                    this.addResult('isAdmin Method Exists', true, 'authSystem.isAdmin is a function');
+                });
+            }
+            
+            async checkUsersFile() {
+                await this.runTest('Check Users File', async () => {
+                    try {
+                        const response = await fetch('users.json');
+                        if (!response.ok) {
+                            this.addResult('Users File Accessible', false, `HTTP ${response.status}`);
+                            throw new Error(`Users file not accessible: ${response.status}`);
+                        }
+                        
+                        const users = await response.json();
+                        this.addResult('Users File Accessible', true, `Found ${users.length} users`);
+                        
+                        const adminUser = users.find(u => u.username === 'admin');
+                        if (adminUser) {
+                            this.addResult('Admin User Found', true, `Admin user exists with email: ${adminUser.email}`);
+                        } else {
+                            this.addResult('Admin User Found', false, 'No admin user found in users.json');
+                        }
+                        
+                    } catch (error) {
+                        this.addResult('Users File Accessible', false, `Error: ${error.message}`);
+                        throw error;
+                    }
+                });
+            }
+            
+            async testAdminLogin() {
+                await this.runTest('Test Admin Login', async () => {
+                    // Test with username
+                    const usernameResult = await authSystem.login('admin', 'admin123');
+                    if (usernameResult) {
+                        this.addResult('Admin Login (Username)', true, 'Login successful with username');
+                        
+                        const isAdmin = authSystem.isAdmin();
+                        this.addResult('Admin Check', isAdmin, `isAdmin() returned: ${isAdmin}`);
+                        
+                        if (isAdmin) {
+                            this.log('Admin login successful with username!', 'success');
+                        }
+                        return;
+                    }
+                    
+                    // Test with email if username failed
+                    const emailResult = await authSystem.login('admin@example.com', 'admin123');
+                    if (emailResult) {
+                        this.addResult('Admin Login (Email)', true, 'Login successful with email');
+                        
+                        const isAdmin = authSystem.isAdmin();
+                        this.addResult('Admin Check', isAdmin, `isAdmin() returned: ${isAdmin}`);
+                        
+                        if (isAdmin) {
+                            this.log('Admin login successful with email!', 'success');
+                        }
+                    } else {
+                        this.addResult('Admin Login', false, 'Login failed with both username and email');
+                        throw new Error('Admin login failed');
+                    }
+                });
+            }
+            
+            async testRegularUser() {
+                await this.runTest('Test Regular User', async () => {
+                    // Try to find a non-admin user
+                    try {
+                        const response = await fetch('users.json');
+                        const users = await response.json();
+                        const regularUser = users.find(u => u.username !== 'admin');
+                        
+                        if (regularUser) {
+                            const result = await authSystem.login(regularUser.username, regularUser.password);
+                            if (result) {
+                                this.addResult('Regular User Login', true, `Login successful for ${regularUser.username}`);
+                                
+                                const isAdmin = authSystem.isAdmin();
+                                this.addResult('Regular User Admin Check', !isAdmin, `isAdmin() returned: ${isAdmin}`);
+                            } else {
+                                this.addResult('Regular User Login', false, `Login failed for ${regularUser.username}`);
+                            }
+                        } else {
+                            this.addResult('Regular User Test', false, 'No regular users found to test');
+                        }
+                    } catch (error) {
+                        this.addResult('Regular User Test', false, `Error: ${error.message}`);
+                    }
+                });
+            }
+            
+            async testInvalidCredentials() {
+                await this.runTest('Test Invalid Credentials', async () => {
+                    const result = await authSystem.login('invaliduser', 'wrongpassword');
+                    this.addResult('Invalid Credentials', !result, `Login correctly failed: ${!result}`);
+                });
+            }
+            
+            displayResults() {
+                const resultsDiv = document.getElementById('test-results');
+                const systemStatusDiv = document.getElementById('system-status');
+                const debugDiv = document.getElementById('debug-info');
+                
+                // Count results
+                const passed = this.results.filter(r => r.passed).length;
+                const failed = this.results.filter(r => !r.passed).length;
+                const total = this.results.length;
+                
+                // System status
+                if (failed === 0 && total > 0) {
+                    systemStatusDiv.innerHTML = `<p class="success">✅ All tests passed! (${passed}/${total})</p>`;
+                } else if (failed > 0) {
+                    systemStatusDiv.innerHTML = `<p class="error">❌ Some tests failed (${passed}/${total} passed, ${failed} failed)</p>`;
+                } else {
+                    systemStatusDiv.innerHTML = `<p class="info">ℹ️ Tests in progress...</p>`;
+                }
+                
+                // Detailed results
+                resultsDiv.innerHTML = this.results.map(result => `
+                    <div class="test-result ${result.passed ? 'pass' : 'fail'}">
+                        <strong>${result.testName}</strong>: 
+                        <span class="${result.passed ? 'success' : 'error'}">
+                            ${result.passed ? '✅ PASS' : '❌ FAIL'}
+                        </span>
+                        <br>
+                        <span class="info">${result.message}</span>
+                        ${result.details ? `<br><small>${result.details}</small>` : ''}
+                    </div>
+                `).join('');
+                
+                // Debug info
+                debugDiv.innerHTML = `<pre>${this.debugInfo.join('\n')}</pre>`;
+            }
+            
+            async runAllTests() {
+                this.log('Starting comprehensive login system test', 'info');
+                
+                await this.checkAuthSystem();
+                await this.checkUsersFile();
+                await this.testAdminLogin();
+                await this.testRegularUser();
+                await this.testInvalidCredentials();
+                
+                this.displayResults();
+                this.log('Test suite completed', 'info');
+            }
+        }
+        
+        // Run tests when page loads
+        window.addEventListener('load', function() {
+            setTimeout(async () => {
+                const tester = new LoginSystemTester();
+                await tester.runAllTests();
+            }, 1000); // Small delay to ensure everything loads
+        });
+    </script>
+</body>
+</html>

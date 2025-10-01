@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .debug-output { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: monospace; font-size: 12px; }
+        .error { color: red; }
+        .success { color: green; }
+        .info { color: blue; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        .test-section { border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Login Debug Page</h1>
+    
+    <div class="test-section">
+        <h3>Manual Login Test</h3>
+        <input type="text" id="test-username" placeholder="Username" value="admin">
+        <input type="password" id="test-password" placeholder="Password" value="admin123">
+        <br>
+        <button onclick="manualLogin()">Test Login</button>
+        <button onclick="testUsersFetch()">Test Users Fetch</button>
+        <button onclick="clearDebug()">Clear Output</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>Debug Output</h3>
+        <div id="debug-output" class="debug-output"></div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        const debugOutput = document.getElementById('debug-output');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'blue';
+            debugOutput.innerHTML += `<div style="color: ${color};">[${timestamp}] ${message}</div>`;
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        async function manualLogin() {
+            const username = document.getElementById('test-username').value;
+            const password = document.getElementById('test-password').value;
+            
+            log(`Testing login with username: ${username}`, 'info');
+            
+            try {
+                // Check if authSystem exists
+                if (typeof authSystem === 'undefined') {
+                    log('ERROR: authSystem is not defined', 'error');
+                    return;
+                }
+                
+                log('authSystem exists', 'success');
+                
+                // Check if login method exists
+                if (typeof authSystem.login !== 'function') {
+                    log('ERROR: authSystem.login is not a function', 'error');
+                    return;
+                }
+                
+                log('authSystem.login method exists', 'success');
+                
+                // Test the login
+                const success = await authSystem.login(username, password);
+                log(`Login result: ${success}`, success ? 'success' : 'error');
+                
+                if (success) {
+                    log(`Current user: ${JSON.stringify(authSystem.currentUser)}`, 'success');
+                    log(`Is admin: ${authSystem.isAdmin()}`, 'success');
+                } else {
+                    log('Login failed - checking users.json...', 'error');
+                    await testUsersFetch();
+                }
+                
+            } catch (error) {
+                log(`ERROR: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+        
+        async function testUsersFetch() {
+            log('Fetching users.json...', 'info');
+            
+            try {
+                const response = await fetch('users.json');
+                log(`Response status: ${response.status}`, response.ok ? 'success' : 'error');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`Found ${data.users.length} users`, 'success');
+                    
+                    const adminUser = data.users.find(u => u.username === 'admin');
+                    if (adminUser) {
+                        log(`Admin user found:`, 'success');
+                        log(`  Username: ${adminUser.username}`, 'info');
+                        log(`  Email: ${adminUser.email}`, 'info');
+                        log(`  Password: ${adminUser.password}`, 'info');
+                        log(`  Role: ${adminUser.role}`, 'info');
+                    } else {
+                        log('Admin user not found in users.json', 'error');
+                    }
+                } else {
+                    log('Failed to fetch users.json', 'error');
+                }
+            } catch (error) {
+                log(`ERROR fetching users.json: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearDebug() {
+            debugOutput.innerHTML = '';
+        }
+        
+        // Test on page load
+        window.addEventListener('load', function() {
+            log('Page loaded - auth system ready for testing', 'info');
+            log('Current location: ' + window.location.href, 'info');
+        });
+    </script>
+</body>
+</html>

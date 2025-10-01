@@ -44,6 +44,12 @@
             "password": "yiboadmin123",
             "role": "admin",
             "id": 1757775758242
+        },
+        {
+            "username": "admin",
+            "email": "admin@codeforall.org",
+            "password": "admin123",
+            "id": 1759157695572
         }
     ],
     "sessions": []

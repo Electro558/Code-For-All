@@ -734,6 +734,20 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- Event Details Modal -->
+                <div class="event-modal" id="event-details-modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close" id="close-details-modal">&times;</span>
+                        <h3>Events on this day</h3>
+                        <div id="event-details-list" class="event-details-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="close-details">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -906,11 +920,33 @@
         }
         
         function showEventDetails(dayEvents) {
-            let details = 'Events on this day:\n\n';
-            dayEvents.forEach(event => {
-                details += `${event.title}\nTime: ${event.time}\nLocation: ${event.location}\n\n`;
-            });
-            alert(details);
+            const modal = document.getElementById('event-details-modal');
+            const list = document.getElementById('event-details-list');
+            if (!modal || !list) return;
+
+            // Build rich details UI
+            list.innerHTML = '';
+            if (dayEvents.length === 0) {
+                list.innerHTML = '<p>No events for this day.</p>';
+            } else {
+                dayEvents.forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'event-detail-card';
+                    card.innerHTML = `
+                        <div class="event-detail-header">
+                            <h4>${event.title}</h4>
+                            <span class="event-time">${event.time || 'TBD'}</span>
+                        </div>
+                        <div class="event-detail-body">
+                            <p><strong>Location:</strong> ${event.location || 'TBD'}</p>
+                            ${event.description ? `<p class="event-description">${event.description}</p>` : ''}
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }
+
+            modal.style.display = 'block';
         }
         
         // Navigation functionality will be handled in DOMContentLoaded
@@ -953,8 +989,9 @@
              const adminLoginBtn = document.getElementById('admin-login-btn');
              
              if (isAdmin && currentUser) {
-                 // Redirect to admin dashboard instead of showing inline panel
-                 window.location.href = 'admin-dashboard.html';
+                 // Show admin panel inline instead of redirecting
+                 adminPanel.style.display = 'block';
+                 adminUserDisplay.textContent = `Logged in as: ${currentUser.username}`;
              } else {
                  // Hide admin panel completely for non-admin users
                  adminPanel.style.display = 'none';
@@ -1059,13 +1096,20 @@
             // Modal close buttons
              document.getElementById('close-modal').addEventListener('click', closeEventModal);
              document.getElementById('cancel-event').addEventListener('click', closeEventModal);
+             const closeDetailsBtn = document.getElementById('close-details');
+             const closeDetailsX = document.getElementById('close-details-modal');
+             if (closeDetailsBtn) closeDetailsBtn.addEventListener('click', closeEventDetailsModal);
+             if (closeDetailsX) closeDetailsX.addEventListener('click', closeEventDetailsModal);
              
              // Close modals when clicking outside
              window.addEventListener('click', function(event) {
                  const eventModal = document.getElementById('event-modal');
-                 
+                 const detailsModal = document.getElementById('event-details-modal');
                  if (event.target === eventModal) {
                      closeEventModal();
+                 }
+                 if (event.target === detailsModal) {
+                     closeEventDetailsModal();
                  }
              });
              
@@ -1097,6 +1141,11 @@
                  });
              }
         });
+
+        function closeEventDetailsModal() {
+            const modal = document.getElementById('event-details-modal');
+            if (modal) modal.style.display = 'none';
+        }
     </script>
 </body>
 </html>

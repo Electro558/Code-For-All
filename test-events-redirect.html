@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Events Redirect</title>
+</head>
+<body>
+    <h1>Testing Events Page Redirect</h1>
+    
+    <button onclick="simulateAdminLogin()">Simulate Admin Login and Navigate to Events</button>
+    <button onclick="simulateRegularLogin()">Simulate Regular Login and Navigate to Events</button>
+    <button onclick="clearAuth()">Clear Auth</button>
+    
+    <div id="status"></div>
+    <div id="result"></div>
+
+    <script src="script.js"></script>
+    <script>
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML += '<p>' + message + '</p>';
+        }
+
+        function simulateAdminLogin() {
+            clearAuth();
+            updateStatus('Simulating admin login...');
+            
+            // Simulate admin user
+            const adminUser = {
+                username: 'admin',
+                email: 'admin@example.com',
+                role: 'admin'
+            };
+            
+            localStorage.setItem('currentUser', JSON.stringify(adminUser));
+            updateStatus('Admin user set in localStorage');
+            
+            // Navigate to events page
+            setTimeout(() => {
+                updateStatus('Navigating to events.html...');
+                window.location.href = 'events.html';
+            }, 1000);
+        }
+
+        function simulateRegularLogin() {
+            clearAuth();
+            updateStatus('Simulating regular user login...');
+            
+            // Simulate regular user
+            const regularUser = {
+                username: 'user',
+                email: 'user@example.com',
+                role: 'user'
+            };
+            
+            localStorage.setItem('currentUser', JSON.stringify(regularUser));
+            updateStatus('Regular user set in localStorage');
+            
+            // Navigate to events page
+            setTimeout(() => {
+                updateStatus('Navigating to events.html...');
+                window.location.href = 'events.html';
+            }, 1000);
+        }
+
+        function clearAuth() {
+            localStorage.removeItem('currentUser');
+            document.getElementById('status').innerHTML = '';
+            updateStatus('Auth cleared');
+        }
+
+        // Check current auth status
+        window.addEventListener('load', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                updateStatus('Current user: ' + user.username + ' (role: ' + user.role + ')');
+            } else {
+                updateStatus('No user logged in');
+            }
+        });
+    </script>
+</body>
+</html>

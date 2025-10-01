@@ -58,7 +58,7 @@
                     
                     <div id="loginError" class="error-message" style="display: none;"></div>
                     
-                    <form id="auth-form">
+                    <form id="auth-form" action="javascript:void(0)">
                         <div class="form-group" id="name-group" style="display: none;">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" placeholder="Enter your full name">
@@ -182,134 +182,149 @@
 
     <script src="script.js"></script>
     <script>
-        // Authentication form handling
-        let isLoginMode = true;
-        
-        const formTitle = document.getElementById('form-title');
-        const formSubtitle = document.getElementById('form-subtitle');
-        const nameGroup = document.getElementById('name-group');
-        const confirmPasswordGroup = document.getElementById('confirm-password-group');
-        const loginOptions = document.getElementById('login-options');
-        const authSubmitBtn = document.getElementById('auth-submit-btn');
-        const btnText = document.getElementById('btn-text');
-        const switchText = document.getElementById('switch-text');
-        const switchLink = document.getElementById('switch-link');
-        const authForm = document.getElementById('auth-form');
-        
-        // Switch between login and register modes
-        switchLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            isLoginMode = !isLoginMode;
-            updateFormMode();
-        });
-        
-        function updateFormMode() {
-            if (isLoginMode) {
-                // Login mode
-                formTitle.textContent = 'Login to Your Account';
-                formSubtitle.textContent = 'Welcome back! Please enter your credentials.';
-                nameGroup.style.display = 'none';
-                confirmPasswordGroup.style.display = 'none';
-                loginOptions.style.display = 'flex';
-                btnText.textContent = 'Login';
-                switchText.innerHTML = 'Don\'t have an account? <a href="javascript:void(0)" id="switch-link">Sign up here</a>';
-                
-                // Remove required from hidden fields
-                document.getElementById('name').removeAttribute('required');
-                document.getElementById('confirm-password').removeAttribute('required');
-            } else {
-                // Register mode
-                formTitle.textContent = 'Create Your Account';
-                formSubtitle.textContent = 'Join our community and start making an impact!';
-                nameGroup.style.display = 'block';
-                confirmPasswordGroup.style.display = 'block';
-                loginOptions.style.display = 'none';
-                btnText.textContent = 'Sign Up';
-                switchText.innerHTML = 'Already have an account? <a href="javascript:void(0)" id="switch-link">Login here</a>';
-                
-                // Add required to visible fields
-                document.getElementById('name').setAttribute('required', 'required');
-                document.getElementById('confirm-password').setAttribute('required', 'required');
+        // Wait for DOM and scripts to load completely
+        document.addEventListener('DOMContentLoaded', function() {
+            // Authentication form handling
+            let isLoginMode = true;
+            
+            const formTitle = document.getElementById('form-title');
+            const formSubtitle = document.getElementById('form-subtitle');
+            const nameGroup = document.getElementById('name-group');
+            const confirmPasswordGroup = document.getElementById('confirm-password-group');
+            const loginOptions = document.getElementById('login-options');
+            const authSubmitBtn = document.getElementById('auth-submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const switchText = document.getElementById('switch-text');
+            const switchLink = document.getElementById('switch-link');
+            const authForm = document.getElementById('auth-form');
+            
+            // Check if authSystem is available
+            if (typeof authSystem === 'undefined') {
+                console.error('authSystem is not loaded. Please check script.js');
+                alert('Authentication system failed to load. Please refresh the page.');
+                return;
             }
             
-            // Re-attach event listener to new switch link
-            document.getElementById('switch-link').addEventListener('click', function(e) {
+            // Switch between login and register modes
+            switchLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 isLoginMode = !isLoginMode;
                 updateFormMode();
             });
-        }
-        
-        // Form submission
-        authForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
             
-            const formData = new FormData(authForm);
-            const username = formData.get('username');
-            const email = formData.get('email');
-            const password = formData.get('password');
-            
-            if (isLoginMode) {
-                // Login logic
-                try {
-                    const success = await authSystem.login(username, password);
-                    if (success) {
-                        authSystem.showMessage('Login successful! Redirecting...', 'success');
-                        setTimeout(() => {
-                            // Redirect to admin panel if admin, otherwise to home
-                            if (authSystem.isAdmin()) {
-                                window.location.href = 'admin-dashboard.html';
-                            } else {
-                                window.location.href = 'index.html';
-                            }
-                        }, 1500);
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    authSystem.showMessage('Login failed. Please try again.', 'error');
-                }
-            } else {
-                // Registration logic
-                const name = formData.get('name');
-                const confirmPassword = formData.get('confirm-password');
-                
-                // Validation
-                if (password !== confirmPassword) {
-                    authSystem.showMessage('Passwords do not match', 'error');
-                    return;
-                }
-                
-                if (password.length < 6) {
-                    authSystem.showMessage('Password must be at least 6 characters long', 'error');
-                    return;
-                }
-                
-                try {
-                    const success = await authSystem.register({
-                        name: name,
-                        username: username,
-                        email: email,
-                        password: password
-                    });
+            function updateFormMode() {
+                if (isLoginMode) {
+                    // Login mode
+                    formTitle.textContent = 'Login to Your Account';
+                    formSubtitle.textContent = 'Welcome back! Please enter your credentials.';
+                    nameGroup.style.display = 'none';
+                    confirmPasswordGroup.style.display = 'none';
+                    loginOptions.style.display = 'flex';
+                    btnText.textContent = 'Login';
+                    switchText.innerHTML = 'Don\'t have an account? <a href="javascript:void(0)" id="switch-link">Sign up here</a>';
                     
-                    if (success) {
-                        authSystem.showMessage('Registration successful! Please login.', 'success');
-                        isLoginMode = true;
-                        updateFormMode();
-                        authForm.reset();
-                    }
-                } catch (error) {
-                    console.error('Registration error:', error);
+                    // Remove required from hidden fields
+                    document.getElementById('name').removeAttribute('required');
+                    document.getElementById('confirm-password').removeAttribute('required');
+                } else {
+                    // Register mode
+                    formTitle.textContent = 'Create Your Account';
+                    formSubtitle.textContent = 'Join our community and start making an impact!';
+                    nameGroup.style.display = 'block';
+                    confirmPasswordGroup.style.display = 'block';
+                    loginOptions.style.display = 'none';
+                    btnText.textContent = 'Sign Up';
+                    switchText.innerHTML = 'Already have an account? <a href="javascript:void(0)" id="switch-link">Login here</a>';
+                    
+                    // Add required to visible fields
+                    document.getElementById('name').setAttribute('required', 'required');
+                    document.getElementById('confirm-password').setAttribute('required', 'required');
                 }
+                
+                // Re-attach event listener to new switch link
+                document.getElementById('switch-link').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    isLoginMode = !isLoginMode;
+                    updateFormMode();
+                });
             }
-        });
-        
-
-        
-        // Forgot password (placeholder)
-        document.querySelector('.forgot-password').addEventListener('click', function(e) {
-            e.preventDefault();
-            authSystem.showMessage('Password reset functionality would be implemented', 'info');
+            
+            // Form submission - prevent default and handle client-side
+            authForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const formData = new FormData(authForm);
+                const username = formData.get('username');
+                const email = formData.get('email');
+                const password = formData.get('password');
+                
+                if (isLoginMode) {
+                    // Login logic - try username first, then email if username fails
+                    try {
+                        let success = await authSystem.login(username, password);
+                        if (!success && email) {
+                            // If username login fails, try with email
+                            success = await authSystem.login(email, password);
+                        }
+                        if (success) {
+                            authSystem.showMessage('Login successful! Redirecting...', 'success');
+                            setTimeout(() => {
+                                // Redirect to admin panel if admin, otherwise to home
+                                if (authSystem.isAdmin()) {
+                                    window.location.href = 'admin-dashboard.html';
+                                } else {
+                                    window.location.href = 'index.html';
+                                }
+                            }, 1500);
+                        } else {
+                            authSystem.showMessage('Invalid credentials. Please try again.', 'error');
+                        }
+                    } catch (error) {
+                        console.error('Login error:', error);
+                        authSystem.showMessage('Login failed. Please try again.', 'error');
+                    }
+                } else {
+                    // Registration logic
+                    const name = formData.get('name');
+                    const confirmPassword = formData.get('confirm-password');
+                    
+                    // Validation
+                    if (password !== confirmPassword) {
+                        authSystem.showMessage('Passwords do not match', 'error');
+                        return;
+                    }
+                    
+                    if (password.length < 6) {
+                        authSystem.showMessage('Password must be at least 6 characters long', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        const success = await authSystem.register({
+                            name: name,
+                            username: username,
+                            email: email,
+                            password: password
+                        });
+                        
+                        if (success) {
+                            authSystem.showMessage('Registration successful! Please login.', 'success');
+                            isLoginMode = true;
+                            updateFormMode();
+                            authForm.reset();
+                        }
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                    }
+                }
+            });
+            
+            // Forgot password (placeholder)
+            document.querySelector('.forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                authSystem.showMessage('Password reset functionality would be implemented', 'info');
+            });
         });
     </script>
 </body>
