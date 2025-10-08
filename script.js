@@ -5,6 +5,110 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize luxury scroll animations
     initLuxuryScrollAnimations();
+
+    // Loader overlay: ensure presence and fade out smoothly when assets are ready
+    let loader = document.querySelector('.loader-overlay');
+    // Fallback: inject loader overlay if missing on this page
+    if (!loader) {
+        const overlay = document.createElement('div');
+        overlay.id = 'loader-overlay';
+        overlay.className = 'loader-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.innerHTML = `
+            <div class="loader-content">
+                <div class="loader-visual">
+                    <div class="loader-ring"></div>
+                    <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+                </div>
+                <div class="loader-text">Loading Code For All...</div>
+            </div>
+        `;
+        // Insert as the first element inside body
+        if (document.body) {
+            document.body.insertBefore(overlay, document.body.firstChild);
+            loader = overlay;
+        }
+    }
+    if (loader) {
+        const startTime = performance.now();
+        const minDisplayMs = 1000; // ensure loader is visible at least 1s
+        
+        // On home page, wait for fonts and image decode to finish before hiding loader
+        const isHome = location.pathname.endsWith('index.html') || location.pathname === '/';
+        let readinessPromise = Promise.resolve();
+        if (isHome) {
+            const decodeAllImages = () => {
+                const imgs = Array.from(document.images);
+                const promises = imgs.map(img => {
+                    if (img.decode) {
+                        return img.decode().catch(() => {});
+                    }
+                    if (img.complete) return Promise.resolve();
+                    return new Promise(resolve => {
+                        img.addEventListener('load', resolve, { once: true });
+                        img.addEventListener('error', resolve, { once: true });
+                    });
+                });
+                return Promise.all(promises).catch(() => {});
+            };
+            const fontsReady = (document.fonts && document.fonts.ready)
+                ? document.fonts.ready.catch(() => {})
+                : Promise.resolve();
+            readinessPromise = Promise.all([fontsReady, decodeAllImages()]).catch(() => {});
+        }
+
+        // Ensure loader starts visible and intercepts clicks while active
+        loader.style.opacity = '1';
+        loader.style.pointerEvents = 'auto';
+
+        const hideLoader = () => {
+            // Trigger CSS transition
+            loader.classList.add('hidden');
+            // Remove from DOM after transition to free interactions, then fade page content
+            const onTransitionEnd = () => {
+                loader.removeEventListener('transitionend', onTransitionEnd);
+                document.body.classList.add('page-visible');
+                if (loader && loader.parentNode) {
+                    loader.parentNode.removeChild(loader);
+                }
+            };
+            loader.addEventListener('transitionend', onTransitionEnd);
+        };
+
+        const scheduleHide = () => {
+            const elapsed = performance.now() - startTime;
+            const wait = Math.max(0, minDisplayMs - elapsed);
+            setTimeout(() => {
+                readinessPromise.then(() => {
+                    if (!loader.classList.contains('hidden')) hideLoader();
+                });
+            }, wait);
+        };
+
+        // Use window 'load' for full assets; fallback timer for robustness
+        if (document.readyState === 'complete') {
+            scheduleHide();
+        } else {
+            window.addEventListener('load', scheduleHide, { once: true });
+            // First fallback: quick UX after 2.5s (respects min display)
+            const quickTimeout = setTimeout(() => {
+                if (!loader.classList.contains('hidden')) scheduleHide();
+            }, 2500);
+            // Hard fallback: guarantee hide after 6s using transition, then fade page content at end
+            setTimeout(() => {
+                clearTimeout(quickTimeout);
+                if (document.body.contains(loader) && !loader.classList.contains('hidden')) {
+                    loader.classList.add('hidden');
+                    const onEnd = () => {
+                        loader.removeEventListener('transitionend', onEnd);
+                        document.body.classList.add('page-visible');
+                        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+                    };
+                    loader.addEventListener('transitionend', onEnd);
+                }
+            }, 6000);
+        }
+    }
     
     // Mobile Navigation Toggle
     const menuToggle = document.querySelector('.menu-toggle');
@@ -519,3 +623,245 @@ function showEventTab(tabName) {
     // Add active class to clicked tab
     event.target.classList.add('active');
 }
+
+// Inline editing init for admins
+try {
+    if (typeof authSystem !== 'undefined' && authSystem.isAdmin()) {
+        initInlineEditing();
+    }
+} catch (e) {
+    // no-op
+}
+
+function initInlineEditing() {
+    // Insert floating Edit button
+    const btn = document.createElement('button');
+    btn.className = 'inline-edit-toggle';
+    btn.textContent = 'Edit Page';
+    Object.assign(btn.style, {
+        position: 'fixed', right: '20px', bottom: '20px', zIndex: '10000',
+        padding: '10px 14px', borderRadius: '8px', border: 'none', cursor: 'pointer',
+        background: '#f39c12', color: '#fff', boxShadow: '0 6px 18px rgba(0,0,0,0.2)', fontWeight: '700'
+    });
+
+    const toolbar = document.createElement('div');
+    toolbar.className = 'inline-edit-toolbar';
+    Object.assign(toolbar.style, {
+        position: 'fixed', right: '20px', bottom: '70px', zIndex: '10000', display: 'none',
+        background: '#ffffff', border: '1px solid #ddd', borderRadius: '10px',
+        boxShadow: '0 10px 20px rgba(0,0,0,0.15)', padding: '10px'
+    });
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save Changes';
+    Object.assign(saveBtn.style, {
+        padding: '8px 12px', background: '#27ae60', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '700', marginRight: '8px'
+    });
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'Cancel';
+    Object.assign(cancelBtn.style, {
+        padding: '8px 12px', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '700'
+    });
+    toolbar.appendChild(saveBtn);
+    toolbar.appendChild(cancelBtn);
+
+    document.body.appendChild(btn);
+    document.body.appendChild(toolbar);
+
+    const state = { enabled: false, changes: {}, original: new Map() };
+
+    const editableEls = Array.from(document.querySelectorAll('[data-edit-key]'));
+
+    const enable = () => {
+        state.enabled = true;
+        btn.textContent = 'Editing On';
+        btn.style.background = '#e67e22';
+        toolbar.style.display = 'block';
+        editableEls.forEach(el => {
+            const type = el.getAttribute('data-edit-type');
+            el.classList.add('inline-edit-highlight');
+            if (type === 'text') {
+                state.original.set(el, el.textContent);
+                el.setAttribute('contenteditable', 'true');
+                el.style.outline = '2px dashed #f39c12';
+                el.style.outlineOffset = '4px';
+                el.addEventListener('input', onTextInput);
+                el.addEventListener('blur', onTextBlur);
+            } else if (type === 'image' || type === 'bgimage') {
+                el.style.outline = '2px dashed #f39c12';
+                el.style.outlineOffset = '4px';
+                el.addEventListener('click', onImageClick);
+                // hint overlay title
+                el.setAttribute('title', 'Click to change image');
+            }
+        });
+        authSystem && authSystem.showMessage('Inline editing enabled', 'success');
+    };
+
+    const disable = (reload = false) => {
+        state.enabled = false;
+        btn.textContent = 'Edit Page';
+        btn.style.background = '#f39c12';
+        toolbar.style.display = 'none';
+        editableEls.forEach(el => {
+            const type = el.getAttribute('data-edit-type');
+            el.classList.remove('inline-edit-highlight');
+            el.style.outline = '';
+            el.style.outlineOffset = '';
+            if (type === 'text') {
+                el.removeAttribute('contenteditable');
+                el.removeEventListener('input', onTextInput);
+                el.removeEventListener('blur', onTextBlur);
+            } else if (type === 'image' || type === 'bgimage') {
+                el.removeEventListener('click', onImageClick);
+                el.removeAttribute('title');
+            }
+        });
+        state.changes = {};
+        state.original.clear();
+        if (reload) {
+            location.reload();
+        }
+    };
+
+    const onTextInput = (e) => {
+        const el = e.currentTarget;
+        const key = el.getAttribute('data-edit-key');
+        state.changes[key] = el.textContent.trim();
+    };
+    const onTextBlur = (e) => {
+        const el = e.currentTarget;
+        const key = el.getAttribute('data-edit-key');
+        state.changes[key] = el.textContent.trim();
+    };
+
+    const onImageClick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const el = e.currentTarget;
+        // Ignore clicks that originate from child elements (e.g., editable text inside a bgimage container)
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+        // Also ignore if the clicked target is or is inside a text-editable element
+        if (e.target.closest('[data-edit-type="text"]')) {
+            return;
+        }
+        const key = el.getAttribute('data-edit-key');
+        const type = el.getAttribute('data-edit-type');
+        try {
+            const file = await pickImageFile();
+            if (!file) return;
+            const url = await uploadImageInline(file, (file && file.name) || 'image');
+            if (url) {
+                if (type === 'image') {
+                    el.src = url;
+                } else if (type === 'bgimage') {
+                    // Preserve existing gradient if any
+                    const gradient = 'linear-gradient(rgba(52, 152, 219, 0.85), rgba(41, 128, 185, 0.9))';
+                    el.style.background = `${gradient}, url('${url}') no-repeat center center/cover`;
+                }
+                state.changes[key] = url;
+                authSystem && authSystem.showMessage('Image updated (not yet saved)', 'info');
+            }
+        } catch (err) {
+            console.warn('Inline image update failed', err);
+            authSystem && authSystem.showMessage('Image update failed', 'error');
+        }
+    };
+
+    btn.addEventListener('click', () => {
+        if (!state.enabled) enable(); else disable(false);
+    });
+
+    saveBtn.addEventListener('click', async () => {
+        try {
+            // Fetch current content to merge changes
+            const res = await fetch('/api/content');
+            let content = {};
+            if (res.ok) {
+                content = await res.json();
+            }
+            // Apply changes map to content object
+            for (const [path, value] of Object.entries(state.changes)) {
+                setNested(content, path, value);
+            }
+            // Persist
+            const resp = await fetch('/api/content', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(content)
+            });
+            if (!resp.ok) throw new Error('Save failed');
+            authSystem && authSystem.showMessage('Changes saved!', 'success');
+            disable(true);
+        } catch (err) {
+            console.error('Save error:', err);
+            authSystem && authSystem.showMessage('Failed to save changes', 'error');
+        }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        disable(true);
+    });
+}
+
+async function pickImageFile() {
+    return new Promise(resolve => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.style.display = 'none';
+        document.body.appendChild(input);
+        input.addEventListener('change', () => {
+            const file = input.files && input.files[0];
+            resolve(file || null);
+            input.remove();
+        }, { once: true });
+        input.click();
+    });
+}
+
+async function uploadImageInline(file, filenameHint) {
+    const toDataURL = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+    const dataUrl = await toDataURL(file);
+    const resp = await fetch('/api/upload-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: dataUrl, filename: filenameHint || 'upload' })
+    });
+    if (!resp.ok) throw new Error('Upload failed');
+    const json = await resp.json();
+    if (json && json.status === 'success' && json.url) {
+        return json.url;
+    }
+    throw new Error(json && json.message ? json.message : 'Upload failed');
+}
+
+function setNested(obj, path, value) {
+    const parts = path.split('.');
+    let cur = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+        const p = parts[i];
+        if (typeof cur[p] !== 'object' || cur[p] === null) cur[p] = {};
+        cur = cur[p];
+    }
+    cur[parts[parts.length - 1]] = value;
+    return obj;
+}
+
+// minimal highlight style injection
+(function injectInlineEditStyles(){
+    const css = `
+    .inline-edit-highlight { position: relative; }
+    .inline-edit-highlight::after { content: '✎'; position: absolute; top: -10px; right: -10px; background: #f39c12; color: #fff; font-size: 10px; padding: 2px 4px; border-radius: 4px; }
+    `;
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+})();

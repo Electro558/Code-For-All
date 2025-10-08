@@ -138,44 +138,6 @@
         .card-button:hover {
             background: rgba(255, 255, 255, 0.3);
         }
-        
-        .content-section {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .content-section.active {
-            display: block;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-primary {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-primary:hover {
-            background: #45a049;
-        }
 
         /* Enhanced Create Event button */
         .create-event-button {
@@ -502,6 +464,16 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-visual">
+                <div class="loader-ring"></div>
+                <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+            </div>
+            <div class="loader-text">Loading Code For All...</div>
+        </div>
+    </div>
     <div class="admin-container">
         <!-- Admin Navigation -->
         <nav class="admin-nav">
@@ -733,6 +705,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Content Section removed; inline editing now available directly on pages -->
         </div>
     </div>
     
@@ -825,7 +799,202 @@
         // Initialize section after content loads
         document.addEventListener('DOMContentLoaded', function() {
             initSectionFromHash();
+            // setupContentSection(); // removed because inline editing replaces the content page
         });
+
+        // Content Management Helpers
+        let homepageContent = {
+            homepage: {
+                heroTitle: '',
+                heroSubtitle: '',
+                heroImage: ''
+            },
+            about: {
+                title: '',
+                paragraph1: '',
+                paragraph2: '',
+                image: ''
+            },
+            updated_at: ''
+        };
+
+        async function setupContentSection() {
+            try {
+                const res = await fetch('/api/content');
+                if (res.ok) {
+                    const data = await res.json();
+                    homepageContent = data || homepageContent;
+                    const titleEl = document.getElementById('hero-title');
+                    const subEl = document.getElementById('hero-subtitle');
+                    const prevEl = document.getElementById('hero-image-preview');
+                    if (titleEl) titleEl.value = homepageContent.homepage?.heroTitle || '';
+                    if (subEl) subEl.value = homepageContent.homepage?.heroSubtitle || '';
+                    if (prevEl) {
+                        const imgUrl = homepageContent.homepage?.heroImage || '';
+                        if (imgUrl) { prevEl.style.backgroundImage = `url('${imgUrl}')`; prevEl.textContent = ''; }
+                        else { prevEl.style.backgroundImage = ''; prevEl.textContent = 'No image selected'; }
+                    }
+                    const aboutTitleEl = document.getElementById('about-title');
+                    const aboutP1El = document.getElementById('about-paragraph1');
+                    const aboutP2El = document.getElementById('about-paragraph2');
+                    const aboutPrevEl = document.getElementById('about-image-preview');
+                    if (aboutTitleEl) aboutTitleEl.value = homepageContent.about?.title || '';
+                    if (aboutP1El) aboutP1El.value = homepageContent.about?.paragraph1 || '';
+                    if (aboutP2El) aboutP2El.value = homepageContent.about?.paragraph2 || '';
+                    if (aboutPrevEl) {
+                        const aImg = homepageContent.about?.image || '';
+                        if (aImg) { aboutPrevEl.style.backgroundImage = `url('${aImg}')`; aboutPrevEl.textContent = ''; }
+                        else { aboutPrevEl.style.backgroundImage = ''; aboutPrevEl.textContent = 'No image selected'; }
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to load content', e);
+            }
+
+            // Preview selected image instantly
+            const fileInput = document.getElementById('hero-image-input');
+            if (fileInput) {
+                fileInput.addEventListener('change', () => {
+                    const file = fileInput.files && fileInput.files[0];
+                    const prevEl = document.getElementById('hero-image-preview');
+                    if (!file || !prevEl) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => { prevEl.style.backgroundImage = `url('${ev.target.result}')`; prevEl.textContent = ''; };
+                    reader.readAsDataURL(file);
+                });
+            }
+            const aboutInput = document.getElementById('about-image-input');
+            if (aboutInput) {
+                aboutInput.addEventListener('change', () => {
+                    const file = aboutInput.files && aboutInput.files[0];
+                    const prevEl = document.getElementById('about-image-preview');
+                    if (!file || !prevEl) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => { prevEl.style.backgroundImage = `url('${ev.target.result}')`; prevEl.textContent = ''; };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        async function uploadHeroImage() {
+            const input = document.getElementById('hero-image-input');
+            const file = input && input.files && input.files[0];
+            if (!file) {
+                alert('Please choose an image file first.');
+                return;
+            }
+            try {
+                const reader = new FileReader();
+                const base64 = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+                const resp = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: base64, filename: file.name })
+                });
+                const json = await resp.json();
+                if (!resp.ok || json.status !== 'success') throw new Error(json.message || 'Upload failed');
+                const url = json.url;
+                homepageContent.homepage = homepageContent.homepage || {};
+                homepageContent.homepage.heroImage = url;
+                const prevEl = document.getElementById('hero-image-preview');
+                if (prevEl) {
+                    prevEl.style.backgroundImage = `url('${url}')`;
+                    prevEl.textContent = '';
+                }
+                alert('Image uploaded successfully.');
+            } catch (err) {
+                console.error('Upload error', err);
+                alert('Failed to upload image.');
+            }
+        }
+
+        async function saveHomepageContent() {
+            const titleEl = document.getElementById('hero-title');
+            const subEl = document.getElementById('hero-subtitle');
+            homepageContent.homepage = homepageContent.homepage || {};
+            homepageContent.homepage.heroTitle = (titleEl && titleEl.value) || '';
+            homepageContent.homepage.heroSubtitle = (subEl && subEl.value) || '';
+            homepageContent.updated_at = new Date().toISOString();
+            try {
+                const resp = await fetch('/api/content', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(homepageContent)
+                });
+                const json = await resp.json();
+                if (!resp.ok || json.status !== 'success') throw new Error(json.message || 'Save failed');
+                alert('Homepage content saved.');
+            } catch (err) {
+                console.error('Save error', err);
+                alert('Failed to save content.');
+            }
+        }
+
+        // About Page Content: upload image
+        async function uploadAboutImage() {
+            const input = document.getElementById('about-image-input');
+            const file = input && input.files && input.files[0];
+            if (!file) {
+                alert('Please choose an image file first.');
+                return;
+            }
+            try {
+                const reader = new FileReader();
+                const base64 = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+                const resp = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: base64, filename: file.name })
+                });
+                const json = await resp.json();
+                if (!resp.ok || json.status !== 'success') throw new Error(json.message || 'Upload failed');
+                const url = json.url;
+                homepageContent.about = homepageContent.about || {};
+                homepageContent.about.image = url;
+                const prevEl = document.getElementById('about-image-preview');
+                if (prevEl) {
+                    prevEl.style.backgroundImage = `url('${url}')`;
+                    prevEl.textContent = '';
+                }
+                alert('Image uploaded successfully.');
+            } catch (err) {
+                console.error('Upload error', err);
+                alert('Failed to upload image.');
+            }
+        }
+
+        // About Page Content: save text
+        async function saveAboutContent() {
+            const titleEl = document.getElementById('about-title');
+            const p1El = document.getElementById('about-paragraph1');
+            const p2El = document.getElementById('about-paragraph2');
+            homepageContent.about = homepageContent.about || {};
+            homepageContent.about.title = (titleEl && titleEl.value) || '';
+            homepageContent.about.paragraph1 = (p1El && p1El.value) || '';
+            homepageContent.about.paragraph2 = (p2El && p2El.value) || '';
+            homepageContent.updated_at = new Date().toISOString();
+            try {
+                const resp = await fetch('/api/content', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(homepageContent)
+                });
+                const json = await resp.json();
+                if (!resp.ok || json.status !== 'success') throw new Error(json.message || 'Save failed');
+                alert('About content saved.');
+            } catch (err) {
+                console.error('Save error', err);
+                alert('Failed to save content.');
+            }
+        }
         
         // Load users
         async function loadUsers() {

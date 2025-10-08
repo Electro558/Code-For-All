@@ -184,21 +184,33 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(analytics_data).encode('utf-8'))
             return
 
-        # Public contact info endpoint
-        if self.path == '/api/public-contact':
-            contact_info = {
-                'email': os.getenv('PUBLIC_CONTACT_EMAIL', ''),
-                'phone': os.getenv('PUBLIC_CONTACT_PHONE', ''),
-                'address': os.getenv('PUBLIC_CONTACT_ADDRESS', ''),
-                'instagram_url': os.getenv('PUBLIC_INSTAGRAM_URL', ''),
-                'twitter_url': os.getenv('PUBLIC_TWITTER_URL', ''),
-                'facebook_url': os.getenv('PUBLIC_FACEBOOK_URL', '')
-            }
+        # Handle content API endpoint
+        if self.path == '/api/content':
+            # Load content.json or defaults
+            content_file = os.getenv('CONTENT_FILE', 'content.json')
+            try:
+                with open(content_file, 'r') as f:
+                    content = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                content = {
+                    'homepage': {
+                        'heroTitle': 'Empowering Communities Through Technology',
+                        'heroSubtitle': 'Join us in bridging the digital divide and creating opportunities for everyone to learn, grow, and succeed in the digital age.',
+                        'heroImage': ''
+                    },
+                    'about': {
+                        'title': 'Our Mission',
+                        'paragraph1': 'At Code For All, we believe that technology should be accessible to everyone, regardless of their background or circumstances. Our mission is to empower communities by providing free coding education, digital literacy programs, and technology resources.',
+                        'paragraph2': 'We work with local organizations, schools, and community centers to bring technology education directly to underserved communities. Through hands-on workshops, mentorship programs, and collaborative projects, we\'re building a more inclusive digital future.',
+                        'image': ''
+                    },
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
             self.send_response(HTTPStatus.OK)
             self.send_header('Content-type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
-            self.wfile.write(json.dumps(contact_info).encode('utf-8'))
+            self.wfile.write(json.dumps(content).encode('utf-8'))
             return
         
         # Continue with normal file serving
@@ -299,6 +311,70 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 response = {'status': 'error', 'message': str(e)}
                 self.wfile.write(json.dumps(response).encode('utf-8'))
+        elif parsed_path.path == '/api/content':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_length)
+                content = json.loads(post_data.decode('utf-8'))
+                content_file = os.getenv('CONTENT_FILE', 'content.json')
+                with open(content_file, 'w') as f:
+                    json.dump(content, f, indent=2)
+                self.send_response(HTTPStatus.OK)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'status': 'success'}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(HTTPStatus.INTERNAL_SERVER_ERROR)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'status': 'error', 'message': str(e)}).encode('utf-8'))
+        elif parsed_path.path == '/api/upload-image':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_length)
+                payload = json.loads(post_data.decode('utf-8'))
+                data_url = payload.get('data', '')
+                filename = payload.get('filename', 'upload')
+                # Parse data URL
+                if ',' in data_url:
+                    header, b64data = data_url.split(',', 1)
+                else:
+                    b64data = payload.get('base64', '')
+                    header = ''
+                # Determine extension
+                ext = 'png'
+                if 'image/jpeg' in header:
+                    ext = 'jpg'
+                elif 'image/png' in header:
+                    ext = 'png'
+                elif 'image/webp' in header:
+                    ext = 'webp'
+                # Ensure uploads dir
+                uploads_dir = os.getenv('UPLOADS_DIR', 'uploads')
+                os.makedirs(uploads_dir, exist_ok=True)
+                # Build unique filename
+                ts = int(time.time()*1000)
+                safe_name = ''.join(c for c in filename if c.isalnum() or c in ('-', '_')) or 'image'
+                out_name = f"{safe_name}_{ts}.{ext}"
+                out_path = os.path.join(uploads_dir, out_name)
+                # Write file
+                import base64
+                with open(out_path, 'wb') as f:
+                    f.write(base64.b64decode(b64data))
+                url = f"{uploads_dir}/{out_name}"
+                self.send_response(HTTPStatus.OK)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'status': 'success', 'url': url}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(HTTPStatus.INTERNAL_SERVER_ERROR)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'status': 'error', 'message': str(e)}).encode('utf-8'))
         else:
             # Handle other POST requests with 404
             self.send_response(HTTPStatus.NOT_FOUND)
@@ -306,7 +382,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     
     def do_OPTIONS(self):
         # Handle CORS preflight requests
-        self.send_response(HTTPStatus.OK)
+        self.send_response(HTTPStatus.NO_CONTENT)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')

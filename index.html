@@ -26,6 +26,16 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-visual">
+                <div class="loader-ring"></div>
+                <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+            </div>
+            <div class="loader-text">Loading Code For All...</div>
+        </div>
+    </div>
     <!-- Navigation Header -->
     <header>
         <div class="container">
@@ -50,13 +60,13 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero" id="home" data-edit-key="homepage.heroImage" data-edit-type="bgimage">
         <div class="container">
-            <h1>Empowering Communities Through Technology</h1>
-            <p>Join us in bridging the digital divide and creating opportunities for everyone to learn, grow, and succeed in the digital age.</p>
+            <h1 data-edit-key="homepage.heroTitle" data-edit-type="text">Empowering Communities Through Technology</h1>
+            <p data-edit-key="homepage.heroSubtitle" data-edit-type="text">Join us in bridging the digital divide and creating opportunities for everyone to learn, grow, and succeed in the digital age.</p>
             <div class="hero-buttons">
                 <a href="#about" class="btn btn-light" id="mission-btn">Discover Our Mission</a>
-                <a href="events.html" class="btn btn-outline">Join Our Events</a>
+                <a href="events.html" class="btn btn-outline btn-join-events">Join Our Events</a>
             </div>
         </div>
     </section>
@@ -64,15 +74,15 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <h2 class="section-title">Our Mission</h2>
+            <h2 class="section-title" id="about-title" data-edit-key="about.title" data-edit-type="text">Our Mission</h2>
             <div class="about-content scroll-reveal">
                 <div class="about-text scroll-reveal">
-                    <p class="text-large">At Code For All, we believe that technology should be accessible to everyone, regardless of their background or circumstances. Our mission is to empower communities by providing free coding education, digital literacy programs, and technology resources.</p>
-                    <p>We work with local organizations, schools, and community centers to bring technology education directly to underserved communities. Through hands-on workshops, mentorship programs, and collaborative projects, we're building a more inclusive digital future.</p>
+                    <p class="text-large" id="about-paragraph1" data-edit-key="about.paragraph1" data-edit-type="text">At Code For All, we believe that technology should be accessible to everyone, regardless of their background or circumstances. Our mission is to empower communities by providing free coding education, digital literacy programs, and technology resources.</p>
+                    <p id="about-paragraph2" data-edit-key="about.paragraph2" data-edit-type="text">We work with local organizations, schools, and community centers to bring technology education directly to underserved communities. Through hands-on workshops, mentorship programs, and collaborative projects, we're building a more inclusive digital future.</p>
                     <a href="#impact" class="btn btn-primary">Discover Our Impact</a>
                 </div>
                 <div class="about-image scroll-reveal">
-                    <img src="photos/coding_classroom.jpg" alt="Students learning to code">
+                    <img id="about-image" src="photos/coding_classroom.jpg" alt="Students learning to code" data-edit-key="about.image" data-edit-type="image">
                 </div>
             </div>
         </div>
@@ -173,13 +183,13 @@
                 </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
-                    <p><i class="fas fa-envelope"></i> <span id="footer-email">zhu47578@sas.edu.sg</span></p>
-                    <p><i class="fas fa-phone"></i> <span id="footer-phone">+65 8647 2776</span></p>
-                    <p><i class="fas fa-map-marker-alt"></i> <span id="footer-address">40 Woodlands Street 41, Singapore 738547</span></p>
+                    <p><i class="fas fa-envelope"></i> zhu47578@sas.edu.sg</p>
+                    <p><i class="fas fa-phone"></i> +65 8647 2776</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 40 Woodlands Street 41, Singapore 738547</p>
                     <div class="social-icons">
-                        <a id="footer-instagram" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a id="footer-twitter" href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a id="footer-facebook" href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
             </div>
@@ -190,27 +200,35 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-    // Populate footer contact info from /api/public-contact
-    (async function populateFooterContact(){
-        try {
-            const res = await fetch('/api/public-contact');
-            if (!res.ok) return;
-            const info = await res.json();
-            const setText = (el, text) => { if (el && text) el.textContent = text; };
-            const setAttr = (el, name, val) => { if (el && val) el.setAttribute(name, val); };
-
-            setText(document.getElementById('footer-email'), info.email);
-            setText(document.getElementById('footer-phone'), info.phone);
-            setText(document.getElementById('footer-address'), info.address);
-
-            setAttr(document.getElementById('footer-instagram'), 'href', info.instagram_url);
-            setAttr(document.getElementById('footer-twitter'), 'href', info.twitter_url);
-            setAttr(document.getElementById('footer-facebook'), 'href', info.facebook_url);
-        } catch(e) {
-            console.warn('Footer contact population failed', e);
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        const res = await fetch('/api/content');
+        if (!res.ok) return;
+        const data = await res.json();
+        const homepage = data?.homepage || {};
+        const hero = document.querySelector('.hero');
+        const titleEl = document.querySelector('.hero h1');
+        const subtitleEl = document.querySelector('.hero p');
+        if (titleEl && homepage.heroTitle) titleEl.textContent = homepage.heroTitle;
+        if (subtitleEl && homepage.heroSubtitle) subtitleEl.textContent = homepage.heroSubtitle;
+        if (hero && homepage.heroImage) {
+          hero.style.background = `linear-gradient(rgba(52, 152, 219, 0.85), rgba(41, 128, 185, 0.9)), url('${homepage.heroImage}') no-repeat center center/cover`;
         }
-    })();
-    </script>
-    </body>
-    </html>
+        // Bind About section
+        const about = data?.about || {};
+        const aboutTitle = document.getElementById('about-title');
+        const aboutP1 = document.getElementById('about-paragraph1');
+        const aboutP2 = document.getElementById('about-paragraph2');
+        const aboutImg = document.getElementById('about-image');
+        if (aboutTitle && about.title) aboutTitle.textContent = about.title;
+        if (aboutP1 && about.paragraph1) aboutP1.textContent = about.paragraph1;
+        if (aboutP2 && about.paragraph2) aboutP2.textContent = about.paragraph2;
+        if (aboutImg && about.image) aboutImg.src = about.image;
+      } catch (e) {
+        console.warn('Failed to bind homepage content', e);
+      }
+    });
+  </script>
+</body>
+</html>

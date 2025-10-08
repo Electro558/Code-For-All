@@ -439,9 +439,67 @@
                 height: 60px;
             }
         }
-    </style>
+    /* Banner enhancements for Upcoming tab */
+.page-header {
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    transition: min-height 0.6s ease, background-position 0.6s ease;
+}
+.page-header.big {
+    min-height: 460px;
+}
+.page-header.parallax {
+    background-attachment: fixed;
+}
+.page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    background: radial-gradient(60% 80% at 10% 10%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%),
+                radial-gradient(50% 70% at 90% 20%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.page-header.big::before {
+    opacity: 1;
+}
+.page-header .container {
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.page-header.big .container {
+    transform: translateY(8px);
+}
+.page-header h1 {
+    position: relative;
+}
+.page-header h1::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), #7dd3fc);
+    transition: width 0.6s ease;
+    margin: 12px auto 0;
+}
+.page-header.big h1::after {
+    width: 180px;
+}
+</style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-visual">
+                <div class="loader-ring"></div>
+                <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+            </div>
+            <div class="loader-text">Loading Code For All...</div>
+        </div>
+    </div>
     <header>
         <div class="container">
             <div class="logo">
@@ -464,7 +522,7 @@
         </div>
     </header>
 
-    <section class="page-header" style="background: linear-gradient(rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.9)), url('coding_classroom.jpg') no-repeat center center/cover; height: 300px; display: flex; align-items: center; justify-content: center; margin-top: 80px;">
+    <section class="page-header" style="background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 50%, var(--accent-blue) 100%), url('coding_classroom.jpg') no-repeat center center/cover; background-blend-mode: multiply; min-height: 300px; display: flex; align-items: center; justify-content: center; margin-top: 80px;">
         <div class="container">
             <h1 style="color: white; font-size: 3rem; text-align: center;">Upcoming Events</h1>
             <p style="color: white; text-align: center; max-width: 700px; margin: 0 auto;">Join us for these exciting opportunities to learn coding and make a difference through technology.</p>
@@ -686,66 +744,66 @@
                     <div class="calendar-day-header">Sat</div>
                     <!-- Calendar days will be generated dynamically -->
                 </div>
-                
-                <!-- Admin Panel -->
-                <div class="admin-panel" id="admin-panel" style="display: none;">
-                    <div class="admin-status" id="admin-status">
-                        <span>Admin Mode Active</span>
-                        <span id="admin-user-display"></span>
-                        <button id="logout-btn" class="logout-btn">Logout</button>
-                    </div>
-                    <h3>Admin: Event Management</h3>
-                    <div class="admin-controls">
-                        <button id="add-event" class="btn">Add New Event</button>
-                        <button id="hide-admin-panel" class="btn btn-secondary">Hide Admin Panel</button>
-                    </div>
+            </div>
+            
+            <!-- Admin Panel -->
+            <div class="admin-panel" id="admin-panel" style="display: none;">
+                <div class="admin-status" id="admin-status">
+                    <span>Admin Mode Active</span>
+                    <span id="admin-user-display"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
                 </div>
-                
-                <!-- Event Modal -->
-                <div class="event-modal" id="event-modal" style="display: none;">
-                    <div class="modal-content">
-                        <span class="close" id="close-modal">&times;</span>
-                        <h3 id="modal-title">Add New Event</h3>
-                        <form id="event-form">
-                            <div class="form-group">
-                                <label for="event-title">Event Title:</label>
-                                <input type="text" id="event-title" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-date">Date:</label>
-                                <input type="date" id="event-date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-time">Time:</label>
-                                <input type="time" id="event-time" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-location">Location:</label>
-                                <input type="text" id="event-location" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-description">Description:</label>
-                                <textarea id="event-description" rows="4" required></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn">Save Event</button>
-                                <button type="button" id="cancel-event" class="btn btn-secondary">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
+                <h3>Admin: Event Management</h3>
+                <div class="admin-controls">
+                    <button id="add-event" class="btn">Add New Event</button>
+                    <button id="hide-admin-panel" class="btn btn-secondary">Hide Admin Panel</button>
                 </div>
-
-                <!-- Event Details Modal -->
-                <div class="event-modal" id="event-details-modal" style="display: none;">
-                    <div class="modal-content">
-                        <span class="close" id="close-details-modal">&times;</span>
-                        <h3>Events on this day</h3>
-                        <div id="event-details-list" class="event-details-list">
-                            <!-- Populated dynamically -->
+            </div>
+            
+            <!-- Event Modal -->
+            <div class="event-modal" id="event-modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" id="close-modal">&times;</span>
+                    <h3 id="modal-title">Add New Event</h3>
+                    <form id="event-form">
+                        <div class="form-group">
+                            <label for="event-title">Event Title:</label>
+                            <input type="text" id="event-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-date">Date:</label>
+                            <input type="date" id="event-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-time">Time:</label>
+                            <input type="time" id="event-time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-location">Location:</label>
+                            <input type="text" id="event-location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-description">Description:</label>
+                            <textarea id="event-description" rows="4" required></textarea>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" id="close-details">Close</button>
+                            <button type="submit" class="btn">Save Event</button>
+                            <button type="button" id="cancel-event" class="btn btn-secondary">Cancel</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Event Details Modal -->
+            <div class="event-modal" id="event-details-modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" id="close-details-modal">&times;</span>
+                    <h3>Events on this day</h3>
+                    <div id="event-details-list" class="event-details-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="close-details">Close</button>
                     </div>
                 </div>
             </div>
@@ -824,12 +882,13 @@
         const pastTab = document.querySelector('.past-tab');
         const upcomingEvents = document.querySelector('.upcoming-events');
         const pastEvents = document.querySelector('.past-events');
-        
+
         upcomingTab.addEventListener('click', function() {
             upcomingTab.classList.add('active');
             pastTab.classList.remove('active');
             upcomingEvents.classList.add('active');
             pastEvents.classList.remove('active');
+            updateBannerForTab();
         });
         
         pastTab.addEventListener('click', function() {
@@ -837,7 +896,27 @@
             upcomingTab.classList.remove('active');
             pastEvents.classList.add('active');
             upcomingEvents.classList.remove('active');
+            updateBannerForTab();
         });
+        
+        // Banner size/animation toggling based on active tab
+        function updateBannerForTab() {
+            const pageHeader = document.querySelector('.page-header');
+            if (!pageHeader) return;
+            
+            const upcomingActive = upcomingTab.classList.contains('active');
+            
+            if (upcomingActive) {
+                pageHeader.classList.add('big', 'parallax');
+                pageHeader.style.backgroundPosition = 'center 35%';
+            } else {
+                pageHeader.classList.remove('big', 'parallax');
+                pageHeader.style.backgroundPosition = 'center 50%';
+            }
+        }
+        
+        // Set initial banner state on load
+        updateBannerForTab();
         
         // Calendar functionality
         function generateCalendar(year, month) {
