@@ -510,28 +510,28 @@
                         <span class="card-icon">👥</span>
                         <div class="card-title">User Management</div>
                         <div class="card-description">Manage registered users, view profiles, and handle user permissions.</div>
-                        <button class="card-button" onclick="showSection('users')">Manage Users</button>
+                        <button class="card-button" onclick="location.hash='#users'; showSection('users')">Manage Users</button>
                     </div>
                     
                     <div class="dashboard-card">
                         <span class="card-icon">📅</span>
                         <div class="card-title">Event Management</div>
                         <div class="card-description">Create, edit, and manage coding events and workshops.</div>
-                        <button class="card-button" onclick="showSection('events')">Manage Events</button>
+                        <button class="card-button" onclick="location.hash='#events'; showSection('events')">Manage Events</button>
                     </div>
                     
                     <div class="dashboard-card">
                         <span class="card-icon">📊</span>
                         <div class="card-title">Analytics</div>
                         <div class="card-description">View site statistics, user engagement, and event metrics.</div>
-                        <button class="card-button" onclick="showSection('analytics')">View Analytics</button>
+                        <button class="card-button" onclick="location.hash='#analytics'; showSection('analytics')">View Analytics</button>
                     </div>
                     
                     <div class="dashboard-card">
                         <span class="card-icon">⚙️</span>
                         <div class="card-title">Settings</div>
                         <div class="card-description">Configure site settings, notifications, and system preferences.</div>
-                        <button class="card-button" onclick="showSection('settings')">Site Settings</button>
+                        <button class="card-button" onclick="location.hash='#settings'; showSection('settings')">Site Settings</button>
                     </div>
                 </div>
             </div>
@@ -1109,15 +1109,84 @@
             `);
         }
         
-        // Load visitor analytics
+        // Fallback analytics data generator
+        function getDefaultAnalyticsData() {
+            const today = new Date();
+            const daily_visits = {};
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(today);
+                d.setDate(today.getDate() - i);
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                const dateStr = `${yyyy}-${mm}-${dd}`;
+                daily_visits[dateStr] = 0;
+            }
+            const monthly_visits = {};
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const monthStr = `${yyyy}-${mm}`;
+                monthly_visits[monthStr] = 0;
+            }
+            return {
+                total_visits: 0,
+                today_visits: 0,
+                daily_change: 0,
+                top_pages: [],
+                recent_visits: [],
+                daily_visits,
+                monthly_visits
+            };
+        }
+
+        // Load visitor analytics (robust with fallbacks)
         async function loadVisitorAnalytics() {
             try {
-                const response = await fetch('/api/analytics');
-                const data = await response.json();
+                let data = null;
+
+                // Try API endpoint first
+                const response = await fetch('/api/analytics', { headers: { 'Accept': 'application/json' } });
+                if (response && response.ok) {
+                    const contentType = (response.headers.get('content-type') || '').toLowerCase();
+                    if (contentType.includes('application/json')) {
+                        data = await response.json();
+                    }
+                }
+
+                // If API didn't return JSON, try local analytics.json file
+                if (!data) {
+                    try {
+                        const localResp = await fetch('analytics.json', { headers: { 'Accept': 'application/json' } });
+                        if (localResp && localResp.ok) {
+                            const ct = (localResp.headers.get('content-type') || '').toLowerCase();
+                            if (ct.includes('application/json')) {
+                                data = await localResp.json();
+                            }
+                        }
+                    } catch (e) {
+                        // ignore secondary fetch errors
+                    }
+                }
+
+                // Try localStorage as a fallback source
+                if (!data) {
+                    try {
+                        data = JSON.parse(localStorage.getItem('visitorAnalytics') || '{}');
+                    } catch (e) {
+                        data = null;
+                    }
+                }
+
+                // Final fallback to default skeleton data
+                if (!data || Object.keys(data).length === 0) {
+                    data = getDefaultAnalyticsData();
+                }
                 
                 if (data.error) {
                     console.error('Analytics error:', data.error);
-                    return;
+                    // proceed with whatever data we have
                 }
                 
                 // Update visitor stats
@@ -1126,17 +1195,17 @@
                 
                 // Update daily change
                 const dailyChangeEl = document.getElementById('daily-change');
-                const changeValue = data.daily_change || 0;
+                const changeValue = (typeof data.daily_change === 'number') ? data.daily_change : 0;
                 if (dailyChangeEl) {
                     dailyChangeEl.textContent = `${changeValue >= 0 ? '+' : ''}${changeValue}%`;
                     dailyChangeEl.className = `stat-change ${changeValue >= 0 ? 'positive' : 'negative'}`;
                 }
                 
                 // Display top pages
-                displayTopPages(data.top_pages || []);
+                displayTopPages(Array.isArray(data.top_pages) ? data.top_pages : []);
                 
                 // Display recent visits
-                displayRecentVisits(data.recent_visits || []);
+                displayRecentVisits(Array.isArray(data.recent_visits) ? data.recent_visits : []);
                 
                 // Create charts
                 createDailyVisitsChart(data.daily_visits || {});
@@ -1144,6 +1213,20 @@
                 
             } catch (error) {
                 console.error('Error loading analytics:', error);
+                // Render default analytics to avoid breaking UI
+                const data = getDefaultAnalyticsData();
+                setText('total-visits', data.total_visits || 0);
+                setText('today-visits', data.today_visits || 0);
+                const dailyChangeEl = document.getElementById('daily-change');
+                const changeValue = 0;
+                if (dailyChangeEl) {
+                    dailyChangeEl.textContent = `+${changeValue}%`;
+                    dailyChangeEl.className = 'stat-change positive';
+                }
+                displayTopPages([]);
+                displayRecentVisits([]);
+                createDailyVisitsChart(data.daily_visits || {});
+                createMonthlyTrendsChart(data.monthly_visits || {});
             }
         }
         

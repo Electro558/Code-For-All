@@ -686,6 +686,11 @@ function initInlineEditing() {
                 el.style.outlineOffset = '4px';
                 el.addEventListener('input', onTextInput);
                 el.addEventListener('blur', onTextBlur);
+                // Prevent navigation on editable anchors while editing
+                if (el.tagName && el.tagName.toLowerCase() === 'a') {
+                    el.addEventListener('click', onEditAnchorClick, true);
+                    el.setAttribute('data-edit-anchor-block', 'true');
+                }
             } else if (type === 'image' || type === 'bgimage') {
                 el.style.outline = '2px dashed #f39c12';
                 el.style.outlineOffset = '4px';
@@ -711,6 +716,10 @@ function initInlineEditing() {
                 el.removeAttribute('contenteditable');
                 el.removeEventListener('input', onTextInput);
                 el.removeEventListener('blur', onTextBlur);
+                if (el.tagName && el.tagName.toLowerCase() === 'a') {
+                    el.removeEventListener('click', onEditAnchorClick, true);
+                    el.removeAttribute('data-edit-anchor-block');
+                }
             } else if (type === 'image' || type === 'bgimage') {
                 el.removeEventListener('click', onImageClick);
                 el.removeAttribute('title');
@@ -732,6 +741,10 @@ function initInlineEditing() {
         const el = e.currentTarget;
         const key = el.getAttribute('data-edit-key');
         state.changes[key] = el.textContent.trim();
+    };
+    const onEditAnchorClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
     };
 
     const onImageClick = async (e) => {
