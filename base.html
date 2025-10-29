@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Code For All - Empowering Communities Through Technology</title>
+        <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />
+        <link rel="icon" type="image/png" href="logos/favicon.png" />
+        <link rel="apple-touch-icon" href="logos/favicon.png" />
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <!-- Loading Overlay -->
+        <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+            <div class="loader-content">
+                <div class="loader-visual">
+                    <div class="loader-ring"></div>
+                    <img
+                        src="logos/logo_big_light.png"
+                        alt="Code For All Logo"
+                        class="loader-logo"
+                    />
+                </div>
+                <div class="loader-text">Loading Code For All...</div>
+            </div>
+        </div>
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img
+                            src="logos/logo_big_light.png"
+                            alt="Code for All Logo"
+                            class="logo-img"
+                        />
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Team</a></li>
+                    </ul>
+                </nav>
+                <div class="menu-toggle">☰</div>
+            </div>
+        </header>
+        <main>{% block content %} {% endblock %}</main>
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h3 data-edit-key="footer.brand" data-edit-type="text">
+                            Code For All
+                        </h3>
+                        <p data-edit-key="footer.tagline" data-edit-type="text">
+                            Making coding accessible for everyone
+                        </p>
+                    </div>
+                    <div class="footer-links">
+                        <h4
+                            data-edit-key="footer.links.title"
+                            data-edit-type="text"
+                        >
+                            Quick Links
+                        </h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="events.html">Events</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="contact.html">Get Involved</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4
+                            data-edit-key="footer.contact.title"
+                            data-edit-type="text"
+                        >
+                            Contact Us
+                        </h4>
+                        <p
+                            data-edit-key="footer.contact.email"
+                            data-edit-type="text"
+                        >
+                            <i class="fas fa-envelope"></i> zhu47578@sas.edu.sg
+                        </p>
+                        <p
+                            data-edit-key="footer.contact.phone"
+                            data-edit-type="text"
+                        >
+                            <i class="fas fa-phone"></i> +65 8647 2776
+                        </p>
+                        <p
+                            data-edit-key="footer.contact.address"
+                            data-edit-type="text"
+                        >
+                            <i class="fas fa-map-marker-alt"></i> 40 Woodlands
+                            Street 41, Singapore 738547
+                        </p>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com" target="_blank"
+                                ><i class="fab fa-instagram"></i
+                            ></a>
+                            <a href="https://www.twitter.com" target="_blank"
+                                ><i class="fab fa-twitter"></i
+                            ></a>
+                            <a href="https://www.facebook.com" target="_blank"
+                                ><i class="fab fa-facebook"></i
+                            ></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p
+                        data-edit-key="footer.bottom.copyright"
+                        data-edit-type="text"
+                    >
+                        &copy; 2025 Code For All. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
