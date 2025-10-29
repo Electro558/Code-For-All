@@ -4,195 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Team - Code For All</title>
-    <link rel="icon" type="image/x-icon" href="logos/favicon.ico">
-  <link rel="icon" type="image/png" href="logos/favicon.png">
-  <link rel="apple-touch-icon" href="logos/favicon.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/logos/favicon.ico">
+    <link rel="icon" type="image/png" href="/logos/favicon.png">
+    <link rel="apple-touch-icon" href="/logos/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="team.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        /* Team Page Specific Styles */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .team-member {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .member-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-        
-        .member-info {
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .member-name {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-        
-        .member-role {
-            color: #3498db;
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-        
-        .member-bio {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .member-social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .member-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: #ecf0f1;
-            border-radius: 50%;
-            color: #7f8c8d;
-            transition: all 0.3s ease;
-        }
-        
-        .member-social a:hover {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .team-categories {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .team-category {
-            padding: 10px 20px;
-            background-color: #ecf0f1;
-            border-radius: 30px;
-            color: #7f8c8d;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .team-category.active {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .team-category:hover {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .team-values {
-            background-color: #f8f9fa;
-            padding: 80px 0;
-            margin-top: 80px;
-        }
-        
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .value-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .value-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .value-icon {
-            width: 80px;
-            height: 80px;
-            background-color: #f1f8fe;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-        
-        .value-icon i {
-            font-size: 2rem;
-            color: #3498db;
-        }
-        
-        .value-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        
-        .value-description {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .join-team {
-            background: linear-gradient(rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.9)), url('coding_hackathon.jpg') no-repeat center center/cover;
-            padding: 100px 0;
-            text-align: center;
-            color: white;
-            margin-top: 80px;
-        }
-        
-        .join-team h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .join-team p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-size: 1.1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .team-grid, .values-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Loading Overlay -->
@@ -200,7 +18,7 @@
         <div class="loader-content">
             <div class="loader-visual">
                 <div class="loader-ring"></div>
-                <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+                <img src="/logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
             </div>
             <div class="loader-text">Loading Code For All...</div>
         </div>
@@ -209,7 +27,7 @@
         <div class="container">
             <div class="logo">
           <a href="index.html">
-            <img src="logos/logo_big_light.png" alt="Code for All Logo" class="logo-img">
+            <img src="/logos/logo_big_light.png" alt="Code for All Logo" class="logo-img">
           </a>
         </div>
             <nav>
@@ -246,7 +64,7 @@
             <div class="team-grid">
                 <!-- Leadership Team -->
                 <div class="team-member" data-category="leadership">
-                    <img src="photos/IMG_7490.JPG" alt="Jamie Smith" class="member-image" data-edit-key="team.members.member1.image" data-edit-type="image">
+                    <img src="/photos/IMG_7490.JPG" alt="Jamie Smith" class="member-image" data-edit-key="team.members.member1.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member1.name" data-edit-type="text">Jamie Smith</h3>
                         <div class="member-role" data-edit-key="team.members.member1.role" data-edit-type="text">President</div>
@@ -260,7 +78,7 @@
                 </div>
                 
                 <div class="team-member" data-category="leadership">
-                    <img src="photos/IMG_7491.JPG" alt="Alex Johnson" class="member-image" data-edit-key="team.members.member2.image" data-edit-type="image">
+                    <img src="/photos/IMG_7491.JPG" alt="Alex Johnson" class="member-image" data-edit-key="team.members.member2.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member2.name" data-edit-type="text">Alex Johnson</h3>
                         <div class="member-role" data-edit-key="team.members.member2.role" data-edit-type="text">Vice President</div>
@@ -274,7 +92,7 @@
                 </div>
                 
                 <div class="team-member" data-category="leadership">
-                    <img src="photos/IMG_7492.JPG" alt="Taylor Williams" class="member-image" data-edit-key="team.members.member3.image" data-edit-type="image">
+                    <img src="/photos/IMG_7492.JPG" alt="Taylor Williams" class="member-image" data-edit-key="team.members.member3.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member3.name" data-edit-type="text">Taylor Williams</h3>
                         <div class="member-role" data-edit-key="team.members.member3.role" data-edit-type="text">Secretary</div>
@@ -288,7 +106,7 @@
                 </div>
                 
                 <div class="team-member" data-category="leadership">
-                    <img src="photos/IMG_7493.JPG" alt="Jordan Lee" class="member-image" data-edit-key="team.members.member4.image" data-edit-type="image">
+                    <img src="/photos/IMG_7493.JPG" alt="Jordan Lee" class="member-image" data-edit-key="team.members.member4.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member4.name" data-edit-type="text">Jordan Lee</h3>
                         <div class="member-role" data-edit-key="team.members.member4.role" data-edit-type="text">Treasurer</div>
@@ -303,7 +121,7 @@
                 
                 <!-- Committee Heads -->
                 <div class="team-member" data-category="committee">
-                    <img src="photos/IMG_7494.JPG" alt="Casey Martinez" class="member-image" data-edit-key="team.members.member5.image" data-edit-type="image">
+                    <img src="/photos/IMG_7494.JPG" alt="Casey Martinez" class="member-image" data-edit-key="team.members.member5.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member5.name" data-edit-type="text">Casey Martinez</h3>
                         <div class="member-role" data-edit-key="team.members.member5.role" data-edit-type="text">Events Committee Head</div>
@@ -317,7 +135,7 @@
                 </div>
                 
                 <div class="team-member" data-category="committee">
-                    <img src="photos/IMG_7495.JPG" alt="Riley Thompson" class="member-image" data-edit-key="team.members.member6.image" data-edit-type="image">
+                    <img src="/photos/IMG_7495.JPG" alt="Riley Thompson" class="member-image" data-edit-key="team.members.member6.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member6.name" data-edit-type="text">Riley Thompson</h3>
                         <div class="member-role" data-edit-key="team.members.member6.role" data-edit-type="text">Outreach Committee Head</div>
@@ -331,7 +149,7 @@
                 </div>
                 
                 <div class="team-member" data-category="committee">
-                    <img src="photos/IMG_7496.JPG" alt="Morgan Wilson" class="member-image" data-edit-key="team.members.member7.image" data-edit-type="image">
+                    <img src="/photos/IMG_7496.JPG" alt="Morgan Wilson" class="member-image" data-edit-key="team.members.member7.image" data-edit-type="image">
                     <div class="member-info">
                         <h3 class="member-name" data-edit-key="team.members.member7.name" data-edit-type="text">Morgan Wilson</h3>
                         <div class="member-role" data-edit-key="team.members.member7.role" data-edit-type="text">Fundraising Committee Head</div>
@@ -514,7 +332,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/js/script.js"></script>
     <script>
         // Team filtering functionality
         const categoryButtons = document.querySelectorAll('.team-category');
@@ -539,107 +357,5 @@
             });
         });
     </script>
-    <script>
-        window.addEventListener('DOMContentLoaded', async () => {
-          try {
-            const res = await fetch('/api/content');
-            const data = await res.json() || {};
-            const team = data.team || {};
-            const footer = data.footer || {};
-            const setText = (sel, val) => {
-              const el = document.querySelector(sel);
-              if (el && typeof val === 'string') el.textContent = val;
-            };
-            const setImage = (sel, url) => {
-              const el = document.querySelector(sel);
-              if (el && typeof url === 'string') el.setAttribute('src', url);
-            };
-            // Header & sections
-            setText('[data-edit-key="team.header.title"]', team.header?.title);
-            setText('[data-edit-key="team.header.subtitle"]', team.header?.subtitle);
-            setText('[data-edit-key="team.values.title"]', team.values?.title);
-            setText('[data-edit-key="team.values.compassion"]', team.values?.compassion);
-            setText('[data-edit-key="team.values.integrity"]', team.values?.integrity);
-            setText('[data-edit-key="team.values.growth"]', team.values?.growth);
-            setText('[data-edit-key="team.join.title"]', team.join?.title);
-            setText('[data-edit-key="team.join.subtitle"]', team.join?.subtitle);
-            setText('[data-edit-key="team.join.cta"]', team.join?.cta);
-
-            // Members (1–12)
-            const m = team.members || {};
-            setImage('[data-edit-key="team.members.member1.image"]', m.member1?.image);
-            setText('[data-edit-key="team.members.member1.name"]', m.member1?.name);
-            setText('[data-edit-key="team.members.member1.role"]', m.member1?.role);
-            setText('[data-edit-key="team.members.member1.bio"]', m.member1?.bio);
-
-            setImage('[data-edit-key="team.members.member2.image"]', m.member2?.image);
-            setText('[data-edit-key="team.members.member2.name"]', m.member2?.name);
-            setText('[data-edit-key="team.members.member2.role"]', m.member2?.role);
-            setText('[data-edit-key="team.members.member2.bio"]', m.member2?.bio);
-
-            setImage('[data-edit-key="team.members.member3.image"]', m.member3?.image);
-            setText('[data-edit-key="team.members.member3.name"]', m.member3?.name);
-            setText('[data-edit-key="team.members.member3.role"]', m.member3?.role);
-            setText('[data-edit-key="team.members.member3.bio"]', m.member3?.bio);
-
-            setImage('[data-edit-key="team.members.member4.image"]', m.member4?.image);
-            setText('[data-edit-key="team.members.member4.name"]', m.member4?.name);
-            setText('[data-edit-key="team.members.member4.role"]', m.member4?.role);
-            setText('[data-edit-key="team.members.member4.bio"]', m.member4?.bio);
-
-            setImage('[data-edit-key="team.members.member5.image"]', m.member5?.image);
-            setText('[data-edit-key="team.members.member5.name"]', m.member5?.name);
-            setText('[data-edit-key="team.members.member5.role"]', m.member5?.role);
-            setText('[data-edit-key="team.members.member5.bio"]', m.member5?.bio);
-
-            setImage('[data-edit-key="team.members.member6.image"]', m.member6?.image);
-            setText('[data-edit-key="team.members.member6.name"]', m.member6?.name);
-            setText('[data-edit-key="team.members.member6.role"]', m.member6?.role);
-            setText('[data-edit-key="team.members.member6.bio"]', m.member6?.bio);
-
-            setImage('[data-edit-key="team.members.member7.image"]', m.member7?.image);
-            setText('[data-edit-key="team.members.member7.name"]', m.member7?.name);
-            setText('[data-edit-key="team.members.member7.role"]', m.member7?.role);
-            setText('[data-edit-key="team.members.member7.bio"]', m.member7?.bio);
-
-            setImage('[data-edit-key="team.members.member8.image"]', m.member8?.image);
-            setText('[data-edit-key="team.members.member8.name"]', m.member8?.name);
-            setText('[data-edit-key="team.members.member8.role"]', m.member8?.role);
-            setText('[data-edit-key="team.members.member8.bio"]', m.member8?.bio);
-
-            setImage('[data-edit-key="team.members.member9.image"]', m.member9?.image);
-            setText('[data-edit-key="team.members.member9.name"]', m.member9?.name);
-            setText('[data-edit-key="team.members.member9.role"]', m.member9?.role);
-            setText('[data-edit-key="team.members.member9.bio"]', m.member9?.bio);
-
-            setImage('[data-edit-key="team.members.member10.image"]', m.member10?.image);
-            setText('[data-edit-key="team.members.member10.name"]', m.member10?.name);
-            setText('[data-edit-key="team.members.member10.role"]', m.member10?.role);
-            setText('[data-edit-key="team.members.member10.bio"]', m.member10?.bio);
-
-            setImage('[data-edit-key="team.members.member11.image"]', m.member11?.image);
-            setText('[data-edit-key="team.members.member11.name"]', m.member11?.name);
-            setText('[data-edit-key="team.members.member11.role"]', m.member11?.role);
-            setText('[data-edit-key="team.members.member11.bio"]', m.member11?.bio);
-
-            setImage('[data-edit-key="team.members.member12.image"]', m.member12?.image);
-            setText('[data-edit-key="team.members.member12.name"]', m.member12?.name);
-            setText('[data-edit-key="team.members.member12.role"]', m.member12?.role);
-            setText('[data-edit-key="team.members.member12.bio"]', m.member12?.bio);
-
-            // Footer
-            setText('[data-edit-key="footer.brand"]', footer.brand);
-            setText('[data-edit-key="footer.tagline"]', footer.tagline);
-            setText('[data-edit-key="footer.links.title"]', footer.links?.title);
-            setText('[data-edit-key="footer.contact.title"]', footer.contact?.title);
-            setText('[data-edit-key="footer.contact.email"]', footer.contact?.email);
-            setText('[data-edit-key="footer.contact.phone"]', footer.contact?.phone);
-            setText('[data-edit-key="footer.contact.address"]', footer.contact?.address);
-            setText('[data-edit-key="footer.bottom.copyright"]', footer.bottom?.copyright);
-          } catch (e) {
-            console.warn('Team content binding failed', e);
-          }
-        });
-        </script>
 </body>
 </html>

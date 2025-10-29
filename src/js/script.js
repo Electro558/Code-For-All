@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="loader-content">
                 <div class="loader-visual">
                     <div class="loader-ring"></div>
-                    <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+                    <img src="/logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
                 </div>
                 <div class="loader-text">Loading Code For All...</div>
             </div>
