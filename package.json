@@ -1,0 +1,30 @@
+{
+  "name": "code-for-all",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "start": "python3 server.py",
+    "dev": "python3 server.py",
+    "build": "echo \"Building project...\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Electro558/Code-For-All.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Electro558/Code-For-All/issues"
+  },
+  "homepage": "https://github.com/Electro558/Code-For-All#readme",
+  "description": "",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.2",
+    "chart.js": "^4.4.0",
+    "gsap": "^3.12.2"
+  }
+}

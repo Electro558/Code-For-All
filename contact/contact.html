@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - Code For All</title>
+    <link rel="icon" type="image/x-icon" href="logos/favicon.ico">
+  <link rel="icon" type="image/png" href="logos/favicon.png">
+  <link rel="apple-touch-icon" href="logos/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #f1f8fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .info-icon i {
+            font-size: 1.3rem;
+            color: #3498db;
+        }
+        
+        .info-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .info-content p, .info-content a {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .info-content a:hover {
+            color: #3498db;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f1f8fe;
+            border-radius: 50%;
+            color: #3498db;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ecf0f1;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-option input {
+            margin-right: 10px;
+        }
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .map-container {
+            margin-top: 80px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .faq-section {
+            margin-top: 80px;
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 1000px;
+        }
+        
+        /* Form message styles */
+        .form-message {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .form-message-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-message-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-visual">
+                <div class="loader-ring"></div>
+                <img src="logos/logo_big_light.png" alt="Code For All Logo" class="loader-logo" />
+            </div>
+            <div class="loader-text">Loading Code For All...</div>
+        </div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+          <a href="index.html">
+            <img src="logos/logo_big_light.png" alt="Code for All Logo" class="logo-img">
+          </a>
+        </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="team.html">Team</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                ☰
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header" style="background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 50%, var(--accent-blue) 100%), url('photos/coding_students.jpg') no-repeat center center/cover; background-blend-mode: multiply; height: 300px; display: flex; align-items: center; justify-content: center; margin-top: 80px;">
+        <div class="container">
+            <h1 style="color: white; font-size: 3rem; text-align: center;" data-edit-key="contact.header.title" data-edit-type="text">Get Involved</h1>
+            <p data-edit-key="contact.header.subtitle" data-edit-type="text" style="color: white; text-align: center; max-width: 700px; margin: 0 auto;">Join our mission to make coding accessible for everyone. There are many ways to contribute!</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 class="section-title" style="text-align: left;" data-edit-key="contact.info.title" data-edit-type="text">Contact Information</h2>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.location.title" data-edit-type="text">Our Location</h4>
+                            <p data-edit-key="contact.info.location.value" data-edit-type="text">40 Woodlands Street 41<br>Singapore 738547</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.email.title" data-edit-type="text">Email Us</h4>
+                            <p><a href="mailto:zhu47578@sas.edu.sg" data-edit-key="contact.info.email.value" data-edit-type="text">zhu47578@sas.edu.sg</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.phone.title" data-edit-type="text">Phone</h4>
+                            <p><a href="tel:+6586472776" data-edit-key="contact.info.phone.value" data-edit-type="text">+65 8647 2776</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.meetings.title" data-edit-type="text">Meeting Times</h4>
+                            <p data-edit-key="contact.info.meetings.text" data-edit-type="text">Every Tuesday<br>3:30 PM - 4:30 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.advisors.title" data-edit-type="text">Faculty Advisors</h4>
+                            <p data-edit-key="contact.info.advisors.text" data-edit-type="text">Dr. Emily Parker<br>Mr. Robert Turner</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4 data-edit-key="contact.info.branches.title" data-edit-type="text">Our Branches</h4>
+                            <p data-edit-key="contact.info.branches.text" data-edit-type="text">Singapore (Main Campus)<br>Madrid, Spain<br>New York, USA<br>Detroit, USA</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2 class="section-title" style="text-align: left;" data-edit-key="contact.join.title" data-edit-type="text">Join Our Club</h2>
+                    <form id="join-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="grade">Grade Level</label>
+                            <select id="grade" class="form-control" required>
+                                <option value="" selected disabled>Select your grade</option>
+                                <option value="9">Freshman (9th)</option>
+                                <option value="10">Sophomore (10th)</option>
+                                <option value="11">Junior (11th)</option>
+                                <option value="12">Senior (12th)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <label>I'm interested in (select all that apply):</label>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="interest-events" name="interests[]" value="events">
+                                <label for="interest-events">Event Planning</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="interest-fundraising" name="interests[]" value="fundraising">
+                                <label for="interest-fundraising">Fundraising</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="interest-social" name="interests[]" value="social">
+                                <label for="interest-social">Social Media/Outreach</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="interest-volunteer" name="interests[]" value="volunteer">
+                                <label for="interest-volunteer">Volunteer Coordination</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="interest-general" name="interests[]" value="general">
+                                <label for="interest-general">General Membership</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Why do you want to join our club?</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <!-- Google Maps embed for Singapore location -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.651!2d103.7867!3d1.3644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da0f8a7b0b0b0b%3A0x0!2s40%20Woodlands%20Street%2041%2C%20Singapore%20738547!5e0!3m2!1sen!2ssg!4v1635784293017!5m2!1sen!2ssg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How much time commitment is required?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have weekly meetings that last about an hour. Additional time commitments vary based on your role and the events we're planning. General members typically commit 2-3 hours per week, while leadership positions may require 4-5 hours weekly. We understand that academics come first and work with members to balance their commitments.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need previous volunteer experience?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No previous experience is required! We welcome members of all experience levels. Our club is a great place to learn about philanthropy and community service. We provide training and mentorship for all new members.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I join mid-semester?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! While we have our main recruitment at the beginning of each semester, we accept new members year-round. Simply fill out the application form on this page, and we'll get back to you with information about our next meeting.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How are the causes we support selected?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We select causes through a democratic process. Members can propose causes they're passionate about, and we vote as a club on which initiatives to pursue each semester. We typically focus on 2-3 main causes per semester to maximize our impact.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you provide community service hours?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We track all volunteer hours for our members. These hours can be used for graduation requirements, honor society applications, college applications, and more. We provide official documentation of your service hours at the end of each semester.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2 data-edit-key="contact.cta.title" data-edit-type="text">Ready to Make a Difference?</h2>
+            <p data-edit-key="contact.cta.subtitle" data-edit-type="text">Join our club today and be part of something meaningful. Together, we can create positive change in our community!</p>
+            <a href="#join-form" class="btn" data-edit-key="contact.cta.button" data-edit-type="text">Apply Now</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 data-edit-key="footer.brand" data-edit-type="text">Code For All</h3>
+                    <p data-edit-key="footer.tagline" data-edit-type="text">Making coding accessible for everyone</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-edit-key="footer.links.title" data-edit-type="text">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="contact.html">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 data-edit-key="footer.contact.title" data-edit-type="text">Contact Us</h4>
+                    <p data-edit-key="footer.contact.email" data-edit-type="text"><i class="fas fa-envelope"></i> zhu47578@sas.edu.sg</p>
+                    <p data-edit-key="footer.contact.phone" data-edit-type="text"><i class="fas fa-phone"></i> +65 8647 2776</p>
+                    <p data-edit-key="footer.contact.address" data-edit-type="text"><i class="fas fa-map-marker-alt"></i> 40 Woodlands Street 41, Singapore 738547</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-edit-key="footer.bottom.copyright" data-edit-type="text">&copy; 2025 Code For All. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Form submission handling
+        console.log('JavaScript loaded successfully');
+        const joinForm = document.getElementById('join-form');
+        console.log('Form element found:', joinForm);
+        
+        // Add a test to verify the form is working
+        if (joinForm) {
+            console.log('Form found! Adding event listener...');
+        } else {
+            console.error('ERROR: Form with ID "join-form" not found!');
+        }
+        
+        if (joinForm) {
+            joinForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                console.log('Form submission started');
+                
+                // Collect form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    grade: document.getElementById('grade').value,
+                    interests: Array.from(document.querySelectorAll('input[name="interests[]"]:checked')).map(cb => cb.value),
+                    message: document.getElementById('message').value
+                };
+                console.log('Form data collected:', formData);
+                
+                // Show loading state
+                const submitBtn = joinForm.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                try {
+                    console.log('Sending request to server...');
+                    // Send data to server
+                    const response = await fetch('/send-contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    console.log('Response received:', response.status, response.statusText);
+                    const result = await response.json();
+                    console.log('Response data:', result);
+                    
+                    if (response.ok && result.status === 'success') {
+                        console.log('Form submission successful');
+                        showMessage('Thank you for your interest in joining our club! We will contact you soon.', 'success');
+                        joinForm.reset();
+                    } else {
+                        console.log('Form submission failed:', result);
+                        showMessage('Sorry, there was an error sending your message. Please try again later.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error sending form:', error);
+                    showMessage('Sorry, there was an error sending your message. Please try again later.', 'error');
+                } finally {
+                    // Restore button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+        
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Close other items (uncomment for accordion behavior)
+                // faqItems.forEach(otherItem => {
+                //     if (otherItem !== item) {
+                //         otherItem.classList.remove('active');
+                //     }
+                // });
+            });
+        });
+        
+        // Function to show user-friendly messages
+        function showMessage(message, type) {
+            // Remove any existing message
+            const existingMessage = document.querySelector('.form-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `form-message form-message-${type}`;
+            messageDiv.textContent = message;
+            
+            // Insert message after the form
+            const joinForm = document.getElementById('join-form');
+            joinForm.parentNode.insertBefore(messageDiv, joinForm.nextSibling);
+            
+            // Auto-remove message after 5 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const res = await fetch('/api/content');
+          if (!res.ok) return;
+          const content = await res.json();
+
+          const resolve = (obj, path) => path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj);
+          const setTextByKey = (key) => {
+            const el = document.querySelector(`[data-edit-key="${key}"]`);
+            const val = resolve(content, key);
+            if (el && val !== undefined && val !== null) el.textContent = val;
+          };
+          const setImageByKey = (key) => {
+            const el = document.querySelector(`[data-edit-key="${key}"]`);
+            const val = resolve(content, key);
+            if (el && val) el.setAttribute('src', val);
+          };
+
+          [
+            'contact.header.title',
+            'contact.join.title',
+            'contact.info.location.title',
+            'contact.info.location.value',
+            'contact.info.email.title',
+            'contact.info.email.value',
+            'contact.info.phone.title',
+            'contact.info.phone.value',
+            'contact.info.meetings.title',
+            'contact.info.meetings.text',
+            'contact.info.advisors.title',
+            'contact.info.advisors.text',
+            'contact.info.branches.title',
+            'contact.info.branches.text',
+            'contact.cta.title',
+            'contact.cta.subtitle',
+            'contact.cta.button',
+            'footer.brand',
+            'footer.tagline',
+            'footer.links.title',
+            'footer.contact.title',
+            'footer.contact.email',
+            'footer.contact.phone',
+            'footer.contact.address',
+            'footer.bottom.copyright'
+          ].forEach(setTextByKey);
+
+          // Example image binding if later added
+          // setImageByKey('contact.header.image');
+        } catch (e) {
+          console.warn('Content binding failed on contact page:', e);
+        }
+      });
+    </script>
+</body>
+</html>
