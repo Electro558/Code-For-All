@@ -216,7 +216,6 @@ function initLuxuryScrollAnimations() {
     });
 }
 
-
 function setActiveNavigation() {
     // Normalize the current path (remove trailing slash)
     let path = window.location.pathname.replace(/\/$/, "");
@@ -306,8 +305,6 @@ function showEventTab(tabName) {
     // Add active class to clicked tab
     event.target.classList.add("active");
 }
-
-
 
 async function pickImageFile() {
     return new Promise((resolve) => {

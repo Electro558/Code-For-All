@@ -1,7 +1,4 @@
-{% extends "base.html" %}
-
-
-{% block head %}
+{% extends "base.html" %} {% block head %}
 <link rel="stylesheet" href="team.css" />
 
 <link
@@ -38,709 +35,414 @@
                 });
             });
         });
-    })
+    });
 </script>
-{% endblock head %}
-
-{% block content %}
-        <section
-            class="page-header"
+{% endblock head %} {% block content %}
+<section
+    class="page-header"
+    style="
+        background:
+            linear-gradient(rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.9)),
+            url(&quot;https://dummyimage.com/1920x400/3498db/ffffff&quot;)
+                no-repeat center center/cover;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 80px;
+    "
+>
+    <div class="container">
+        <h1 style="color: white; font-size: 3rem; text-align: center">
+            Meet Our Team
+        </h1>
+        <p
             style="
-                background:
-                    linear-gradient(
-                        rgba(52, 152, 219, 0.8),
-                        rgba(41, 128, 185, 0.9)
-                    ),
-                    url(&quot;https://dummyimage.com/1920x400/3498db/ffffff&quot;)
-                        no-repeat center center/cover;
-                height: 300px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-top: 80px;
+                color: white;
+                text-align: center;
+                max-width: 700px;
+                margin: 0 auto;
             "
         >
-            <div class="container">
-                <h1
-                    style="color: white; font-size: 3rem; text-align: center"
-                    data-edit-key="team.header.title"
-                    data-edit-type="text"
-                >
-                    Meet Our Team
-                </h1>
-                <p
-                    data-edit-key="team.header.subtitle"
-                    data-edit-type="text"
-                    style="
-                        color: white;
-                        text-align: center;
-                        max-width: 700px;
-                        margin: 0 auto;
-                    "
-                >
-                    Dedicated individuals working together to make coding
-                    accessible for everyone.
+            Dedicated individuals working together to make coding accessible for
+            everyone.
+        </p>
+    </div>
+</section>
+
+<section class="team-section">
+    <div class="container">
+        <div class="team-categories">
+            <div class="team-category active" data-filter="all">All</div>
+            <div class="team-category" data-filter="leadership">Leadership</div>
+            <div class="team-category" data-filter="committee">
+                Committee Heads
+            </div>
+            <div class="team-category" data-filter="members">Members</div>
+            <div class="team-category" data-filter="advisors">
+                Faculty Advisors
+            </div>
+        </div>
+
+        <div class="team-grid">
+            <!-- Leadership Team -->
+            <div class="team-member" data-category="leadership">
+                <img
+                    src="/photos/IMG_7490.JPG"
+                    alt="Jamie Smith"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Jamie Smith</h3>
+                    <div class="member-role">President</div>
+                    <p class="member-bio">
+                        Jamie has been with the Philanthropy Club for three
+                        years and is passionate about community service. She has
+                        organized numerous successful fundraising events.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="leadership">
+                <img
+                    src="/photos/IMG_7491.JPG"
+                    alt="Alex Johnson"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Alex Johnson</h3>
+                    <div class="member-role">Vice President</div>
+                    <p class="member-bio">
+                        Alex specializes in partnership development and has
+                        helped establish relationships with several local
+                        organizations to expand our impact.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="leadership">
+                <img
+                    src="/photos/IMG_7492.JPG"
+                    alt="Taylor Williams"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Taylor Williams</h3>
+                    <div class="member-role">Secretary</div>
+                    <p class="member-bio">
+                        Taylor keeps our club organized and ensures effective
+                        communication between members, committees, and our
+                        partner organizations.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="leadership">
+                <img
+                    src="/photos/IMG_7493.JPG"
+                    alt="Jordan Lee"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Jordan Lee</h3>
+                    <div class="member-role">Treasurer</div>
+                    <p class="member-bio">
+                        Jordan manages our club finances, fundraising budgets,
+                        and ensures transparency in how we allocate resources to
+                        various causes.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Committee Heads -->
+            <div class="team-member" data-category="committee">
+                <img
+                    src="/photos/IMG_7494.JPG"
+                    alt="Casey Martinez"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Casey Martinez</h3>
+                    <div class="member-role">Events Committee Head</div>
+                    <p class="member-bio">
+                        Casey leads our events planning team, coordinating
+                        fundraisers, volunteer opportunities, and awareness
+                        campaigns throughout the year.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="committee">
+                <img
+                    src="/photos/IMG_7495.JPG"
+                    alt="Riley Thompson"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Riley Thompson</h3>
+                    <div class="member-role">Outreach Committee Head</div>
+                    <p class="member-bio">
+                        Riley manages our social media presence and community
+                        outreach efforts, helping to spread awareness about our
+                        initiatives.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="committee">
+                <img
+                    src="/photos/IMG_7496.JPG"
+                    alt="Morgan Wilson"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Morgan Wilson</h3>
+                    <div class="member-role">Fundraising Committee Head</div>
+                    <p class="member-bio">
+                        Morgan develops creative fundraising strategies and
+                        leads our team in meeting financial goals for our
+                        various charitable initiatives.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regular Members -->
+            <div class="team-member" data-category="members">
+                <img
+                    src="https://placehold.co/400x500"
+                    alt="Sam Rodriguez"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Sam Rodriguez</h3>
+                    <div class="member-role">Member</div>
+                    <p class="member-bio">
+                        Sam is a dedicated volunteer who specializes in graphic
+                        design, creating promotional materials for our events
+                        and campaigns.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="members">
+                <img
+                    src="https://placehold.co/400x500"
+                    alt="Avery Chen"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Avery Chen</h3>
+                    <div class="member-role">Member</div>
+                    <p class="member-bio">
+                        Avery brings enthusiasm and creativity to our team,
+                        often leading ice-breakers and team-building activities
+                        at our meetings.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="members">
+                <img
+                    src="https://placehold.co/400x500"
+                    alt="Quinn Davis"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Quinn Davis</h3>
+                    <div class="member-role">Member</div>
+                    <p class="member-bio">
+                        Quinn is passionate about environmental causes and has
+                        initiated several eco-friendly projects within our
+                        philanthropy efforts.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faculty Advisors -->
+            <div class="team-member" data-category="advisors">
+                <img
+                    src="https://placehold.co/400x500"
+                    alt="Dr. Emily Parker"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Dr. Emily Parker</h3>
+                    <div class="member-role">Faculty Advisor</div>
+                    <p class="member-bio">
+                        Dr. Parker from the Social Studies department provides
+                        guidance and support for our initiatives, drawing from
+                        her extensive experience in community service.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member" data-category="advisors">
+                <img
+                    src="https://placehold.co/400x500"
+                    alt="Mr. Robert Turner"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">Mr. Robert Turner</h3>
+                    <div class="member-role">Faculty Advisor</div>
+                    <p class="member-bio">
+                        Mr. Turner from the Business department helps us develop
+                        fundraising strategies and manage our club finances
+                        effectively.
+                    </p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team-values">
+    <div class="container">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="value-title">Compassion</h3>
+                <p class="value-description">
+                    We approach our work with empathy and understanding,
+                    recognizing the dignity of those we serve and the importance
+                    of human connection.
                 </p>
             </div>
-        </section>
 
-        <section class="team-section">
-            <div class="container">
-                <div class="team-categories">
-                    <div class="team-category active" data-filter="all">
-                        All
-                    </div>
-                    <div class="team-category" data-filter="leadership">
-                        Leadership
-                    </div>
-                    <div class="team-category" data-filter="committee">
-                        Committee Heads
-                    </div>
-                    <div class="team-category" data-filter="members">
-                        Members
-                    </div>
-                    <div class="team-category" data-filter="advisors">
-                        Faculty Advisors
-                    </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-hands-helping"></i>
                 </div>
-
-                <div class="team-grid">
-                    <!-- Leadership Team -->
-                    <div class="team-member" data-category="leadership">
-                        <img
-                            src="/photos/IMG_7490.JPG"
-                            alt="Jamie Smith"
-                            class="member-image"
-                            data-edit-key="team.members.member1.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member1.name"
-                                data-edit-type="text"
-                            >
-                                Jamie Smith
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member1.role"
-                                data-edit-type="text"
-                            >
-                                President
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member1.bio"
-                                data-edit-type="text"
-                            >
-                                Jamie has been with the Philanthropy Club for
-                                three years and is passionate about community
-                                service. She has organized numerous successful
-                                fundraising events.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="leadership">
-                        <img
-                            src="/photos/IMG_7491.JPG"
-                            alt="Alex Johnson"
-                            class="member-image"
-                            data-edit-key="team.members.member2.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member2.name"
-                                data-edit-type="text"
-                            >
-                                Alex Johnson
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member2.role"
-                                data-edit-type="text"
-                            >
-                                Vice President
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member2.bio"
-                                data-edit-type="text"
-                            >
-                                Alex specializes in partnership development and
-                                has helped establish relationships with several
-                                local organizations to expand our impact.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="leadership">
-                        <img
-                            src="/photos/IMG_7492.JPG"
-                            alt="Taylor Williams"
-                            class="member-image"
-                            data-edit-key="team.members.member3.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member3.name"
-                                data-edit-type="text"
-                            >
-                                Taylor Williams
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member3.role"
-                                data-edit-type="text"
-                            >
-                                Secretary
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member3.bio"
-                                data-edit-type="text"
-                            >
-                                Taylor keeps our club organized and ensures
-                                effective communication between members,
-                                committees, and our partner organizations.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="leadership">
-                        <img
-                            src="/photos/IMG_7493.JPG"
-                            alt="Jordan Lee"
-                            class="member-image"
-                            data-edit-key="team.members.member4.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member4.name"
-                                data-edit-type="text"
-                            >
-                                Jordan Lee
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member4.role"
-                                data-edit-type="text"
-                            >
-                                Treasurer
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member4.bio"
-                                data-edit-type="text"
-                            >
-                                Jordan manages our club finances, fundraising
-                                budgets, and ensures transparency in how we
-                                allocate resources to various causes.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Committee Heads -->
-                    <div class="team-member" data-category="committee">
-                        <img
-                            src="/photos/IMG_7494.JPG"
-                            alt="Casey Martinez"
-                            class="member-image"
-                            data-edit-key="team.members.member5.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member5.name"
-                                data-edit-type="text"
-                            >
-                                Casey Martinez
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member5.role"
-                                data-edit-type="text"
-                            >
-                                Events Committee Head
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member5.bio"
-                                data-edit-type="text"
-                            >
-                                Casey leads our events planning team,
-                                coordinating fundraisers, volunteer
-                                opportunities, and awareness campaigns
-                                throughout the year.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="committee">
-                        <img
-                            src="/photos/IMG_7495.JPG"
-                            alt="Riley Thompson"
-                            class="member-image"
-                            data-edit-key="team.members.member6.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member6.name"
-                                data-edit-type="text"
-                            >
-                                Riley Thompson
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member6.role"
-                                data-edit-type="text"
-                            >
-                                Outreach Committee Head
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member6.bio"
-                                data-edit-type="text"
-                            >
-                                Riley manages our social media presence and
-                                community outreach efforts, helping to spread
-                                awareness about our initiatives.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="committee">
-                        <img
-                            src="/photos/IMG_7496.JPG"
-                            alt="Morgan Wilson"
-                            class="member-image"
-                            data-edit-key="team.members.member7.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member7.name"
-                                data-edit-type="text"
-                            >
-                                Morgan Wilson
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member7.role"
-                                data-edit-type="text"
-                            >
-                                Fundraising Committee Head
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member7.bio"
-                                data-edit-type="text"
-                            >
-                                Morgan develops creative fundraising strategies
-                                and leads our team in meeting financial goals
-                                for our various charitable initiatives.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Regular Members -->
-                    <div class="team-member" data-category="members">
-                        <img
-                            src="https://placehold.co/400x500"
-                            alt="Sam Rodriguez"
-                            class="member-image"
-                            data-edit-key="team.members.member8.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member8.name"
-                                data-edit-type="text"
-                            >
-                                Sam Rodriguez
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member8.role"
-                                data-edit-type="text"
-                            >
-                                Member
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member8.bio"
-                                data-edit-type="text"
-                            >
-                                Sam is a dedicated volunteer who specializes in
-                                graphic design, creating promotional materials
-                                for our events and campaigns.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="members">
-                        <img
-                            src="https://placehold.co/400x500"
-                            alt="Avery Chen"
-                            class="member-image"
-                            data-edit-key="team.members.member9.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member9.name"
-                                data-edit-type="text"
-                            >
-                                Avery Chen
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member9.role"
-                                data-edit-type="text"
-                            >
-                                Member
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member9.bio"
-                                data-edit-type="text"
-                            >
-                                Avery brings enthusiasm and creativity to our
-                                team, often leading ice-breakers and
-                                team-building activities at our meetings.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="members">
-                        <img
-                            src="https://placehold.co/400x500"
-                            alt="Quinn Davis"
-                            class="member-image"
-                            data-edit-key="team.members.member10.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member10.name"
-                                data-edit-type="text"
-                            >
-                                Quinn Davis
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member10.role"
-                                data-edit-type="text"
-                            >
-                                Member
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member10.bio"
-                                data-edit-type="text"
-                            >
-                                Quinn is passionate about environmental causes
-                                and has initiated several eco-friendly projects
-                                within our philanthropy efforts.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Faculty Advisors -->
-                    <div class="team-member" data-category="advisors">
-                        <img
-                            src="https://placehold.co/400x500"
-                            alt="Dr. Emily Parker"
-                            class="member-image"
-                            data-edit-key="team.members.member11.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member11.name"
-                                data-edit-type="text"
-                            >
-                                Dr. Emily Parker
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member11.role"
-                                data-edit-type="text"
-                            >
-                                Faculty Advisor
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member11.bio"
-                                data-edit-type="text"
-                            >
-                                Dr. Parker from the Social Studies department
-                                provides guidance and support for our
-                                initiatives, drawing from her extensive
-                                experience in community service.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-member" data-category="advisors">
-                        <img
-                            src="https://placehold.co/400x500"
-                            alt="Mr. Robert Turner"
-                            class="member-image"
-                            data-edit-key="team.members.member12.image"
-                            data-edit-type="image"
-                        />
-                        <div class="member-info">
-                            <h3
-                                class="member-name"
-                                data-edit-key="team.members.member12.name"
-                                data-edit-type="text"
-                            >
-                                Mr. Robert Turner
-                            </h3>
-                            <div
-                                class="member-role"
-                                data-edit-key="team.members.member12.role"
-                                data-edit-type="text"
-                            >
-                                Faculty Advisor
-                            </div>
-                            <p
-                                class="member-bio"
-                                data-edit-key="team.members.member12.bio"
-                                data-edit-type="text"
-                            >
-                                Mr. Turner from the Business department helps us
-                                develop fundraising strategies and manage our
-                                club finances effectively.
-                            </p>
-                            <div class="member-social">
-                                <a href="#"
-                                    ><i class="fab fa-linkedin-in"></i
-                                ></a>
-                                <a href="#"><i class="fas fa-envelope"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="team-values">
-            <div class="container">
-                <h2
-                    class="section-title"
-                    data-edit-key="team.values.title"
-                    data-edit-type="text"
-                >
-                    Our Core Values
-                </h2>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <h3
-                            class="value-title"
-                            data-edit-key="team.values.compassion"
-                            data-edit-type="text"
-                        >
-                            Compassion
-                        </h3>
-                        <p class="value-description">
-                            We approach our work with empathy and understanding,
-                            recognizing the dignity of those we serve and the
-                            importance of human connection.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3 class="value-title">Service</h3>
-                        <p class="value-description">
-                            We are committed to serving others and making a
-                            positive impact in our community through direct
-                            action and meaningful engagement.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3 class="value-title">Innovation</h3>
-                        <p class="value-description">
-                            We embrace creative thinking and new approaches to
-                            addressing social challenges, always seeking better
-                            ways to serve.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="value-title">Collaboration</h3>
-                        <p class="value-description">
-                            We believe in the power of working together,
-                            building partnerships, and uniting diverse
-                            perspectives to achieve common goals.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3
-                            class="value-title"
-                            data-edit-key="team.values.integrity"
-                            data-edit-type="text"
-                        >
-                            Integrity
-                        </h3>
-                        <p class="value-description">
-                            We operate with transparency, honesty, and
-                            accountability in all our actions and decisions,
-                            earning trust through ethical conduct.
-                        </p>
-                    </div>
-
-                    <div class="value-card">
-                        <div class="value-icon">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <h3
-                            class="value-title"
-                            data-edit-key="team.values.growth"
-                            data-edit-type="text"
-                        >
-                            Growth
-                        </h3>
-                        <p class="value-description">
-                            We foster personal and collective development,
-                            learning from our experiences and continuously
-                            improving our impact.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="join-team">
-            <div class="container">
-                <h2 data-edit-key="team.join.title" data-edit-type="text">
-                    Join Our Team
-                </h2>
-                <p data-edit-key="team.join.subtitle" data-edit-type="text">
-                    We're always looking for passionate students who want to
-                    make a difference. Whether you have experience in event
-                    planning, social media, fundraising, or simply want to
-                    contribute your time and energy, there's a place for you in
-                    our club.
+                <h3 class="value-title">Service</h3>
+                <p class="value-description">
+                    We are committed to serving others and making a positive
+                    impact in our community through direct action and meaningful
+                    engagement.
                 </p>
-                <a
-                    href="contact.html"
-                    class="btn"
-                    data-edit-key="team.join.cta"
-                    data-edit-type="text"
-                    >Apply to Join</a
-                >
             </div>
-        </section>
 
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="value-title">Innovation</h3>
+                <p class="value-description">
+                    We embrace creative thinking and new approaches to
+                    addressing social challenges, always seeking better ways to
+                    serve.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="value-title">Collaboration</h3>
+                <p class="value-description">
+                    We believe in the power of working together, building
+                    partnerships, and uniting diverse perspectives to achieve
+                    common goals.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3 class="value-title">Integrity</h3>
+                <p class="value-description">
+                    We operate with transparency, honesty, and accountability in
+                    all our actions and decisions, earning trust through ethical
+                    conduct.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="value-title">Growth</h3>
+                <p class="value-description">
+                    We foster personal and collective development, learning from
+                    our experiences and continuously improving our impact.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="join-team">
+    <div class="container">
+        <h2>Join Our Team</h2>
+        <p>
+            We're always looking for passionate students who want to make a
+            difference. Whether you have experience in event planning, social
+            media, fundraising, or simply want to contribute your time and
+            energy, there's a place for you in our club.
+        </p>
+        <a href="contact.html" class="btn">Apply to Join</a>
+    </div>
+</section>
 
 {% endblock %}

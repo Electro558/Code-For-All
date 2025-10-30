@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block head %}
+{% extends "base.html" %} {% block head %}
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -27,34 +25,18 @@
 </style>
 {% endblock %} {% block content %}
 <!-- Hero Section -->
-<section
-    class="hero"
-    id="home"
-    data-edit-key="homepage.heroImage"
-    data-edit-type="bgimage"
->
+<section class="hero" id="home">
     <div class="container">
-        <h1 data-edit-key="homepage.heroTitle" data-edit-type="text">
-            Empowering Communities Through Technology
-        </h1>
-        <p data-edit-key="homepage.heroSubtitle" data-edit-type="text">
+        <h1>Empowering Communities Through Technology</h1>
+        <p>
             Join us in bridging the digital divide and creating opportunities
             for everyone to learn, grow, and succeed in the digital age.
         </p>
         <div class="hero-buttons">
-            <a
-                href="#about"
-                class="btn btn-light"
-                id="mission-btn"
-                data-edit-key="homepage.buttons.mission"
-                data-edit-type="text"
+            <a href="#about" class="btn btn-light" id="mission-btn"
                 >Discover Our Mission</a
             >
-            <a
-                href="events.html"
-                class="btn btn-outline btn-join-events"
-                data-edit-key="homepage.buttons.events"
-                data-edit-type="text"
+            <a href="events.html" class="btn btn-outline btn-join-events"
                 >Join Our Events</a
             >
         </div>
@@ -64,44 +46,24 @@
 <!-- About Section -->
 <section class="about" id="about">
     <div class="container">
-        <h2
-            class="section-title"
-            id="about-title"
-            data-edit-key="about.title"
-            data-edit-type="text"
-        >
-            Our Mission
-        </h2>
+        <h2 class="section-title" id="about-title">Our Mission</h2>
         <div class="about-content scroll-reveal">
             <div class="about-text scroll-reveal">
-                <p
-                    class="text-large"
-                    id="about-paragraph1"
-                    data-edit-key="about.paragraph1"
-                    data-edit-type="text"
-                >
+                <p class="text-large" id="about-paragraph1">
                     At Code For All, we believe that technology should be
                     accessible to everyone, regardless of their background or
                     circumstances. Our mission is to empower communities by
                     providing free coding education, digital literacy programs,
                     and technology resources.
                 </p>
-                <p
-                    id="about-paragraph2"
-                    data-edit-key="about.paragraph2"
-                    data-edit-type="text"
-                >
+                <p id="about-paragraph2">
                     We work with local organizations, schools, and community
                     centers to bring technology education directly to
                     underserved communities. Through hands-on workshops,
                     mentorship programs, and collaborative projects, we're
                     building a more inclusive digital future.
                 </p>
-                <a
-                    href="#impact"
-                    class="btn btn-primary"
-                    data-edit-key="about.cta"
-                    data-edit-type="text"
+                <a href="#impact" class="btn btn-primary"
                     >Discover Our Impact</a
                 >
             </div>
@@ -110,8 +72,6 @@
                     id="about-image"
                     src="photos/coding_classroom.jpg"
                     alt="Students learning to code"
-                    data-edit-key="about.image"
-                    data-edit-type="image"
                 />
             </div>
         </div>
@@ -121,49 +81,27 @@
 <!-- Impact Stats -->
 <section class="impact" id="impact">
     <div class="container">
-        <h2
-            class="section-title"
-            data-edit-key="impact.title"
-            data-edit-type="text"
-        >
-            Our Impact
-        </h2>
+        <h2 class="section-title">Our Impact</h2>
         <div class="impact-stats">
             <div class="stat-box scroll-reveal">
                 <i class="fas fa-users"></i>
-                <h3 data-edit-key="impact.stat1.value" data-edit-type="text">
-                    500+
-                </h3>
-                <p data-edit-key="impact.stat1.label" data-edit-type="text">
-                    Students Empowered
-                </p>
+                <h3>500+</h3>
+                <p>Students Empowered</p>
             </div>
             <div class="stat-box scroll-reveal">
                 <i class="fas fa-graduation-cap"></i>
-                <h3 data-edit-key="impact.stat2.value" data-edit-type="text">
-                    50+
-                </h3>
-                <p data-edit-key="impact.stat2.label" data-edit-type="text">
-                    Workshops Delivered
-                </p>
+                <h3>50+</h3>
+                <p>Workshops Delivered</p>
             </div>
             <div class="stat-box scroll-reveal">
                 <i class="fas fa-laptop-code"></i>
-                <h3 data-edit-key="impact.stat3.value" data-edit-type="text">
-                    25+
-                </h3>
-                <p data-edit-key="impact.stat3.label" data-edit-type="text">
-                    Community Partners
-                </p>
+                <h3>25+</h3>
+                <p>Community Partners</p>
             </div>
             <div class="stat-box scroll-reveal">
                 <i class="fas fa-heart"></i>
-                <h3 data-edit-key="impact.stat4.value" data-edit-type="text">
-                    1000+
-                </h3>
-                <p data-edit-key="impact.stat4.label" data-edit-type="text">
-                    Lives Transformed
-                </p>
+                <h3>1000+</h3>
+                <p>Lives Transformed</p>
             </div>
         </div>
     </div>
@@ -172,13 +110,7 @@
 <!-- Featured Initiative -->
 <section class="featured-cause">
     <div class="container">
-        <h2
-            class="section-title"
-            data-edit-key="featured.title"
-            data-edit-type="text"
-        >
-            Current Initiative
-        </h2>
+        <h2 class="section-title">Current Initiative</h2>
         <div class="cause-content scroll-reveal">
             <div class="cause-image scroll-reveal">
                 <img
@@ -187,39 +119,25 @@
                 />
             </div>
             <div class="cause-text scroll-reveal">
-                <h3 data-edit-key="featured.heading" data-edit-type="text">
-                    Digital Food Bank Revolution
-                </h3>
-                <p
-                    class="text-large"
-                    data-edit-key="featured.text1"
-                    data-edit-type="text"
-                >
+                <h3>Digital Food Bank Revolution</h3>
+                <p class="text-large">
                     We're developing a comprehensive digital inventory
                     management system for our local food bank to help them
                     better track donations, manage volunteers, and serve more
                     families in need.
                 </p>
-                <div
-                    class="progress-text"
-                    data-edit-key="featured.progressText"
-                    data-edit-type="text"
-                >
+                <div class="progress-text">
                     Implementation Progress: 75% Complete
                 </div>
                 <div class="progress-bar">
                     <div class="progress" style="width: 75%"></div>
                 </div>
-                <p data-edit-key="featured.text2" data-edit-type="text">
+                <p>
                     This innovative solution will streamline operations and
                     increase the food bank's capacity to serve our community by
                     40%.
                 </p>
-                <a
-                    href="events.html"
-                    class="btn btn-primary"
-                    data-edit-key="featured.cta"
-                    data-edit-type="text"
+                <a href="events.html" class="btn btn-primary"
                     >Join This Initiative</a
                 >
             </div>
@@ -230,15 +148,9 @@
 <!-- Testimonials -->
 <section class="testimonials">
     <div class="container">
-        <h2
-            class="section-title"
-            data-edit-key="testimonials.title"
-            data-edit-type="text"
-        >
-            Voices of Transformation
-        </h2>
+        <h2 class="section-title">Voices of Transformation</h2>
         <div class="testimonial scroll-reveal">
-            <p data-edit-key="testimonials.quote" data-edit-type="text">
+            <p>
                 "Code For All transformed my perspective on technology and
                 opened doors I never knew existed. From having zero coding
                 experience to landing my dream job as a web developer, this
@@ -248,18 +160,8 @@
             <div class="testimonial-author">
                 <img src="photos/IMG_0142.JPG" alt="Sarah Johnson" />
                 <div>
-                    <h4
-                        data-edit-key="testimonials.authorName"
-                        data-edit-type="text"
-                    >
-                        Sarah Johnson
-                    </h4>
-                    <p
-                        data-edit-key="testimonials.authorRole"
-                        data-edit-type="text"
-                    >
-                        Senior Web Developer, TechCorp
-                    </p>
+                    <h4>Sarah Johnson</h4>
+                    <p>Senior Web Developer, TechCorp</p>
                 </div>
             </div>
         </div>
@@ -269,21 +171,13 @@
 <!-- Call to Action -->
 <section class="cta">
     <div class="container">
-        <h2 data-edit-key="cta.title" data-edit-type="text">
-            Ready to Transform Lives Through Technology?
-        </h2>
-        <p data-edit-key="cta.text" data-edit-type="text">
+        <h2>Ready to Transform Lives Through Technology?</h2>
+        <p>
             Join our exclusive community of innovators, mentors, and
             changemakers. Together, we can bridge the digital divide and create
             unprecedented opportunities for everyone.
         </p>
-        <a
-            href="events.html"
-            class="btn btn-light"
-            data-edit-key="cta.button"
-            data-edit-type="text"
-            >Begin Your Journey</a
-        >
+        <a href="events.html" class="btn btn-light">Begin Your Journey</a>
     </div>
 </section>
 {% endblock %}
