@@ -160,7 +160,7 @@
 .join-team {
     background:
         linear-gradient(rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.9)),
-        url("coding_hackathon.jpg") no-repeat center center/cover;
+        url("/photos/coding_hackathon.jpg") no-repeat center center/cover;
     padding: 100px 0;
     text-align: center;
     color: white;

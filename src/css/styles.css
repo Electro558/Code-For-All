@@ -588,7 +588,7 @@ a.btn.btn-light:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("coding_classroom.jpg") center/cover no-repeat;
+    background: url("/photos/coding_classroom.jpg") center/cover no-repeat;
     opacity: 0.1;
 }
 

@@ -1,544 +1,467 @@
-{% extends "base.html" %}
-{% block head %}
-<link rel="stylesheet" href="/events/events.css">
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="/events/events.css" />
 <script src="/events/events.js"></script>
-{% endblock head %}
-{% block content %}
-        <section
-            class="page-header"
+{% endblock head %} {% block content %}
+<section
+    class="page-header"
+    style="
+        background:
+            linear-gradient(
+                135deg,
+                var(--primary-navy) 0%,
+                var(--secondary-navy) 50%,
+                var(--accent-blue) 100%
+            ),
+            url(&quot;/photos/coding_classroom.jpg&quot;) no-repeat center center/cover;
+        background-blend-mode: multiply;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 80px;
+    "
+>
+    <div class="container">
+        <h1 style="color: white; font-size: 3rem; text-align: center">
+            Upcoming Events
+        </h1>
+        <p
             style="
-                background:
-                    linear-gradient(
-                        135deg,
-                        var(--primary-navy) 0%,
-                        var(--secondary-navy) 50%,
-                        var(--accent-blue) 100%
-                    ),
-                    url(&quot;coding_classroom.jpg&quot;) no-repeat center
-                        center/cover;
-                background-blend-mode: multiply;
-                min-height: 300px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-top: 80px;
+                color: white;
+                text-align: center;
+                max-width: 700px;
+                margin: 0 auto;
             "
         >
-            <div class="container">
-                <h1 style="color: white; font-size: 3rem; text-align: center">
-                    Upcoming Events
-                </h1>
-                <p
-                    style="
-                        color: white;
-                        text-align: center;
-                        max-width: 700px;
-                        margin: 0 auto;
-                    "
-                >
-                    Join us for these exciting opportunities to learn coding and
-                    make a difference through technology.
-                </p>
+            Join us for these exciting opportunities to learn coding and make a
+            difference through technology.
+        </p>
+    </div>
+</section>
+
+<section class="events-section">
+    <div class="container">
+        <div class="event-tabs">
+            <div class="event-tab upcoming-tab active">Upcoming Events</div>
+            <div class="event-tab past-tab">Past Events</div>
+        </div>
+
+        <div class="upcoming-events active">
+            <div class="events-container">
+                <!-- Event 1 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">15</div>
+                            <div class="month">Nov</div>
+                        </div>
+                        <div class="event-title">
+                            <h3>Food Drive Collection Day</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> 3:00 PM - 6:00
+                                    PM</span
+                                >
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i>
+                                    School Cafeteria</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_workshop.jpg"
+                        alt="Web Development Workshop"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            Join us for our monthly food drive collection day.
+                            We'll be collecting non-perishable food items to
+                            donate to the local food bank. Bring your donations
+                            to the school cafeteria after classes.
+                        </p>
+                        <p>
+                            Most needed items: canned vegetables, pasta, rice,
+                            peanut butter, and canned tuna.
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">RSVP Now</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">28</div>
+                            <div class="month">Nov</div>
+                        </div>
+                        <div class="event-title">
+                            <h3>Charity Bake Sale</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> 11:00 AM -
+                                    1:00 PM</span
+                                >
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i>
+                                    School Courtyard</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_students.jpg"
+                        alt="Coding Students"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            Our annual charity bake sale is back! All proceeds
+                            will go to supporting our local food bank
+                            initiative. Come enjoy delicious homemade treats
+                            while supporting a great cause.
+                        </p>
+                        <p>
+                            Want to contribute baked goods? Contact us by
+                            November 25th to sign up as a baker!
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">Volunteer</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">10</div>
+                            <div class="month">Dec</div>
+                        </div>
+                        <div class="event-title">
+                            <h3>Holiday Charity Concert</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> 7:00 PM - 9:00
+                                    PM</span
+                                >
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i>
+                                    School Auditorium</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_project.jpg"
+                        alt="Coding Project"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            Join us for a magical evening of music and giving!
+                            Our annual Holiday Charity Concert features
+                            performances from the school choir, band, and
+                            special guest performers.
+                        </p>
+                        <p>
+                            Tickets are $5 for students and $10 for adults. All
+                            proceeds will benefit local families in need during
+                            the holiday season.
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">Get Tickets</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section class="events-section">
-            <div class="container">
-                <div class="event-tabs">
-                    <div class="event-tab upcoming-tab active">
-                        Upcoming Events
-                    </div>
-                    <div class="event-tab past-tab">Past Events</div>
-                </div>
-
-                <div class="upcoming-events active">
-                    <div class="events-container">
-                        <!-- Event 1 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">15</div>
-                                    <div class="month">Nov</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Food Drive Collection Day</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> 3:00
-                                            PM - 6:00 PM</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            School Cafeteria</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="/photos/coding_workshop.jpg"
-                                alt="Web Development Workshop"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    Join us for our monthly food drive
-                                    collection day. We'll be collecting
-                                    non-perishable food items to donate to the
-                                    local food bank. Bring your donations to the
-                                    school cafeteria after classes.
-                                </p>
-                                <p>
-                                    Most needed items: canned vegetables, pasta,
-                                    rice, peanut butter, and canned tuna.
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">RSVP Now</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
+        <div class="past-events">
+            <div class="events-container">
+                <!-- Past Event 1 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">20</div>
+                            <div class="month">Oct</div>
                         </div>
-
-                        <!-- Event 2 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">28</div>
-                                    <div class="month">Nov</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Charity Bake Sale</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> 11:00
-                                            AM - 1:00 PM</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            School Courtyard</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="/photos/coding_students.jpg"
-                                alt="Coding Students"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    Our annual charity bake sale is back! All
-                                    proceeds will go to supporting our local
-                                    food bank initiative. Come enjoy delicious
-                                    homemade treats while supporting a great
-                                    cause.
-                                </p>
-                                <p>
-                                    Want to contribute baked goods? Contact us
-                                    by November 25th to sign up as a baker!
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">Volunteer</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Event 3 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">10</div>
-                                    <div class="month">Dec</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Holiday Charity Concert</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> 7:00
-                                            PM - 9:00 PM</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            School Auditorium</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="/photos/coding_project.jpg"
-                                alt="Coding Project"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    Join us for a magical evening of music and
-                                    giving! Our annual Holiday Charity Concert
-                                    features performances from the school choir,
-                                    band, and special guest performers.
-                                </p>
-                                <p>
-                                    Tickets are $5 for students and $10 for
-                                    adults. All proceeds will benefit local
-                                    families in need during the holiday season.
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">Get Tickets</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="past-events">
-                    <div class="events-container">
-                        <!-- Past Event 1 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">20</div>
-                                    <div class="month">Oct</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Community Clean-Up Day</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> 9:00
-                                            AM - 12:00 PM</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            City Park</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="/photos/coding_workshop.jpg"
-                                alt="Coding Workshop"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    We had an amazing turnout for our Community
-                                    Clean-Up Day! Over 50 volunteers helped
-                                    collect trash and recyclables from our local
-                                    park.
-                                </p>
-                                <p>
-                                    Together, we collected over 30 bags of trash
-                                    and 15 bags of recyclables. Thank you to
-                                    everyone who participated!
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">View Photos</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Past Event 2 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">5</div>
-                                    <div class="month">Oct</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Fundraising Workshop</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> 4:00
-                                            PM - 5:30 PM</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            Room 203</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="/photos/coding_classroom.jpg"
-                                alt="Coding Classroom"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    Our Fundraising Workshop was a great
-                                    success! We learned valuable strategies for
-                                    planning and executing effective fundraising
-                                    campaigns from Ms. Johnson, a professional
-                                    fundraiser.
-                                </p>
-                                <p>
-                                    Participants received handouts with tips and
-                                    resources that will help us with our
-                                    upcoming initiatives.
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">Download Materials</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Past Event 3 -->
-                        <div class="event-card">
-                            <div class="event-header">
-                                <div class="event-date">
-                                    <div class="day">15</div>
-                                    <div class="month">Sep</div>
-                                </div>
-                                <div class="event-title">
-                                    <h3>Back-to-School Supply Drive</h3>
-                                    <div class="event-meta">
-                                        <span
-                                            ><i class="fas fa-clock"></i> All
-                                            Day</span
-                                        >
-                                        <span
-                                            ><i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                            School Entrance</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <img
-                                src="coding_event.jpg"
-                                alt="Coding Event"
-                                class="event-image"
-                            />
-                            <div class="event-content">
-                                <p>
-                                    Our Back-to-School Supply Drive was
-                                    incredibly successful! Thanks to the
-                                    generosity of our school community, we
-                                    collected hundreds of notebooks, pencils,
-                                    backpacks, and other essential supplies.
-                                </p>
-                                <p>
-                                    All items were donated to underprivileged
-                                    students in our district to ensure everyone
-                                    started the school year prepared.
-                                </p>
-                            </div>
-                            <div class="event-actions">
-                                <a href="#" class="btn">Impact Report</a>
-                                <div class="share-links">
-                                    <a href="#"
-                                        ><i class="fab fa-facebook-f"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fab fa-twitter"></i
-                                    ></a>
-                                    <a href="#"
-                                        ><i class="fas fa-envelope"></i
-                                    ></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="calendar-view">
-                    <div class="calendar-header">
-                        <div class="calendar-title" id="calendar-title">
-                            November 2024
-                        </div>
-                        <div class="calendar-nav">
-                            <button id="prev-month">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button id="next-month">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="calendar-grid" id="calendar-grid">
-                        <!-- Day headers -->
-                        <div class="calendar-day-header">Sun</div>
-                        <div class="calendar-day-header">Mon</div>
-                        <div class="calendar-day-header">Tue</div>
-                        <div class="calendar-day-header">Wed</div>
-                        <div class="calendar-day-header">Thu</div>
-                        <div class="calendar-day-header">Fri</div>
-                        <div class="calendar-day-header">Sat</div>
-                        <!-- Calendar days will be generated dynamically -->
-                    </div>
-                </div>
-
-                <!-- Admin Panel -->
-                <div class="admin-panel" id="admin-panel" style="display: none">
-                    <div class="admin-status" id="admin-status">
-                        <span>Admin Mode Active</span>
-                        <span id="admin-user-display"></span>
-                        <button id="logout-btn" class="logout-btn">
-                            Logout
-                        </button>
-                    </div>
-                    <h3>Admin: Event Management</h3>
-                    <div class="admin-controls">
-                        <button id="add-event" class="btn">
-                            Add New Event
-                        </button>
-                        <button id="hide-admin-panel" class="btn btn-secondary">
-                            Hide Admin Panel
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Event Modal -->
-                <div class="event-modal" id="event-modal" style="display: none">
-                    <div class="modal-content">
-                        <span class="close" id="close-modal">&times;</span>
-                        <h3 id="modal-title">Add New Event</h3>
-                        <form id="event-form">
-                            <div class="form-group">
-                                <label for="event-title">Event Title:</label>
-                                <input type="text" id="event-title" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="event-date">Date:</label>
-                                <input type="date" id="event-date" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="event-time">Time:</label>
-                                <input type="time" id="event-time" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="event-location">Location:</label>
-                                <input
-                                    type="text"
-                                    id="event-location"
-                                    required
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="event-description"
-                                    >Description:</label
+                        <div class="event-title">
+                            <h3>Community Clean-Up Day</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> 9:00 AM -
+                                    12:00 PM</span
                                 >
-                                <textarea
-                                    id="event-description"
-                                    rows="4"
-                                    required
-                                ></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn">
-                                    Save Event
-                                </button>
-                                <button
-                                    type="button"
-                                    id="cancel-event"
-                                    class="btn btn-secondary"
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i> City
+                                    Park</span
                                 >
-                                    Cancel
-                                </button>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_workshop.jpg"
+                        alt="Coding Workshop"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            We had an amazing turnout for our Community Clean-Up
+                            Day! Over 50 volunteers helped collect trash and
+                            recyclables from our local park.
+                        </p>
+                        <p>
+                            Together, we collected over 30 bags of trash and 15
+                            bags of recyclables. Thank you to everyone who
+                            participated!
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">View Photos</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Event Details Modal -->
-                <div
-                    class="event-modal"
-                    id="event-details-modal"
-                    style="display: none"
-                >
-                    <div class="modal-content">
-                        <span class="close" id="close-details-modal"
-                            >&times;</span
+                <!-- Past Event 2 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">5</div>
+                            <div class="month">Oct</div>
+                        </div>
+                        <div class="event-title">
+                            <h3>Fundraising Workshop</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> 4:00 PM - 5:30
+                                    PM</span
+                                >
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i> Room
+                                    203</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_classroom.jpg"
+                        alt="Coding Classroom"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            Our Fundraising Workshop was a great success! We
+                            learned valuable strategies for planning and
+                            executing effective fundraising campaigns from Ms.
+                            Johnson, a professional fundraiser.
+                        </p>
+                        <p>
+                            Participants received handouts with tips and
+                            resources that will help us with our upcoming
+                            initiatives.
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">Download Materials</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Event 3 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">
+                            <div class="day">15</div>
+                            <div class="month">Sep</div>
+                        </div>
+                        <div class="event-title">
+                            <h3>Back-to-School Supply Drive</h3>
+                            <div class="event-meta">
+                                <span
+                                    ><i class="fas fa-clock"></i> All Day</span
+                                >
+                                <span
+                                    ><i class="fas fa-map-marker-alt"></i>
+                                    School Entrance</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <img
+                        src="/photos/coding_event.jpg"
+                        alt="Coding Event"
+                        class="event-image"
+                    />
+                    <div class="event-content">
+                        <p>
+                            Our Back-to-School Supply Drive was incredibly
+                            successful! Thanks to the generosity of our school
+                            community, we collected hundreds of notebooks,
+                            pencils, backpacks, and other essential supplies.
+                        </p>
+                        <p>
+                            All items were donated to underprivileged students
+                            in our district to ensure everyone started the
+                            school year prepared.
+                        </p>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" class="btn">Impact Report</a>
+                        <div class="share-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar-view">
+            <div class="calendar-header">
+                <div class="calendar-title" id="calendar-title">
+                    November 2024
+                </div>
+                <div class="calendar-nav">
+                    <button id="prev-month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="next-month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Day headers -->
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+                <!-- Calendar days will be generated dynamically -->
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="admin-panel" style="display: none">
+            <div class="admin-status" id="admin-status">
+                <span>Admin Mode Active</span>
+                <span id="admin-user-display"></span>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+            <h3>Admin: Event Management</h3>
+            <div class="admin-controls">
+                <button id="add-event" class="btn">Add New Event</button>
+                <button id="hide-admin-panel" class="btn btn-secondary">
+                    Hide Admin Panel
+                </button>
+            </div>
+        </div>
+
+        <!-- Event Modal -->
+        <div class="event-modal" id="event-modal" style="display: none">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <h3 id="modal-title">Add New Event</h3>
+                <form id="event-form">
+                    <div class="form-group">
+                        <label for="event-title">Event Title:</label>
+                        <input type="text" id="event-title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="event-date">Date:</label>
+                        <input type="date" id="event-date" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="event-time">Time:</label>
+                        <input type="time" id="event-time" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="event-location">Location:</label>
+                        <input type="text" id="event-location" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="event-description">Description:</label>
+                        <textarea
+                            id="event-description"
+                            rows="4"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Save Event</button>
+                        <button
+                            type="button"
+                            id="cancel-event"
+                            class="btn btn-secondary"
                         >
-                        <h3>Events on this day</h3>
-                        <div id="event-details-list" class="event-details-list">
-                            <!-- Populated dynamically -->
-                        </div>
-                        <div class="form-actions">
-                            <button
-                                type="button"
-                                class="btn btn-secondary"
-                                id="close-details"
-                            >
-                                Close
-                            </button>
-                        </div>
+                            Cancel
+                        </button>
                     </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Event Details Modal -->
+        <div class="event-modal" id="event-details-modal" style="display: none">
+            <div class="modal-content">
+                <span class="close" id="close-details-modal">&times;</span>
+                <h3>Events on this day</h3>
+                <div id="event-details-list" class="event-details-list">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="form-actions">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="close-details"
+                    >
+                        Close
+                    </button>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section class="cta">
-            <div class="container">
-                <h2>Want to Propose an Event?</h2>
-                <p>
-                    Have an idea for a fundraiser or community service project?
-                    We'd love to hear from you!
-                </p>
-                <a href="contact.html" class="btn">Submit Your Idea</a>
-            </div>
-        </section>
+<section class="cta">
+    <div class="container">
+        <h2>Want to Propose an Event?</h2>
+        <p>
+            Have an idea for a fundraiser or community service project? We'd
+            love to hear from you!
+        </p>
+        <a href="contact.html" class="btn">Submit Your Idea</a>
+    </div>
+</section>
 {% endblock %}
