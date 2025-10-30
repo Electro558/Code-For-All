@@ -1,0 +1,355 @@
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="/contact/contact.css" />
+<script src="/contact/contact.js"></script>
+{% endblock head %} {% block content %}
+
+<section
+    class="page-header"
+    style="
+        background:
+            linear-gradient(
+                135deg,
+                var(--primary-navy) 0%,
+                var(--secondary-navy) 50%,
+                var(--accent-blue) 100%
+            ),
+            url(&quot;/photos/coding_students.jpg&quot;) no-repeat center
+                center/cover;
+        background-blend-mode: multiply;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 80px;
+    "
+>
+    <div class="container">
+        <h1 style="color: white; font-size: 3rem; text-align: center">
+            Get Involved
+        </h1>
+        <p
+            style="
+                color: white;
+                text-align: center;
+                max-width: 700px;
+                margin: 0 auto;
+            "
+        >
+            Join our mission to make coding accessible for everyone. There are
+            many ways to contribute!
+        </p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="section-title" style="text-align: left">
+                    Contact Information
+                </h2>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Our Location</h4>
+                        <p>40 Woodlands Street 41<br />Singapore 738547</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Email Us</h4>
+                        <p>
+                            <a href="mailto:zhu47578@sas.edu.sg"
+                                >zhu47578@sas.edu.sg</a
+                            >
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Phone</h4>
+                        <p>
+                            <a href="tel:+6586472776">+65 8647 2776</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Meeting Times</h4>
+                        <p>Every Tuesday<br />3:30 PM - 4:30 PM</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Faculty Advisors</h4>
+                        <p>Dr. Emily Parker<br />Mr. Robert Turner</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Our Branches</h4>
+                        <p>
+                            Singapore (Main Campus)<br />Madrid, Spain<br />New
+                            York, USA<br />Detroit, USA
+                        </p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2 class="section-title" style="text-align: left">
+                    Join Our Club
+                </h2>
+                <form id="join-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="grade">Grade Level</label>
+                        <select id="grade" class="form-control" required>
+                            <option value="" selected disabled>
+                                Select your grade
+                            </option>
+                            <option value="9">Freshman (9th)</option>
+                            <option value="10">Sophomore (10th)</option>
+                            <option value="11">Junior (11th)</option>
+                            <option value="12">Senior (12th)</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label
+                            >I'm interested in (select all that apply):</label
+                        >
+                        <div class="checkbox-option">
+                            <input
+                                type="checkbox"
+                                id="interest-events"
+                                name="interests[]"
+                                value="events"
+                            />
+                            <label for="interest-events">Event Planning</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input
+                                type="checkbox"
+                                id="interest-fundraising"
+                                name="interests[]"
+                                value="fundraising"
+                            />
+                            <label for="interest-fundraising"
+                                >Fundraising</label
+                            >
+                        </div>
+                        <div class="checkbox-option">
+                            <input
+                                type="checkbox"
+                                id="interest-social"
+                                name="interests[]"
+                                value="social"
+                            />
+                            <label for="interest-social"
+                                >Social Media/Outreach</label
+                            >
+                        </div>
+                        <div class="checkbox-option">
+                            <input
+                                type="checkbox"
+                                id="interest-volunteer"
+                                name="interests[]"
+                                value="volunteer"
+                            />
+                            <label for="interest-volunteer"
+                                >Volunteer Coordination</label
+                            >
+                        </div>
+                        <div class="checkbox-option">
+                            <input
+                                type="checkbox"
+                                id="interest-general"
+                                name="interests[]"
+                                value="general"
+                            />
+                            <label for="interest-general"
+                                >General Membership</label
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message"
+                            >Why do you want to join our club?</label
+                        >
+                        <textarea
+                            id="message"
+                            class="form-control"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Submit Application
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <!-- Google Maps embed for Singapore location -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.651!2d103.7867!3d1.3644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da0f8a7b0b0b0b%3A0x0!2s40%20Woodlands%20Street%2041%2C%20Singapore%20738547!5e0!3m2!1sen!2ssg!4v1635784293017!5m2!1sen!2ssg"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How much time commitment is required?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        We have weekly meetings that last about an hour.
+                        Additional time commitments vary based on your role and
+                        the events we're planning. General members typically
+                        commit 2-3 hours per week, while leadership positions
+                        may require 4-5 hours weekly. We understand that
+                        academics come first and work with members to balance
+                        their commitments.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do I need previous volunteer experience?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        No previous experience is required! We welcome members
+                        of all experience levels. Our club is a great place to
+                        learn about philanthropy and community service. We
+                        provide training and mentorship for all new members.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I join mid-semester?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Yes! While we have our main recruitment at the beginning
+                        of each semester, we accept new members year-round.
+                        Simply fill out the application form on this page, and
+                        we'll get back to you with information about our next
+                        meeting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How are the causes we support selected?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        We select causes through a democratic process. Members
+                        can propose causes they're passionate about, and we vote
+                        as a club on which initiatives to pursue each semester.
+                        We typically focus on 2-3 main causes per semester to
+                        maximize our impact.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you provide community service hours?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Yes! We track all volunteer hours for our members. These
+                        hours can be used for graduation requirements, honor
+                        society applications, college applications, and more. We
+                        provide official documentation of your service hours at
+                        the end of each semester.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to Make a Difference?</h2>
+        <p>
+            Join our club today and be part of something meaningful. Together,
+            we can create positive change in our community!
+        </p>
+        <a href="#join-form" class="btn">Apply Now</a>
+    </div>
+</section>
+
+{% endblock content %}
