@@ -1,6 +1,19 @@
 /** @type {Array} */
 const events = IMPORTED_EVENTS;
-const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const shortMonthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+];
 
 document.addEventListener("DOMContentLoaded", main);
 function main() {
@@ -10,14 +23,14 @@ function main() {
         const endDate = new Date(endISO);
 
         // Format options: no seconds, 12-hour format
-        const options = { hour: 'numeric', minute: '2-digit', hour12: true };
+        const options = { hour: "numeric", minute: "2-digit", hour12: true };
 
         const startStr = startDate.toLocaleTimeString(undefined, options);
         const endStr = endDate.toLocaleTimeString(undefined, options);
 
         return `${startStr} - ${endStr}`;
     }
-    function createEventElement(event){
+    function createEventElement(event) {
         let wrapper = document.createElement("div");
         wrapper.classList.add("event-card");
 
@@ -64,21 +77,22 @@ function main() {
         return wrapper;
     }
 
-    function sortEvents(){
+    function sortEvents() {
         // Sort the elements by date into correct locations
         const upcoming = document.querySelector(".upcoming-events").children[0];
         const past = document.querySelector(".past-events").children[0];
 
         const today = new Date();
-        events.forEach(event => {
-            const startDate = new Date(event.datetime.split("/")[0])
-            if (startDate >= today){ // upcoming
+        events.forEach((event) => {
+            const startDate = new Date(event.datetime.split("/")[0]);
+            if (startDate >= today) {
+                // upcoming
                 upcoming.append(createEventElement(event));
-            } else { // past
+            } else {
+                // past
                 past.append(createEventElement(event));
             }
         });
-
     }
     sortEvents();
     // Banner size/animation toggling based on active tab
@@ -156,7 +170,7 @@ function main() {
             calendarGrid.appendChild(dayElement);
         }
     }
-    function getDay(date){
+    function getDay(date) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 
@@ -176,7 +190,7 @@ function main() {
 
         const date = new Date(year, month, day);
 
-        const dayEvents = events.filter(event => {
+        const dayEvents = events.filter((event) => {
             const [startISO, endISO] = event.datetime.split("/");
             const start = new Date(startISO);
             const end = new Date(endISO);
@@ -243,7 +257,6 @@ function main() {
 
         modal.style.display = "block";
     }
-
 
     let currentDate = new Date();
 
