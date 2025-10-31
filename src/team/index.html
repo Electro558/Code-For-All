@@ -80,76 +80,18 @@
     <div class="container">
         <h2 class="section-title">Our Core Values</h2>
         <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3 class="value-title">Compassion</h3>
-                <p class="value-description">
-                    We approach our work with empathy and understanding,
-                    recognizing the dignity of those we serve and the importance
-                    of human connection.
-                </p>
+            {% for value in core_values %}
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas {{ value.icon_class }}"></i>
+                    </div>
+                    <h3 class="value-title">{{ value.title }}</h3>
+                    <p class="value-description">
+                        {{ value.description }}
+                    </p>
             </div>
+            {% endfor %}
 
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <h3 class="value-title">Service</h3>
-                <p class="value-description">
-                    We are committed to serving others and making a positive
-                    impact in our community through direct action and meaningful
-                    engagement.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <h3 class="value-title">Innovation</h3>
-                <p class="value-description">
-                    We embrace creative thinking and new approaches to
-                    addressing social challenges, always seeking better ways to
-                    serve.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="value-title">Collaboration</h3>
-                <p class="value-description">
-                    We believe in the power of working together, building
-                    partnerships, and uniting diverse perspectives to achieve
-                    common goals.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <h3 class="value-title">Integrity</h3>
-                <p class="value-description">
-                    We operate with transparency, honesty, and accountability in
-                    all our actions and decisions, earning trust through ethical
-                    conduct.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <h3 class="value-title">Growth</h3>
-                <p class="value-description">
-                    We foster personal and collective development, learning from
-                    our experiences and continuously improving our impact.
-                </p>
-            </div>
         </div>
     </div>
 </section>

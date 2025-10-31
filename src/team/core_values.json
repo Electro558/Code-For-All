@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Compassion",
+        "icon_class": "fa-heart",
+        "description": "We approach our work with empathy and understanding, recognizing the dignity of those we serve and the importance of human connection."
+    },
+    {
+        "name": "Service",
+        "icon_class": "fa-hands-helping",
+        "description": "We are committed to serving others and making a positive impact in our community through direct action and meaningful engagement."
+    },
+    {
+        "name": "Innovation",
+        "icon_class": "fa-lightbulb",
+        "description": "We embrace creative thinking and new approaches to addressing social challenges, always seeking better ways to serve."
+    },
+    {
+        "name": "Collaboration",
+        "icon_class": "fa-users",
+        "description": "We believe in the power of working together, building partnerships, and uniting diverse perspectives to achieve common goals."
+    },
+    {
+        "name": "Integrity",
+        "icon_class": "fa-balance-scale",
+        "description": "We operate with transparency, honesty, and accountability in all our actions and decisions, earning trust through ethical conduct."
+    },
+    {
+        "name": "Growth",
+        "icon_class": "fa-seedling",
+        "description": "We foster personal and collective development, learning from our experiences and continuously improving our impact."
+    }
+]
