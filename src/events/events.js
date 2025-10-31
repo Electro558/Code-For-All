@@ -1,10 +1,83 @@
 /** @type {Array} */
 const events = IMPORTED_EVENTS;
+const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 document.addEventListener("DOMContentLoaded", main);
 function main() {
+    function formatTimeRange(isoInterval) {
+        const [startISO, endISO] = isoInterval.split("/");
+        const startDate = new Date(startISO);
+        const endDate = new Date(endISO);
+
+        // Format options: no seconds, 12-hour format
+        const options = { hour: 'numeric', minute: '2-digit', hour12: true };
+
+        const startStr = startDate.toLocaleTimeString(undefined, options);
+        const endStr = endDate.toLocaleTimeString(undefined, options);
+
+        return `${startStr} - ${endStr}`;
+    }
+    function createEventElement(event){
+        let wrapper = document.createElement("div");
+        wrapper.classList.add("event-card");
+
+        const day = getDay(new Date(event.datetime.split("/")[0]));
+
+        wrapper.innerHTML = `
+            <div class="event-header">
+                <div class="event-date">
+                    <div class="day">${day.getDate()}</div>
+                    <div class="month">${shortMonthNames[day.getMonth()]}</div>
+                </div>
+                <div class="event-title">
+                    <h3>${event.title}</h3>
+                    <div class="event-meta">
+                        <span>
+                            <i class="fas fa-clock"></i>
+                            ${formatTimeRange(event.datetime)}
+                        </span>
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${event.location}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <img
+                src="${event.img_path}"
+                alt="${event.title}"
+                class="event-image"
+            />
+            <div class="event-content">
+                <p>
+                    ${event.description}
+                </p>
+            </div>
+            <div class="event-actions">
+                <a href="#" class="btn">RSVP Now</a>
+                <div class="share-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>`;
+        return wrapper;
+    }
+
     function sortEvents(){
-        // Sort the elements by date into
+        // Sort the elements by date into correct locations
+        const upcoming = document.querySelector(".upcoming-events").children[0];
+        const past = document.querySelector(".past-events").children[0];
+
+        const today = new Date();
+        events.forEach(event => {
+            const startDate = new Date(event.datetime.split("/")[0])
+            if (startDate >= today){ // upcoming
+                upcoming.append(createEventElement(event));
+            } else { // past
+                past.append(createEventElement(event));
+            }
+        });
 
     }
     sortEvents();
@@ -102,7 +175,7 @@ function main() {
         // const dayEvents = events.filter((event) => event.date === dateStr);
 
         const date = new Date(year, month, day);
-        
+
         const dayEvents = events.filter(event => {
             const [startISO, endISO] = event.datetime.split("/");
             const start = new Date(startISO);

@@ -91,7 +91,7 @@ function buildDir(src, dest) {
                 } catch (err) {
                     console.error(`Error rendering ${srcPath}:`, err.message);
                 }
-            } else {
+            } else if (!item.name.endsWith(".json")){
                 // Copy other assets (CSS, JS, images, etc.)
                 fs.copyFileSync(srcPath, destPath);
             }
