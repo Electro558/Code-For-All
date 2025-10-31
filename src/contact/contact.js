@@ -38,24 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Email submission
     const CFA_EMAIL_ADDR = "foo@example.com";
-    document.querySelector("#join-form-submit").addEventListener("click", (e) => {
-        e.preventDefault();
+    document
+        .querySelector("#join-form-submit")
+        .addEventListener("click", (e) => {
+            e.preventDefault();
 
-        // Name
-        const name = document.querySelector("#name").value;
-        const email_address = document.querySelector("#email").value;
-        const grade = document.querySelector("#grade").value;
+            // Name
+            const name = document.querySelector("#name").value;
+            const email_address = document.querySelector("#email").value;
+            const grade = document.querySelector("#grade").value;
 
+            const interests = Array.from(
+                document.querySelectorAll('input[name="interests[]"]:checked'),
+            )
+                .map((cb) => cb.value)
+                .join(" ");
 
+            const message = document.querySelector("#message").value;
 
-        const interests = Array.from(document.querySelectorAll('input[name="interests[]"]:checked')).map(cb => cb.value).join(" ");
-
-
-        const message = document.querySelector("#message").value;
-
-        const subject = `New Club Application from ${name}`;
-        // dedent
-        const body = `
+            const subject = `New Club Application from ${name}`;
+            // dedent
+            const body = `
 New club application received:
 
 Name: ${name}
@@ -70,8 +73,7 @@ ${message || "(No message provided)"}
 This email was sent from the Code For All website contact form.
 `;
 
-        const link = `mailto:${encodeURIComponent(CFA_EMAIL_ADDR)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.open(link, "_blank");
-
-    });
+            const link = `mailto:${encodeURIComponent(CFA_EMAIL_ADDR)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(link, "_blank");
+        });
 });

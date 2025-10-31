@@ -1,33 +1,5 @@
-// Global variables
-document.addEventListener("DOMContentLoaded", () => {
-    let currentDate = new Date();
-    let events = JSON.parse(localStorage.getItem("calendarEvents")) || [];
-
-    // Event tabs functionality
-    const upcomingTab = document.querySelector(".upcoming-tab");
-    const pastTab = document.querySelector(".past-tab");
-    const upcomingEvents = document.querySelector(".upcoming-events");
-    const pastEvents = document.querySelector(".past-events");
-
-    upcomingTab.addEventListener("click", function () {
-        upcomingTab.classList.add("active");
-        pastTab.classList.remove("active");
-        upcomingEvents.classList.add("active");
-        pastEvents.classList.remove("active");
-        updateBannerForTab();
-    });
-
-    pastTab.addEventListener("click", function () {
-        pastTab.classList.add("active");
-        upcomingTab.classList.remove("active");
-        pastEvents.classList.add("active");
-        upcomingEvents.classList.remove("active");
-        updateBannerForTab();
-    });
-
-    // Set initial banner state on load
-    updateBannerForTab();
-
+document.addEventListener("DOMContentLoaded", main);
+function main() {
     // Banner size/animation toggling based on active tab
     function updateBannerForTab() {
         const pageHeader = document.querySelector(".page-header");
@@ -140,8 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         dayElement.addEventListener("click", function () {
             if (dayEvents.length > 0) {
                 showEventDetails(dayEvents);
-            } else if (isAdmin && !isOtherMonth) {
-                openEventModal(dateStr);
             }
         });
 
@@ -178,48 +148,19 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "block";
     }
 
-    // Navigation functionality will be handled in DOMContentLoaded
-    // Modal functionality
-
-    function openEventModal(date = "") {
-        // Check admin authorization before opening
-        if (!isAdmin) {
-            alert("Access denied. Admin privileges required.");
-            return;
-        }
-
-        const modal = document.getElementById("event-modal");
-        const form = document.getElementById("event-form");
-        form.reset();
-
-        if (date) {
-            document.getElementById("event-date").value = date;
-        }
-
-        document.getElementById("modal-title").textContent = editingEventId
-            ? "Edit Event"
-            : "Add New Event";
-        modal.style.display = "block";
-    }
-
-    function closeEventModal() {
-        document.getElementById("event-modal").style.display = "none";
-        editingEventId = null;
-    }
-
+    let events = [];
+    events.push({
+        id: Date.now().toString(),
+        title: "Test",
+        date: "2025-11-28",
+        time: "11 pm",
+        location: "Location",
+        description: "Description",
+        createdBy: "foobar",
+        createdAt: new Date().toISOString(),
+    });
     /*
-// Event form submission
-document.getElementById("event-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Double-check admin authorization
-    if (!isAdmin) {
-        alert("Access denied. Admin privileges required.");
-        closeEventModal();
-        return;
-    }
-
-    const eventData = {
+const eventData = {
         id: editingEventId || Date.now().toString(),
         title: document.getElementById("event-title").value,
         date: document.getElementById("event-date").value,
@@ -229,114 +170,88 @@ document.getElementById("event-form").addEventListener("submit", function (e) {
         createdBy: currentUser.username,
         createdAt: new Date().toISOString(),
     };
-
-    if (editingEventId) {
-        const index = events.findIndex((event) => event.id === editingEventId);
-        if (index !== -1) {
-            eventData.modifiedBy = currentUser.username;
-            eventData.modifiedAt = new Date().toISOString();
-            events[index] = eventData;
-        }
-    } else {
-        events.push(eventData);
-    }
-
-    localStorage.setItem("calendarEvents", JSON.stringify(events));
-    generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-    closeEventModal();
-});
 */
 
-    // Event listeners
-    document.addEventListener("DOMContentLoaded", function () {
-        // Load events from localStorage
-        const savedEvents = localStorage.getItem("calendarEvents");
-        if (savedEvents) {
-            events = JSON.parse(savedEvents);
-        }
+    console.log(document.readyState);
 
-        // Initialize session and calendar
-        initializeSession();
-        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+    let currentDate = new Date();
 
-        // Navigation buttons
-        document
-            .getElementById("prev-month")
-            .addEventListener("click", function () {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                generateCalendar(
-                    currentDate.getFullYear(),
-                    currentDate.getMonth(),
-                );
-            });
+    // Event tabs functionality
+    const upcomingTab = document.querySelector(".upcoming-tab");
+    const pastTab = document.querySelector(".past-tab");
+    const upcomingEvents = document.querySelector(".upcoming-events");
+    const pastEvents = document.querySelector(".past-events");
 
-        document
-            .getElementById("next-month")
-            .addEventListener("click", function () {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                generateCalendar(
-                    currentDate.getFullYear(),
-                    currentDate.getMonth(),
-                );
-            });
-
-        // Modal close buttons
-        document
-            .getElementById("close-modal")
-            .addEventListener("click", closeEventModal);
-        document
-            .getElementById("cancel-event")
-            .addEventListener("click", closeEventModal);
-        const closeDetailsBtn = document.getElementById("close-details");
-        const closeDetailsX = document.getElementById("close-details-modal");
-        if (closeDetailsBtn)
-            closeDetailsBtn.addEventListener("click", closeEventDetailsModal);
-        if (closeDetailsX)
-            closeDetailsX.addEventListener("click", closeEventDetailsModal);
-
-        // Close modals when clicking outside
-        window.addEventListener("click", function (event) {
-            const eventModal = document.getElementById("event-modal");
-            const detailsModal = document.getElementById("event-details-modal");
-            if (event.target === eventModal) {
-                closeEventModal();
-            }
-            if (event.target === detailsModal) {
-                closeEventDetailsModal();
-            }
-        });
-
-        // Admin panel button event listeners
-        const addEventBtn = document.getElementById("add-event");
-        const hideAdminPanelBtn = document.getElementById("hide-admin-panel");
-        const logoutBtn = document.getElementById("logout-btn");
-
-        if (addEventBtn) {
-            addEventBtn.addEventListener("click", function () {
-                if (isAdmin) {
-                    openEventModal();
-                }
-            });
-        }
-
-        if (hideAdminPanelBtn) {
-            hideAdminPanelBtn.addEventListener("click", function () {
-                const adminPanel = document.getElementById("admin-panel");
-                if (adminPanel) {
-                    adminPanel.style.display = "none";
-                }
-            });
-        }
-
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", function () {
-                destroySession();
-            });
-        }
+    upcomingTab.addEventListener("click", function () {
+        upcomingTab.classList.add("active");
+        pastTab.classList.remove("active");
+        upcomingEvents.classList.add("active");
+        pastEvents.classList.remove("active");
+        updateBannerForTab();
     });
 
+    pastTab.addEventListener("click", function () {
+        pastTab.classList.add("active");
+        upcomingTab.classList.remove("active");
+        pastEvents.classList.add("active");
+        upcomingEvents.classList.remove("active");
+        updateBannerForTab();
+    });
+
+    // Set initial banner state on load
+    updateBannerForTab();
+
+    generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+
+    // Navigation buttons
+    document
+        .getElementById("prev-month")
+        .addEventListener("click", function () {
+            currentDate.setDate(1); // Prevent skipping -- oct 31 -> nov 31, which does't exist
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        });
+
+    document
+        .getElementById("next-month")
+        .addEventListener("click", function () {
+            currentDate.setDate(1);
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        });
+
+    function closeEventModal() {
+        document.getElementById("event-modal").style.display = "none";
+        editingEventId = null;
+    }
+
+    // Modal close buttons
+    document
+        .getElementById("close-modal")
+        .addEventListener("click", closeEventModal);
+    document
+        .getElementById("cancel-event")
+        .addEventListener("click", closeEventModal);
+    const closeDetailsBtn = document.getElementById("close-details");
+    const closeDetailsX = document.getElementById("close-details-modal");
+    if (closeDetailsBtn)
+        closeDetailsBtn.addEventListener("click", closeEventDetailsModal);
+    if (closeDetailsX)
+        closeDetailsX.addEventListener("click", closeEventDetailsModal);
+
+    // Close modals when clicking outside
+    window.addEventListener("click", function (event) {
+        const eventModal = document.getElementById("event-modal");
+        const detailsModal = document.getElementById("event-details-modal");
+        if (event.target === eventModal) {
+            closeEventModal();
+        }
+        if (event.target === detailsModal) {
+            closeEventDetailsModal();
+        }
+    });
     function closeEventDetailsModal() {
         const modal = document.getElementById("event-details-modal");
         if (modal) modal.style.display = "none";
     }
-});
+}

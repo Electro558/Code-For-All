@@ -50,27 +50,25 @@
 
         <div class="team-grid">
             <!-- Leadership Team -->
-            
+
             {% for person in team_members %}
-                <div class="team-member" data-category="{{ person.catergory }}">
-                    <img
-                        src="{{ person.photo_path }}"
-                        alt="{{ person.name }}"
-                        class="member-image"
-                    />
-                    <div class="member-info">
-                        <h3 class="member-name">{{ person.name }}</h3>
-                        <div class="member-role">{{ person.role }}</div>
-                        <p class="member-bio">
-                            {{ person.bio }}
-                        </p>
-                        <div class="member-social">
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
+            <div class="team-member" data-category="{{ person.catergory }}">
+                <img
+                    src="{{ person.photo_path }}"
+                    alt="{{ person.name }}"
+                    class="member-image"
+                />
+                <div class="member-info">
+                    <h3 class="member-name">{{ person.name }}</h3>
+                    <div class="member-role">{{ person.role }}</div>
+                    <p class="member-bio">{{ person.bio }}</p>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
@@ -81,17 +79,14 @@
         <h2 class="section-title">Our Core Values</h2>
         <div class="values-grid">
             {% for value in core_values %}
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas {{ value.icon_class }}"></i>
-                    </div>
-                    <h3 class="value-title">{{ value.title }}</h3>
-                    <p class="value-description">
-                        {{ value.description }}
-                    </p>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas {{ value.icon_class }}"></i>
+                </div>
+                <h3 class="value-title">{{ value.title }}</h3>
+                <p class="value-description">{{ value.description }}</p>
             </div>
             {% endfor %}
-
         </div>
     </div>
 </section>
