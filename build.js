@@ -1,4 +1,4 @@
-// build.js
+// build.js (updated)
 import fs from "fs";
 import path from "path";
 import nunjucks from "nunjucks";
@@ -10,42 +10,86 @@ const distDir = path.resolve("dist");
 // Configure Nunjucks to read from src/
 nunjucks.configure(srcDir, { autoescape: true });
 
+/**
+ * Read all .json files in `dir` and return an object where each key is the
+ * filename (without .json) and the value is the parsed JSON.
+ *
+ * Example: team_members.json -> { team_members: [...] }
+ */
+function loadJsonContextForDir(dir) {
+  const context = {};
+  if (!fs.existsSync(dir)) return context;
+
+  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (f.isFile() && f.name.endsWith(".json")) {
+      const p = path.join(dir, f.name);
+      try {
+        const raw = fs.readFileSync(p, "utf8");
+        const parsed = JSON.parse(raw);
+        const key = path.basename(f.name, ".json");
+        context[key] = parsed;
+      } catch (err) {
+        console.warn(`Warning: failed to parse JSON ${p}: ${err.message}`);
+      }
+    }
+  }
+
+  return context;
+}
+
 // Recursively copy & render files
 function buildDir(src, dest) {
-    // Ensure destination folder exists
-    fs.mkdirSync(dest, { recursive: true });
+  // Ensure destination folder exists
+  fs.mkdirSync(dest, { recursive: true });
 
-    // Loop through all files/folders
-    for (const item of fs.readdirSync(src, { withFileTypes: true })) {
-        const srcPath = path.join(src, item.name);
-        const destPath = path.join(dest, item.name);
+  // Loop through all files/folders
+  for (const item of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, item.name);
+    const destPath = path.join(dest, item.name);
 
-        if (item.isDirectory()) {
-            // Recurse into subdirectories
-            buildDir(srcPath, destPath);
-        } else {
-            if (item.name.endsWith(".html")) {
-                // Render Nunjucks template
-                try {
-                    const rendered = nunjucks.render(
-                        path.relative(srcDir, srcPath),
-                    );
-                    fs.writeFileSync(destPath, rendered);
-                    console.log(`Rendered: ${path.relative(srcDir, srcPath)}`);
-                } catch (err) {
-                    console.error(`Error rendering ${srcPath}:`, err.message);
-                }
-            } else {
-                // Copy other assets (CSS, JS, images, etc.)
-                fs.copyFileSync(srcPath, destPath);
-            }
+    if (item.isDirectory()) {
+      // Recurse into subdirectories
+      buildDir(srcPath, destPath);
+    } else {
+      if (item.name.endsWith(".html")) {
+        // Build render context: load any .json files in the same folder as the template
+        const templateDir = path.dirname(srcPath);
+        const folderContext = loadJsonContextForDir(templateDir);
+
+        // Also allow same-basename JSON (e.g. index.json next to index.html) to override / add
+        const basenameJsonPath = path.join(templateDir, `${path.basename(item.name, ".html")}.json`);
+        if (fs.existsSync(basenameJsonPath)) {
+          try {
+            const raw = fs.readFileSync(basenameJsonPath, "utf8");
+            const parsed = JSON.parse(raw);
+            // merge in and allow same-basename to override keys if it contains named keys
+            Object.assign(folderContext, parsed);
+          } catch (err) {
+            console.warn(`Warning: failed to parse JSON ${basenameJsonPath}: ${err.message}`);
+          }
         }
+
+        // Template path relative to srcDir (nunjucks.render expects template name relative to configured paths)
+        const templateName = path.relative(srcDir, srcPath).replace(/\\/g, "/");
+
+        try {
+          const rendered = nunjucks.render(templateName, folderContext);
+          fs.writeFileSync(destPath, rendered);
+          console.log(`Rendered: ${templateName}`);
+        } catch (err) {
+          console.error(`Error rendering ${srcPath}:`, err.message);
+        }
+      } else {
+        // Copy other assets (CSS, JS, images, etc.)
+        fs.copyFileSync(srcPath, destPath);
+      }
     }
+  }
 }
 
 // Clean dist first (optional)
 if (fs.existsSync(distDir)) {
-    fs.rmSync(distDir, { recursive: true });
+  fs.rmSync(distDir, { recursive: true, force: true });
 }
 fs.mkdirSync(distDir);
 
