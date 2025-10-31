@@ -1,0 +1,44 @@
+[
+    {
+        "title": "Food Drive Collection Day",
+        "datetime": "2025-11-15T15:00:00/2025-11-15T18:00:00",
+        "location": "School Cafeteria",
+        "description": "Join us for our monthly food drive collection day. We'll be collecting non-perishable food items to donate to the local food bank. Bring your donations to the school cafeteria after classes. Most needed items: canned vegetables, pasta, rice, peanut butter, and canned tuna.",
+        "img_path": "/photos/coding_workshop.jpg"
+    },
+    {
+        "title": "Charity Bake Sale",
+        "datetime": "2025-11-28T11:00:00/2025-11-28T13:00:00",
+        "location": "School Courtyard",
+        "description": "Our annual charity bake sale is back! All proceeds will go to supporting our local food bank initiative. Come enjoy delicious homemade treats while supporting a great cause. Want to contribute baked goods? Contact us by November 25th to sign up as a baker!",
+        "img_path": "/photos/coding_students.jpg"
+    },
+    {
+        "title": "Holiday Charity Concert",
+        "datetime": "2025-12-10T19:00:00/2025-12-10T21:00:00",
+        "location": "School Auditorium",
+        "description": "Join us for a magical evening of music and giving! Our annual Holiday Charity Concert features performances from the school choir, band, and special guest performers. Tickets are $5 for students and $10 for adults. All proceeds will benefit local families in need during the holiday season.",
+        "img_path": "/photos/coding_project.jpg"
+    },
+    {
+        "title": "Community Clean-Up Day",
+        "datetime": "2025-10-20T09:00:00/2025-10-20T12:00:00",
+        "location": "City Park",
+        "description": "We had an amazing turnout for our Community Clean-Up Day! Over 50 volunteers helped collect trash and recyclables from our local park. Together, we collected over 30 bags of trash and 15 bags of recyclables. Thank you to everyone who participated!",
+        "img_path": "/photos/coding_workshop.jpg"
+    },
+    {
+        "title": "Fundraising Workshop",
+        "datetime": "2025-10-05T16:00:00/2025-10-05T17:30:00",
+        "location": "Room 203",
+        "description": "Our Fundraising Workshop was a great success! We learned valuable strategies for planning and executing effective fundraising campaigns from Ms. Johnson, a professional fundraiser. Participants received handouts with tips and resources that will help us with our upcoming initiatives.",
+        "img_path": "/photos/coding_classroom.jpg"
+    },
+    {
+        "title": "Back-to-School Supply Drive",
+        "datetime": "2025-09-15T00:00:00/2025-09-15T23:59:59",
+        "location": "School Entrance",
+        "description": "Our Back-to-School Supply Drive was incredibly successful! Thanks to the generosity of our school community, we collected hundreds of notebooks, pencils, backpacks, and other essential supplies. All items were donated to underprivileged students in our district to ensure everyone started the school year prepared.",
+        "img_path": "/photos/coding_event.jpg"
+    }
+]

@@ -1,5 +1,13 @@
+/** @type {Array} */
+const events = IMPORTED_EVENTS;
+
 document.addEventListener("DOMContentLoaded", main);
 function main() {
+    function sortEvents(){
+        // Sort the elements by date into
+
+    }
+    sortEvents();
     // Banner size/animation toggling based on active tab
     function updateBannerForTab() {
         const pageHeader = document.querySelector(".page-header");
@@ -75,6 +83,9 @@ function main() {
             calendarGrid.appendChild(dayElement);
         }
     }
+    function getDay(date){
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
 
     function createDayElement(day, isOtherMonth, year, month) {
         const dayElement = document.createElement("div");
@@ -88,7 +99,19 @@ function main() {
 
         // Check if this day has events
         const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-        const dayEvents = events.filter((event) => event.date === dateStr);
+        // const dayEvents = events.filter((event) => event.date === dateStr);
+
+        const date = new Date(year, month, day);
+        
+        const dayEvents = events.filter(event => {
+            const [startISO, endISO] = event.datetime.split("/");
+            const start = new Date(startISO);
+            const end = new Date(endISO);
+
+            const startDay = getDay(start);
+            const endDay = getDay(end);
+            return date >= startDay && date <= endDay;
+        });
 
         if (dayEvents.length > 0) {
             dayElement.classList.add("has-event");
@@ -148,31 +171,6 @@ function main() {
         modal.style.display = "block";
     }
 
-    let events = [];
-    events.push({
-        id: Date.now().toString(),
-        title: "Test",
-        date: "2025-11-28",
-        time: "11 pm",
-        location: "Location",
-        description: "Description",
-        createdBy: "foobar",
-        createdAt: new Date().toISOString(),
-    });
-    /*
-const eventData = {
-        id: editingEventId || Date.now().toString(),
-        title: document.getElementById("event-title").value,
-        date: document.getElementById("event-date").value,
-        time: document.getElementById("event-time").value,
-        location: document.getElementById("event-location").value,
-        description: document.getElementById("event-description").value,
-        createdBy: currentUser.username,
-        createdAt: new Date().toISOString(),
-    };
-*/
-
-    console.log(document.readyState);
 
     let currentDate = new Date();
 
