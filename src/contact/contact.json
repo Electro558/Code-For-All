@@ -1,0 +1,11 @@
+{
+    "email": "test@example.com",
+    "address": "40 Woodlands Street 41\nSingapore 738547",
+    "phone": "+65 8647 2776",
+    "meeting_times": "Every Tuesday\n3:30 PM - 4:30 PM",
+    "sponsors": "Dr. Emily Parker\nMr. Robert Turner",
+    "branches": "Singapore (Main Campus)\nMadrid, Spain\nNewYork, USA\nDetroit, USA",
+    "form": {
+        "interests": ["Tutoring", "Fundraising", "Marketing", "Tech"]
+    }
+}

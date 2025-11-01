@@ -55,7 +55,8 @@
                     </div>
                     <div class="info-content">
                         <h4>Our Location</h4>
-                        <p>40 Woodlands Street 41<br />Singapore 738547</p>
+                        <!--Use pre line to handle newlines -->
+                        <p>{{ contact.address | nl2br }}</p>
                     </div>
                 </div>
 
@@ -66,9 +67,7 @@
                     <div class="info-content">
                         <h4>Email Us</h4>
                         <p>
-                            <a href="mailto:zhu47578@sas.edu.sg"
-                                >zhu47578@sas.edu.sg</a
-                            >
+                            <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
                         </p>
                     </div>
                 </div>
@@ -80,7 +79,7 @@
                     <div class="info-content">
                         <h4>Phone</h4>
                         <p>
-                            <a href="tel:+6586472776">+65 8647 2776</a>
+                            <a href="tel:{{ contact.phone | replace(" ", "") }}">{{ contact.phone }}</a>
                         </p>
                     </div>
                 </div>
@@ -91,7 +90,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Meeting Times</h4>
-                        <p>Every Tuesday<br />3:30 PM - 4:30 PM</p>
+                        <p>{{ contact.meeting_times | nl2br }}</p>
                     </div>
                 </div>
 
@@ -101,7 +100,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Faculty Advisors</h4>
-                        <p>Dr. Emily Parker<br />Mr. Robert Turner</p>
+                        <p>{{ contact.sponsors | nl2br }}</p>
                     </div>
                 </div>
 
@@ -111,10 +110,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Our Branches</h4>
-                        <p>
-                            Singapore (Main Campus)<br />Madrid, Spain<br />New
-                            York, USA<br />Detroit, USA
-                        </p>
+                        <p>{{ contact.branches | nl2br }}</p>
                     </div>
                 </div>
 
@@ -168,59 +164,17 @@
                         <label
                             >I'm interested in (select all that apply):</label
                         >
-                        <div class="checkbox-option">
-                            <input
-                                type="checkbox"
-                                id="interest-events"
-                                name="interests[]"
-                                value="events"
-                            />
-                            <label for="interest-events">Event Planning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input
-                                type="checkbox"
-                                id="interest-fundraising"
-                                name="interests[]"
-                                value="fundraising"
-                            />
-                            <label for="interest-fundraising"
-                                >Fundraising</label
-                            >
-                        </div>
-                        <div class="checkbox-option">
-                            <input
-                                type="checkbox"
-                                id="interest-social"
-                                name="interests[]"
-                                value="social"
-                            />
-                            <label for="interest-social"
-                                >Social Media/Outreach</label
-                            >
-                        </div>
-                        <div class="checkbox-option">
-                            <input
-                                type="checkbox"
-                                id="interest-volunteer"
-                                name="interests[]"
-                                value="volunteer"
-                            />
-                            <label for="interest-volunteer"
-                                >Volunteer Coordination</label
-                            >
-                        </div>
-                        <div class="checkbox-option">
-                            <input
-                                type="checkbox"
-                                id="interest-general"
-                                name="interests[]"
-                                value="general"
-                            />
-                            <label for="interest-general"
-                                >General Membership</label
-                            >
-                        </div>
+                        {% for interest in contact.form.interests %}
+                            <div class="checkbox-option">
+                                <input
+                                    type="checkbox"
+                                    id="interest-{{ interest | lower | replace(" ", "-") }}"
+                                    name="interests[]"
+                                    value="{{ interest }}"
+                                />
+                                <label for="interest-{{ interest | lower | replace(" ", "-") }}">{{ interest }}</label>
+                            </div>
+                        {% endfor %}
                     </div>
 
                     <div class="form-group">

@@ -117,7 +117,8 @@ textarea.form-control {
 .checkbox-group label {
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 10px;
+    /* Remove the bottom margin to keep items on the same line */
+    /* margin-bottom: 10px; */
     display: block;
 }
 

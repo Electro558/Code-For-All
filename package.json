@@ -4,7 +4,7 @@
     "main": "script.js",
     "scripts": {
         "build": "node build.js",
-        "dev": "chokidar \"src/**/*\" -c \"npm run build\" & live-server dist --no-browser --host=127.0.0.1",
+        "dev": "chokidar \"src/**/*\" -c \"npm run build\" & live-server dist --no-browser --host=127.0.0.1 --quiet",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

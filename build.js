@@ -8,7 +8,15 @@ const srcDir = path.resolve("src");
 const distDir = path.resolve("dist");
 
 // Configure Nunjucks to read from src/
-nunjucks.configure(srcDir, { autoescape: true });
+const env = nunjucks.configure(srcDir, { autoescape: true });
+
+/* This filter replaces newline with break tags */
+/*
+env.addFilter(
+    "autoline",
+    (text) => new nunjucks.runtime.SafeString(text.replace(/\n/g, "<br/>")),
+);
+*/
 
 /**
  * Read all .json files in `dir` and return an object where each key is the
@@ -82,10 +90,7 @@ function buildDir(src, dest) {
                     .replace(/\\/g, "/");
 
                 try {
-                    const rendered = nunjucks.render(
-                        templateName,
-                        folderContext,
-                    );
+                    const rendered = env.render(templateName, folderContext);
                     fs.writeFileSync(destPath, rendered);
                     console.log(`Rendered: ${templateName}`);
                 } catch (err) {
