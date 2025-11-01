@@ -25,6 +25,6 @@
     "type": "module",
     "devDependencies": {
         "chokidar-cli": "^3.0.0",
-        "live-server": "^1.2.2"
+        "live-server": "^1.2.0"
     }
 }
