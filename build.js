@@ -11,12 +11,12 @@ const distDir = path.resolve("dist");
 const env = nunjucks.configure(srcDir, { autoescape: true });
 
 /* This filter replaces newline with break tags */
-/*
+
 env.addFilter(
     "autoline",
     (text) => new nunjucks.runtime.SafeString(text.replace(/\n/g, "<br/>")),
 );
-*/
+
 
 /**
  * Read all .json files in `dir` and return an object where each key is the

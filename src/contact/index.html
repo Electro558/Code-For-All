@@ -56,7 +56,7 @@
                     <div class="info-content">
                         <h4>Our Location</h4>
                         <!--Use pre line to handle newlines -->
-                        <p>{{ contact.address | nl2br }}</p>
+                        <p>{{ contact.address | autoline }}</p>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Meeting Times</h4>
-                        <p>{{ contact.meeting_times | nl2br }}</p>
+                        <p>{{ contact.meeting_times | nl2br | safe }}</p>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Faculty Advisors</h4>
-                        <p>{{ contact.sponsors | nl2br }}</p>
+                        <p>{{ contact.sponsors | nl2br | safe}}</p>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
                     </div>
                     <div class="info-content">
                         <h4>Our Branches</h4>
-                        <p>{{ contact.branches | nl2br }}</p>
+                        <p>{{ contact.branches | nl2br | safe}}</p>
                     </div>
                 </div>
 
